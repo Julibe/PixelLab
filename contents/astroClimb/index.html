@@ -1,0 +1,847 @@
+<link
+	href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+	rel="stylesheet" />
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<canvas
+	id="gameCanvas"
+	title="Astro Climb Game Viewport"
+	aria-label="Main game canvas area where the action takes place"></canvas>
+<!-- SVG Filter for Pixel Art Style -->
+<svg class="svg-hidden" aria-hidden="true" style="display: none">
+	<defs>
+		<filter id="pixelate_2">
+			<feFlood x="1" y="1" height="5" width="5"></feFlood>
+			<feComposite width="2" height="2"></feComposite>
+			<feTile result="a"></feTile>
+			<feComposite in="SourceGraphic" in2="a" operator="in"></feComposite>
+			<feMorphology
+				operator="dilate"
+				radius=".35"
+				result="base"></feMorphology>
+			<feGaussianBlur
+				in="base"
+				stdDeviation="2.5"
+				result="glow"></feGaussianBlur>
+			<feMerge>
+				<feMergeNode in="base"></feMergeNode>
+				<feMergeNode in="glow"></feMergeNode>
+				<feMergeNode in="base"></feMergeNode>
+				<feMergeNode in="base"></feMergeNode>
+			</feMerge>
+		</filter>
+	</defs>
+</svg>
+<div id="ui-layer">
+	<!-- HUD -->
+	<div class="hud" role="region" aria-label="Heads Up Display">
+		<div class="hud-row">
+			<div class="stat-group">
+				<div
+					class="stat-box"
+					title="Your current accumulated points"
+					aria-label="Current Score Status">
+					<span class="label">SCORE</span>
+					<span
+						class="value"
+						id="scoreDisplay"
+						role="status"
+						aria-live="polite"
+						>0</span
+					>
+				</div>
+				<div
+					class="stat-box"
+					title="Current vertical altitude reached"
+					aria-label="Altitude Meter">
+					<span class="label">ALT</span>
+					<span
+						class="value"
+						id="altDisplay"
+						role="status"
+						aria-live="polite"
+						>0</span
+					>
+				</div>
+			</div>
+			<div class="stat-group">
+				<button
+					class="pause-btn"
+					onclick="togglePause()"
+					title="Freeze the mission? Take a breather"
+					aria-label="Pause Game Execution">
+					||
+				</button>
+				<div
+					class="stat-box"
+					title="Total enemies neutralized"
+					aria-label="Kill Counter">
+					<span class="label">KILLS</span>
+					<span
+						class="value"
+						id="killsDisplay"
+						role="status"
+						aria-live="off"
+						>0</span
+					>
+				</div>
+				<div
+					class="stat-box"
+					title="Mission duration in seconds"
+					aria-label="Time Elapsed">
+					<span class="label">TIME</span>
+					<span
+						class="value"
+						id="timeDisplay"
+						role="status"
+						aria-live="off"
+						>0</span
+					>
+				</div>
+			</div>
+		</div>
+		<div class="hud-row" style="justify-content: flex-end">
+			<div class="stat-group">
+				<div
+					class="stat-box"
+					title="Bullets remaining in current clip"
+					aria-label="Magazine Capacity">
+					<span class="label">MAG</span>
+					<span
+						class="value"
+						id="magDisplay"
+						role="status"
+						aria-live="polite"
+						>0</span
+					>
+				</div>
+				<div
+					class="stat-box"
+					title="Current flight control mechanic"
+					aria-label="Control Style Indicator">
+					<span class="label">STYLE</span>
+					<span class="value" id="ctrlDisplay">TURBO</span>
+				</div>
+				<div
+					class="stat-box"
+					title="Active weapon system configuration"
+					aria-label="Weapon System Status">
+					<span class="label">SYS</span>
+					<span class="value" id="weaponDisplay">STD</span>
+				</div>
+				<div
+					class="stat-box"
+					title="Total ammunition reserves"
+					aria-label="Total Ammo Count">
+					<span class="label">AMMO</span>
+					<span
+						class="value"
+						id="ammoDisplay"
+						role="status"
+						aria-live="polite"
+						>10</span
+					>
+				</div>
+				<div
+					class="stat-box"
+					title="Integrity of your ship's hull"
+					aria-label="Lives Remaining">
+					<span class="label">HULL</span>
+					<span
+						class="value"
+						id="livesDisplay"
+						role="status"
+						aria-live="assertive"
+						>III</span
+					>
+				</div>
+				<div
+					class="stat-box"
+					id="gp-icon"
+					style="display: none; border-color: var(--c-green)"
+					title="Gamepad detected and active"
+					aria-label="Controller Connected Status">
+					<span class="label">INPUT</span>
+					<span class="value" style="color: var(--c-green)">PAD</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- MAIN MENU -->
+	<div
+		id="mainMenu"
+		class="panel visible"
+		role="main"
+		aria-label="Main Game Menu">
+		<h1
+			title="Welcome to the ultimate vertical space challenge"
+			aria-label="Astro Climb Game Title">
+			ASTRO CLIMB
+		</h1>
+		<p
+			title="Select how you want to pilot your ship"
+			aria-label="Control Style Selection Prompt">
+			CHOOSE CONTROL STYLE:
+		</p>
+		<div class="selector-row" role="radiogroup" aria-label="Control Styles">
+			<button
+				id="styleTurbo"
+				class="active"
+				onclick="setControlStyle('turbo')"
+				role="radio"
+				aria-checked="true"
+				title="Engage automatic thrusters for high-speed action"
+				aria-label="Select Turbo Control Style">
+				TURBO (AUTO)
+			</button>
+			<button
+				id="styleFlappy"
+				onclick="setControlStyle('flappy')"
+				role="radio"
+				aria-checked="false"
+				title="Switch to manual tap controls for precision flying"
+				aria-label="Select Flappy Control Style">
+				FLAPPY (TAP)
+			</button>
+		</div>
+		<p
+			title="Define how hostile the universe is today"
+			aria-label="Difficulty Selection Prompt">
+			CHOOSE YOUR SKILL LEVEL:
+		</p>
+		<div class="mode-grid" role="group" aria-label="Difficulty Levels">
+			<button
+				class="btn-infinity"
+				onclick="selectMode('infinity')"
+				title="Relax and fly forever with infinite hull integrity"
+				aria-label="Start Infinity Mode">
+				INFINITY (X HP)
+			</button>
+			<button
+				class="btn-easy"
+				onclick="selectMode('easy')"
+				title="A gentle launch with plenty of shields"
+				aria-label="Start Easy Mode">
+				EASY (10 HP)
+			</button>
+			<button
+				class="btn-normal"
+				onclick="selectMode('normal')"
+				title="The standard astronaut experience"
+				aria-label="Start Normal Mode">
+				NORMAL (5 HP)
+			</button>
+			<button
+				class="btn-hard"
+				onclick="selectMode('hard')"
+				title="For veteran pilots only"
+				aria-label="Start Hard Mode">
+				HARD (3 HP)
+			</button>
+			<button
+				class="btn-hardcore"
+				onclick="selectMode('hardcore')"
+				title="One hit, one death. Do you have the nerves?"
+				aria-label="Start Hardcore Mode">
+				HARDCORE (1 HP)
+			</button>
+		</div>
+		<button
+			class="btn-instr"
+			onclick="showHighScores()"
+			style="background: var(--c-purple); margin-bottom: 5px"
+			title="Check out the Hall of Fame legends"
+			aria-label="View Global High Scores">
+			HIGH SCORES
+		</button>
+		<button
+			class="btn-instr"
+			onclick="toggleInstructions(true)"
+			style="margin-bottom: 5px"
+			title="Read the flight manual before launch"
+			aria-label="Open Instructions Panel">
+			INSTRUCTIONS
+		</button>
+
+		<!-- New Icon Buttons for Info Sections -->
+		<div class="info-row" role="navigation" aria-label="Information Menu">
+			<button
+				class="info-btn"
+				onclick="openInfo('intro')"
+				title="Briefing: What awaits you in the void"
+				aria-label="Read Project Introduction">
+				<i class="fa-solid fa-circle-info" aria-hidden="true"></i> Intro
+			</button>
+			<button
+				class="info-btn"
+				onclick="openInfo('theory')"
+				title="The logic behind the pixels"
+				aria-label="Read Game Design Theory">
+				<i class="fa-solid fa-microchip" aria-hidden="true"></i> Theory
+			</button>
+			<button
+				class="info-btn"
+				onclick="openInfo('story')"
+				title="The emotional core of your mission"
+				aria-label="Read The Backstory">
+				<i class="fa-solid fa-book-open" aria-hidden="true"></i> Story
+			</button>
+			<button
+				class="info-btn"
+				onclick="openInfo('about')"
+				title="Meet Julibe, the architect behind the stars"
+				aria-label="Read About Julibe">
+				<i class="fa-solid fa-user-astronaut" aria-hidden="true"></i>
+				About
+			</button>
+		</div>
+
+		<!-- SHARE BUTTON (Inside About) -->
+		<button
+			class="share"
+			onclick="shareTwitter()"
+			title="Broadcast this game to the universe on X"
+			aria-label="Share this game on Twitter">
+			SHARE ON X
+		</button>
+
+		<!-- SOCIALS -->
+		<div id="socials" role="contentinfo" aria-label="Julibe's Social Links">
+			<nav>
+				<ul>
+					<li>
+						<a
+							href="https://julibe.com/"
+							target="_blank"
+							class="nav-item"
+							title="Warp speed to Julibe's main portfolio!"
+							aria-label="Visit Julibe's Portfolio Website">
+							<i class="fa-solid fa-globe" aria-hidden="true"></i>
+							<span>Web</span>
+						</a>
+					</li>
+					<li>
+						<a
+							href="https://julibe.com/github"
+							target="_blank"
+							class="nav-item"
+							title="Curious about the code? Inspect Julibe's blueprints on GitHub"
+							aria-label="Check out Julibe's Repositories">
+							<i
+								class="fa-brands fa-github"
+								aria-hidden="true"></i>
+							<span>GitHub</span>
+						</a>
+					</li>
+					<li>
+						<a
+							href="https://julibe.com/whatsapp"
+							target="_blank"
+							class="nav-item"
+							title="Need a quick response? Chat directly with Julibe on WhatsApp"
+							aria-label="Send a WhatsApp message to Julibe">
+							<i
+								class="fa-brands fa-whatsapp"
+								aria-hidden="true"></i>
+							<span>WhatsApp</span>
+						</a>
+					</li>
+					<li>
+						<a
+							href="https://julibe.com/twitter"
+							target="_blank"
+							class="nav-item"
+							title="Don't be a stranger, follow Julibe on X for updates!"
+							aria-label="Follow Julibe on Twitter">
+							<i
+								class="fa-brands fa-twitter"
+								aria-hidden="true"></i>
+							<span>X (Twitter)</span>
+						</a>
+					</li>
+					<li>
+						<a
+							href="https://julibe.com/instagram"
+							target="_blank"
+							class="nav-item"
+							title="Visuals from the design universe: See Julibe on Instagram"
+							aria-label="View Julibe's Instagram Feed">
+							<i
+								class="fa-brands fa-instagram"
+								aria-hidden="true"></i>
+							<span>Instagram</span>
+						</a>
+					</li>
+					<li>
+						<a
+							href="mailto:mail@julibe.com"
+							class="nav-item"
+							title="Establishing secure comms: Send an email to Julibe"
+							aria-label="Contact Julibe via Email">
+							<i
+								class="fa-solid fa-envelope"
+								aria-hidden="true"></i>
+							<span>Email</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+
+	<!-- HIGH SCORES MODAL -->
+	<div
+		id="highScoreModal"
+		class="modal"
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="hsTitle">
+		<div class="content">
+			<h2
+				id="hsTitle"
+				title="Top pilots across the galaxy"
+				aria-label="High Scores Header">
+				HIGH SCORES
+			</h2>
+			<div id="hsList" role="list" aria-label="List of top scores"></div>
+			<br />
+			<button
+				class="btn-retry"
+				onclick="closeHighScores()"
+				title="Done admiring the legends? Go back"
+				aria-label="Close High Scores Modal">
+				CLOSE
+			</button>
+		</div>
+	</div>
+
+	<!-- INFO MODAL (Handles Intro, Theory, Story, About) -->
+	<div
+		id="aboutModal"
+		class="modal"
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="aboutTitle">
+		<div class="content">
+			<!-- INTRO SECTION -->
+			<div id="intro" class="info-section">
+				<h2
+					id="aboutTitle"
+					title="Mission briefing active"
+					aria-label="Introduction Section Header">
+					Launch Sequence Initiated
+				</h2>
+				<p>
+					Strap in, pilot.
+					<strong
+						title="The definitive version of the game"
+						aria-label="Game Title Emphasis"
+						>Astro Climb: Ultra Edition</strong
+					>
+					isn't just a climb; it's a procedural test of endurance.
+					Dodge asteroids, blast alien scum, and defy gravity in this
+					neon-soaked, retro-styled arcade shooter that pushes your
+					reflexes to the limit.
+				</p>
+			</div>
+
+			<!-- THEORY SECTION -->
+			<div id="theory" class="info-section">
+				<h3
+					title="How the mechanics evolved"
+					aria-label="Theory Section Header">
+					Evolutionary Logic
+				</h3>
+				<p>
+					The initial concept was to merge the classic gameplay of
+					<strong
+						title="A classic arcade inspiration"
+						aria-label="Reference to Frogger"
+						>Frogger</strong
+					>
+					with the unexpected hit
+					<strong
+						title="A mobile gaming phenomenon"
+						aria-label="Reference to Flappy Bird"
+						>Flappy Bird</strong
+					>. Instead of crossing a pond horizontally, the challenge
+					relied on gravity and upward movement, pushing the player to
+					navigate vertically.
+				</p>
+				<p>
+					From there, I decided to pivot the look and feel toward a
+					rocket evading meteors, which felt more dynamic and visually
+					engaging. That shift immediately reminded me of
+					<strong
+						title="Old school space shooter"
+						aria-label="Reference to Galaga"
+						>Galaga</strong
+					>, so I introduced a shooting mechanic. Later, a touch of
+					<strong
+						title="Run and gun classic"
+						aria-label="Reference to Contra"
+						>Contra</strong
+					>
+					felt like a natural fit, so I added power-ups to reinforce
+					that arcade intensity. Little by little, the idea evolved
+					organically, transforming from a simple gravity-based
+					concept into a fast-paced, hybrid arcade experience.
+				</p>
+			</div>
+
+			<!-- STORY SECTION (NEW) -->
+			<div id="story" class="info-section">
+				<h3
+					title="The narrative background"
+					aria-label="Story Section Header">
+					Echoes of Earth
+				</h3>
+				<p>
+					You are a stranded astronaut, lost in the endless silence of
+					space, drifting far from home with no clear way back. Your
+					ship is hull damaged, and every second is a quiet fight for
+					survival.
+				</p>
+				<p>
+					What keeps you moving forward is not fuel or weapons, but
+					memory. The face of your daughter, her voice, her laughter.
+					Those fragments of a life you left behind become your
+					anchor. In the cold vacuum of space, they are the only
+					gravity you have.
+				</p>
+				<p>
+					Each obstacle you evade, each enemy you face, is another
+					promise to return to her. Survival is no longer just
+					instinct. It is love, persistence, and the refusal to fade
+					into the dark.
+				</p>
+			</div>
+
+			<!-- ABOUT SECTION -->
+			<div id="about" class="info-section">
+				<h3
+					title="Contact the developer"
+					aria-label="About Section Header">
+					Mission Control
+				</h3>
+				<p>
+					Find
+					<a
+						href="https://julibe.com/"
+						target="_blank"
+						title="Visit Julibe's personal frequency"
+						aria-label="Link to Julibe's website"
+						>@Julibe</a
+					>
+					and share your high scores.
+				</p>
+				<p>
+					Always open to new ideas and collaborations. Let's create
+					something great together.
+				</p>
+
+				<!-- COPYRIGHT -->
+				<div
+					id="copyright"
+					title="All Rights Reserved by Julibe 2025"
+					aria-label="Intellectual property and design by Julibe">
+					Copyright &copy; 2025
+					<a
+						href="https://julibe.com/"
+						target="_blank"
+						title="Visit the creator's hub"
+						aria-label="Julibe.com Link"
+						>Julibe.com</a
+					>. All rights reserved.
+				</div>
+			</div>
+
+			<br />
+			<button
+				class="btn-retry"
+				onclick="closeInfo()"
+				title="Return to the main deck"
+				aria-label="Close Information Modal">
+				CLOSE
+			</button>
+		</div>
+	</div>
+
+	<!-- INSTRUCTIONS MODAL -->
+	<div
+		id="instructionsModal"
+		class="modal"
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="instrTitle">
+		<div class="content">
+			<h2
+				id="instrTitle"
+				title="Study the manual carefully"
+				aria-label="Instructions Header">
+				MISSION DATA
+			</h2>
+			<div
+				class="controls-hint"
+				title="Supported input methods"
+				aria-label="Quick Control Reference">
+				KEYBOARD: WASD (Move), SPACE (Thrust), F (Fire)<br />
+				GAMEPAD: L-Stick (Move), A/LT (Thrust), X/B/RT (Fire)<br />
+				<span
+					style="color: var(--c-gray); font-size: 0.8em"
+					id="gp-detect"
+					role="status"
+					>PRESS ANY BUTTON ON CONTROLLER</span
+				>
+			</div>
+			<h3
+				title="How to fly your ship"
+				aria-label="Pilot Controls Section">
+				PILOT CONTROLS
+			</h3>
+			<ul aria-label="List of controls">
+				<li>
+					<span
+						class="key"
+						title="Directional inputs"
+						aria-label="Movement Keys"
+						>W/A/S/D or L-STICK</span
+					>
+					- NAVIGATION
+				</li>
+				<li>
+					<span
+						class="key"
+						title="Propulsion inputs"
+						aria-label="Thrust Keys"
+						>SPACE or A / LT</span
+					>
+					- ENGINE THRUST
+				</li>
+				<li>
+					<span
+						class="key"
+						title="Attack inputs"
+						aria-label="Fire Keys"
+						>F or X / B / RT</span
+					>
+					- WEAPON SYSTEMS
+				</li>
+				<li>
+					<span
+						class="key"
+						title="Evasive maneuver inputs"
+						aria-label="Dash Keys"
+						>SHIFT or RB / LB</span
+					>
+					- EMERGENCY DASH
+				</li>
+				<li>
+					<span
+						class="key"
+						title="Menu inputs"
+						aria-label="Pause Keys"
+						>P or START</span
+					>
+					- PAUSE MISSION
+				</li>
+			</ul>
+			<h3
+				title="Items to assist your survival"
+				aria-label="Power-ups Section">
+				POWER-UPS
+			</h3>
+			<ul aria-label="List of power-ups">
+				<li>
+					<span
+						class="key"
+						title="Restores bullets"
+						aria-label="Ammo Pickup"
+						>[A] AMMO</span
+					>
+					- RELOAD WEAPON
+				</li>
+				<li>
+					<span
+						class="key"
+						title="Restores health"
+						aria-label="Health Pickup"
+						>[♥] HULL</span
+					>
+					- REPAIR SHIP
+				</li>
+				<li>
+					<span
+						class="key"
+						title="Grants invulnerability"
+						aria-label="Shield Pickup"
+						>[S] SHIELD</span
+					>
+					- TEMPORARY PROTECTION
+				</li>
+				<li>
+					<span
+						class="key"
+						title="Pulls items towards you"
+						aria-label="Magnet Pickup"
+						>[M] MAGNET</span
+					>
+					- ATTRACTS ITEMS (STACKABLE)
+				</li>
+				<li>
+					<span
+						class="key"
+						title="Increases shooting speed"
+						aria-label="Rapid Fire Pickup"
+						>[R] RAPID</span
+					>
+					- INCREASE FIRE RATE (HOLD TO FIRE)
+				</li>
+				<li>
+					<span
+						class="key"
+						title="Shoots in multiple directions"
+						aria-label="Spread Shot Pickup"
+						>[SPD] SPREAD</span
+					>
+					- MULTI-SHOT PATTERN
+				</li>
+				<li>
+					<span
+						class="key"
+						title="Destroys all enemies on screen"
+						aria-label="Nuke Pickup"
+						>[☢] NUKE</span
+					>
+					- CLEAR VISIBLE THREATS
+				</li>
+				<li>
+					<span
+						class="key"
+						title="Skips ahead safely"
+						aria-label="Warp Pickup"
+						>[W] WARP</span
+					>
+					- HYPERSPACE JUMP
+				</li>
+			</ul>
+			<button
+				class="btn-retry"
+				onclick="toggleInstructions(false)"
+				title="Understood, ready for launch"
+				aria-label="Close Instructions">
+				RETURN
+			</button>
+		</div>
+	</div>
+
+	<!-- PAUSE MENU -->
+	<div
+		id="pauseMenu"
+		class="panel"
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="pauseTitle">
+		<h1
+			id="pauseTitle"
+			title="Time is frozen"
+			aria-label="Pause Menu Header">
+			PAUSED
+		</h1>
+		<button
+			class="btn-easy"
+			onclick="togglePause()"
+			title="Get back into the action!"
+			aria-label="Resume Game">
+			RESUME
+		</button>
+		<button
+			class="btn-normal"
+			onclick="resetGame()"
+			title="Scrub the mission and start over"
+			aria-label="Retry Game">
+			RETRY
+		</button>
+		<button
+			class="share"
+			onclick="shareTwitter()"
+			title="Show the world your current progress"
+			aria-label="Share current score on Twitter">
+			SHARE CURRENT SCORE
+		</button>
+		<button
+			class="btn-hard"
+			onclick="showMainMenu()"
+			title="Retreat to the main base"
+			aria-label="Return to Main Menu">
+			MENU
+		</button>
+		<button
+			class="btn-infinity"
+			onclick="openInfo('about')"
+			style="background: var(--c-blue); margin-top: 5px"
+			title="Need to contact Julibe?"
+			aria-label="Open About Info">
+			INFO
+		</button>
+	</div>
+
+	<!-- GAME OVER PANEL -->
+	<div
+		id="gameOverPanel"
+		class="panel"
+		role="alertdialog"
+		aria-modal="true"
+		aria-labelledby="goTitle">
+		<h1
+			id="goTitle"
+			title="Mission Failed. Systems Critical."
+			aria-label="Game Over Header">
+			GAME OVER
+		</h1>
+		<p>
+			MODE: <span id="finalMode"></span><br />
+			ALT: <span id="finalAlt">0</span><br />
+			SCORE: <span id="finalScore">0</span>
+		</p>
+		<div
+			id="newRecordMsg"
+			style="
+				color: var(--c-green);
+				display: none;
+				margin-bottom: 10px;
+				font-weight: bold;
+			"
+			role="alert"
+			aria-live="assertive">
+			NEW RECORD!
+		</div>
+		<div
+			style="font-size: 0.7em; color: var(--c-gray); margin-bottom: 20px">
+			BEST: <span id="bestScoreDisplay">0</span>
+		</div>
+		<button
+			class="btn-retry"
+			id="restartBtn"
+			onclick="resetGame()"
+			title="Don't give up! Launch another ship"
+			aria-label="Restart Game Immediately">
+			RETRY
+		</button>
+		<button
+			class="share"
+			onclick="shareTwitter()"
+			title="Brag about your final score on X"
+			aria-label="Share final result on Twitter">
+			SHARE FINAL SCORE ON X
+		</button>
+		<button
+			style="margin-top: 10px; background: var(--c-blue)"
+			onclick="showMainMenu()"
+			title="Return to hangar bay"
+			aria-label="Go to Main Menu">
+			MENU
+		</button>
+	</div>
+</div>

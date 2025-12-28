@@ -1,0 +1,150 @@
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+
+
+<div id="hidden-content" class="source-content">
+	<div id="tpl-intro">
+		<h1 title="Welcome to the digital battlefield of Dot Trap" aria-label="Dot Trap Game Introduction">Dot Trap</h1>
+		<p>Forget the pencil-and-paper games of your childhood. <strong title="High intensity strategy game" aria-label="Emphasis on Dot Trap name">Dot Trap</strong> reimagines the classic "Dots and Boxes" as a high-octane strategic battlefield. Featuring adaptive AI, rhythm-synced audio, and chaos-inducing power-ups, this isn't just about connecting dots—it's about trapping your opponent before the clock runs out.</p>
+	</div>
+	<div id="tpl-theory">
+		<h2 title="The mathematical roots of the game" aria-label="Historical context section">Beyond the Grid</h2>
+		<p>Originally known as <em title="The original French name" aria-label="French term reference">La Pipopipette</em> by French mathematician Édouard Lucas in the 19th century, the game of Dots and Boxes is a study in combinatorial game theory and topology. <strong title="Evolution of the classic game" aria-label="Game Name Emphasis">Dot Trap</strong> elevates this mathematical foundation by introducing <strong title="A twist on the classic logic" aria-label="Key mechanic emphasis">variable chaos</strong>.</p>
+		<p>By moving beyond the standard square grid to hexagonal, triangular, and "gemstone" lattices, the game challenges your spatial reasoning.</p>
+	</div>
+	<div id="tpl-about">
+		<h2 title="Let's keep the conversation going" aria-label="Social connection header">Stay Connected</h2>
+		<p> Find <a href="https://julibe.com/" target="_blank" title="Visit Julibe's official portfolio" aria-label="Go to Julibe.com">@Julibe</a> and share your high scores and strategies. </p>
+		<p> I am always open to new ideas, game logic improvements, and creative collaborations.</p>
+	</div>
+	<div id="tpl-chaos">
+		<h1 title="Manage the entropy" aria-label="Chaos Control Configuration Header">Chaos Control</h1>
+		<div class="rules-list-container"></div>
+	</div>
+</div>
+
+<div id="menu-ui-layer">
+	<div class="top-bar">
+		<button class="share-mini-btn" onclick="shareTwitter()" title="Hey, share this with your friends!" aria-label="Open share options for Twitter">
+			<i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
+		</button>
+		<div class="info-nav">
+			<a class="info-link" onclick="ContentMgr.open('intro')" title="Learn how to play Dot Trap" aria-label="Open the introduction panel" role="button" tabindex="0">Intro</a>
+			<a class="info-link" onclick="ContentMgr.open('theory')" title="Discover the math behind the dots" aria-label="Open game theory section" role="button" tabindex="0">Theory</a>
+			<a class="info-link" onclick="ContentMgr.open('about')" title="Meet the creator, Julibe" aria-label="Open about section" role="button" tabindex="0">About</a>
+			<a class="info-link" onclick="ContentMgr.open('chaos')" title="Configure the chaos rules" aria-label="Open chaos settings" role="button" tabindex="0">Chaos Control</a>
+		</div>
+		<div></div>
+	</div>
+	<div id="socials" class="social-bar">
+		<nav class="social-nav" aria-label="Social Media Links">
+			<ul>
+				<li><a href="https://julibe.com/" target="_blank" class="nav-item" title="Visit Julibe's main website" aria-label="Julibe's Portfolio"><i class="fa-solid fa-globe" aria-hidden="true"></i></a></li>
+				<li><a href="https://julibe.com/github" target="_blank" class="nav-item" title="Check out Julibe's code repositories" aria-label="Julibe on GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a></li>
+				<li><a href="https://julibe.com/whatsapp" target="_blank" class="nav-item" title="Chat with Julibe on WhatsApp" aria-label="Julibe on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a></li>
+				<li><a href="https://julibe.com/twitter" target="_blank" class="nav-item" title="Follow Julibe for updates" aria-label="Julibe on Twitter"><i class="fa-brands fa-twitter" aria-hidden="true"></i></a></li>
+				<li><a href="https://julibe.com/instagram" target="_blank" class="nav-item" title="See Julibe's visual work" aria-label="Julibe on Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a></li>
+				<li><a href="mailto:mail@julibe.com" class="nav-item" title="Send an email to Julibe" aria-label="Email Julibe"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a></li>
+			</ul>
+		</nav>
+	</div>
+</div>
+
+<div id="content-modal" class="hidden" role="dialog" aria-modal="true" aria-labelledby="content-body">
+	<div class="close-btn" onclick="ContentMgr.close()" title="Close this window" aria-label="Close modal" role="button" tabindex="0">&times;</div>
+	<div class="content-box" id="content-body"></div>
+	<div id="copyright">
+		Copyright &copy; <span id="year-span"></span> <a href="https://julibe.com/" target="_blank" title="Visit the creator's site" aria-label="Julibe.com Link">Julibe.com</a>.
+	</div>
+</div>
+
+<div id="ui-layer">
+	<div id="audio-btn" class="icon-btn" onclick="AudioEngine.toggle(); AudioEngine.uiClick()" title="Turn the beat on or off" aria-label="Toggle Game Audio" role="button" tabindex="0"><i class="fa-solid fa-volume-xmark" aria-hidden="true"></i></div>
+	<div id="pause-btn" class="icon-btn" onclick="Game.pause(); AudioEngine.uiClick()" title="Take a break" aria-label="Pause Gameplay" role="button" tabindex="0"><i class="fa-solid fa-pause" aria-hidden="true"></i></div>
+	<div class="hud-top">
+		<div class="hud-item">
+			<div class="hud-label" title="Time remaining in current turn" aria-label="Turn Timer Label">Time</div>
+			<div class="hud-val" id="hud-time" role="timer" aria-label="Current time">00:00</div>
+		</div>
+		<div class="hud-item">
+			<div class="hud-label" title="Your current accumulated score" aria-label="Score Label">Points Score</div>
+			<div class="hud-val" id="hud-points" role="status" aria-live="polite" aria-label="Current score">0</div>
+		</div>
+		<div class="hud-item">
+			<div class="hud-label" title="Current difficulty stage" aria-label="Level Indicator">Level <span id="hud-lvl">1</span></div>
+			<div class="hud-combo-group"><span id="hud-combo-large" class="hud-combo-large" style="color:var(--theme-primary)" title="Multiplier bonus" aria-label="Combo Multiplier">x1</span><span id="hud-progress" class="hud-progress-small" title="Progress to next level" aria-label="Level Progress">0/0</span></div>
+		</div>
+	</div>
+	<div id="toast" role="alert" aria-live="assertive">TIME'S UP</div>
+	<div class="hud-btm">
+		<div id="score-container" aria-label="Player Scores"></div>
+	</div>
+</div>
+
+<div id="menu-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="menu-title-main">
+	<div class="menu-container">
+		<div class="menu-sub" title="A classic reinvented" aria-label="Game Slogan">Dots & Boxes with a Twist</div>
+		<h1 class="menu-title" id="menu-title-main" title="The Main Menu" aria-label="Game Title Dot Trap">Dot Trap</h1>
+		<div class="highscore-box" id="menu-hs" title="Your personal best" aria-label="Highest Score Record">BEST: 0</div>
+		<div class="diamond-mask" role="img" aria-label="Dynamic Game Preview Visualization"><canvas id="previewCanvas" class="diamond-content"></canvas></div>
+		<div class="theme-selector" role="region" aria-label="Theme Selection">
+			<div class="arrow" onclick="Themes.prev(); AudioEngine.uiHover()" title="Switch to the previous visual theme" aria-label="Previous Theme" role="button" tabindex="0">&#10094;</div>
+			<div class="theme-name" id="theme-name" aria-live="polite" title="Current active theme">VOLCANO</div>
+			<div class="arrow" onclick="Themes.next(); AudioEngine.uiHover()" title="Switch to the next visual theme" aria-label="Next Theme" role="button" tabindex="0">&#10095;</div>
+		</div>
+		<div class="config-scroll">
+			<div class="input-row">
+				<div class="input-group"><label for="pName">Player Name</label><input type="text" id="pName" placeholder="Enter Name" onfocus="AudioEngine.uiHover()" title="What should we call you?" aria-label="Player Name Input"></div>
+				<div class="input-group"><label for="turnTime">Turn Limit (s)</label><input type="number" id="turnTime" min="1" max="60" value="3" oninput="AudioEngine.uiHover()" title="Seconds allowed per turn" aria-label="Turn Duration Setting"></div>
+			</div>
+			<label id="ink-color-label">INK COLOR</label>
+			<div class="color-grid" id="color-picker" role="radiogroup" aria-labelledby="ink-color-label"></div>
+			<div class="input-row">
+				<div class="input-group"><label for="numPlayers">Players: <span id="disp-p">2</span></label><input type="range" id="numPlayers" min="1" max="16" value="2" oninput="$('disp-p').innerText=this.value; AudioEngine.uiHover()" title="Select total number of participants" aria-label="Player Count Slider"></div>
+				<div class="input-group"><label for="cpuDiff">Bot Skill: <span id="disp-d">50%</span></label><input type="range" id="cpuDiff" min="0" max="100" value="50" oninput="$('disp-d').innerText=this.value+'%'; AudioEngine.uiHover()" title="Set the AI's strategic capability" aria-label="Bot Difficulty Slider"></div>
+			</div>
+			<div class="input-row">
+				<div class="input-group"><label for="polyType">Grid Shape</label>
+					<select id="polyType" onchange="AudioEngine.uiClick()" title="Pick the geometry of the board" aria-label="Grid Shape Dropdown">
+						<option value="4">Square</option>
+						<option value="3">Triangle</option>
+						<option value="6">Hexagon</option>
+						<option value="2">Rhombus</option>
+						<option value="8">Gemstone</option>
+					</select>
+				</div>
+				<div class="input-group"><label for="baseGrid">Start Size</label><input type="number" id="baseGrid" min="2" max="20" value="2" oninput="AudioEngine.uiHover()" title="Define the initial board dimensions" aria-label="Grid Size Setting"></div>
+			</div>
+			<button class="btn-main" onmouseover="AudioEngine.uiHover()" onclick="Game.start(); AudioEngine.uiClick()" title="Let's get this started!" aria-label="Start Game Session">START GAME</button>
+		</div>
+	</div>
+</div>
+
+<div id="pause-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+	<h1 class="menu-title" id="pause-title" title="Game Paused" aria-label="Pause Menu Header">PAUSED</h1>
+	<div>
+		<button class="btn-main" onmouseover="AudioEngine.uiHover()" onclick="Game.resume(); AudioEngine.uiClick()" title="Jump back into the game" aria-label="Resume Gameplay">RESUME</button>
+		<button class="btn-main btn-sec" onmouseover="AudioEngine.uiHover()" onclick="Game.toMenu(); AudioEngine.uiClick()" title="Abandon current game and return to menu" aria-label="Exit to Main Menu">EXIT TO MENU</button>
+	</div>
+</div>
+
+<div id="win-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="win-head">
+	<h1 class="win-title" id="win-head" title="Success!" aria-label="Victory Header">VICTORY</h1>
+	<div class="menu-sub" id="win-sub" aria-live="polite">LEVEL COMPLETE</div>
+	<div class="win-score" id="win-score" aria-label="Final Score">0</div>
+	<div class="win-detail" id="win-detail" aria-label="Match Details"></div>
+	<div>
+		<button class="btn-main share-score-btn" id="share-score-btn" onmouseover="AudioEngine.uiHover()" onclick="shareTwitter(Game.players[0].points)" title="Brag about your score to Julibe and friends" aria-label="Share Results on Twitter"><i class="fa-brands fa-twitter" aria-hidden="true"></i> SHARE SCORE</button>
+		<button class="btn-main" onmouseover="AudioEngine.uiHover()" onclick="Game.nextLevel(); AudioEngine.uiClick()" title="Advance to the next challenge" aria-label="Proceed to Next Level">NEXT LEVEL</button>
+		<div class="win-nav">
+			<button class="btn-main btn-sec" onmouseover="AudioEngine.uiHover()" onclick="Game.retry(); AudioEngine.uiClick()" title="Give this level another shot" aria-label="Retry Level">RETRY</button>
+			<button class="btn-main btn-sec" onmouseover="AudioEngine.uiHover()" onclick="Game.prevLevel(); AudioEngine.uiClick()" title="Return to the previous stage" aria-label="Go Back a Level">GO BACK</button>
+		</div>
+		<button class="btn-main btn-sec" onmouseover="AudioEngine.uiHover()" onclick="Game.toMenu(); AudioEngine.uiClick()" title="Quit to the title screen" aria-label="Return to Main Menu">MAIN MENU</button>
+	</div>
+</div>
+
+<canvas id="gameCanvas" role="img" aria-label="Active Game Board Area"></canvas>

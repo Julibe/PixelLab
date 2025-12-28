@@ -1,0 +1,96 @@
+<svg class="defs-only" aria-hidden="true">
+	<defs>
+		<filter id="pixelate" x="-50%" y="-50%" width="200%" height="200%">
+			<feFlood x="1" y="1" height="1" width="1"></feFlood>
+			<feComposite width="8" height="8"></feComposite>
+			<feTile result="a"></feTile>
+			<feComposite in="SourceGraphic" in2="a" operator="in"></feComposite>
+			<feMorphology operator="dilate" radius="2" result="base"></feMorphology>
+			<feGaussianBlur in="base" stdDeviation="2" result="glow"></feGaussianBlur>
+			<feMerge>
+				<feMergeNode in="base"></feMergeNode>
+				<feMergeNode in="glow"></feMergeNode>
+			</feMerge>
+		</filter>
+	</defs>
+</svg>
+
+<div id="arcade-dashboard">
+	<div class="dash-row">
+		<div class="stat-box">
+			<span class="stat-label">ZONE</span>
+			<span id="level-badge" class="stat-value">1</span>
+		</div>
+		<div id="danger-container">
+			<div id="danger-label">PROXIMITY WARNING</div>
+			<div id="danger-bar-frame">
+				<div id="danger-fill"></div>
+			</div>
+		</div>
+		<div class="stat-box">
+			<span class="stat-label">SPEED</span>
+			<span class="stat-value"><span id="speed-val">0.0</span> KPS</span>
+		</div>
+	</div>
+
+	<div class="dash-row" style="justify-content: space-around; margin-top:5px;">
+		<div class="stat-box">
+			<span class="stat-label">SCORE</span>
+			<span id="score-val" class="stat-value" style="color:#44ff44">0</span>
+		</div>
+		<div class="stat-box" id="combo-box">
+			<span class="stat-label">COMBO</span>
+			<span id="combo-display" class="stat-value">0 <span id="multi-val" style="font-size:8px">(1x)</span></span>
+			<div id="combo-timer-bar"></div>
+		</div>
+		<div class="stat-box">
+			<span class="stat-label">FAULTS</span>
+			<span id="error-val" class="stat-value" style="color:#ff4444">0</span>
+		</div>
+	</div>
+</div>
+
+<div id="game-border">
+	<div id="game-container">
+		<div id="retro-layer">
+			<canvas id="gameCanvas" width="800" height="500"></canvas>
+			<img id="hero-dino" src="https://img.itch.zone/aW1nLzg0MTkxMC5naWY=/original/3Pxeeb.gif" alt="Dino">
+		</div>
+
+		<div id="ui-layer">
+			<div id="sentence-display">LOADING SYSTEM...</div>
+		</div>
+
+		<div id="start-screen" class="screen">
+			<h1 style="color:#44ff44">Survive Dino Survive!</h1>
+			<p>SELECT DIFFICULTY TO START</p>
+			<div class="difficulty-container">
+				<button class="btn-easy" onclick="startGame('easy')">EASY</button>
+				<button class="btn-med" onclick="startGame('medium')">MED</button>
+				<button class="btn-hard" onclick="startGame('hard')">HARD</button>
+			</div>
+			<p style="color:yellow; font-size:10px; margin-top:20px;">COMBO RESETS IF YOU WAIT 3 SECONDS!</p>
+		</div>
+
+		<div id="game-over-screen" class="screen hidden">
+			<h1 style="color:red">EXTINCTION</h1>
+			<div class="final-stats" id="end-stats-loss"></div>
+			<button onclick="showScreen('start-screen')">TRY AGAIN</button>
+		</div>
+
+		<div id="win-screen" class="screen hidden">
+			<h1 style="color:#44ff44">PARADISE FOUND</h1>
+			<p>You made it to the green valley.</p>
+			<p>Your family and friends are here.</p>
+			<p style="color:#44ff44">You are safe together.</p>
+			<div class="final-stats" id="end-stats-win"></div>
+			<button onclick="showScreen('start-screen')">PLAY AGAIN</button>
+		</div>
+	</div>
+</div>
+
+<div style="display:none;">
+	<img id="asset-idle" src="https://img.itch.zone/aW1nLzg0MTkxMC5naWY=/original/3Pxeeb.gif">
+	<img id="asset-walk" src="https://img.itch.zone/aW1nLzg0MTkxNi5naWY=/original/MQrwxq.gif">
+	<img id="asset-run" src="https://img.itch.zone/aW1nLzg1MTYwMC5naWY=/original/jQjJIn.gif">
+</div>

@@ -1,0 +1,249 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<canvas id="bg-canvas" role="img" aria-label="A drifting, animated dreamscape background representing the ethereal state" title="The shimmering veil of the dream"></canvas>
+
+<svg class="svg-filters" aria-hidden="true">
+	<defs>
+		<filter id="dream-filter">
+			<feTurbulence type="fractalNoise" baseFrequency="0.01 0.02" numOctaves="1" result="warp" />
+			<feDisplacementMap xChannelSelector="R" yChannelSelector="G" scale="5" in="SourceGraphic" in2="warp" />
+		</filter>
+	</defs>
+</svg>
+
+<div id="top-socials">
+	<nav aria-label="Julibe's Social Constellations">
+		<ul>
+			<li>
+				<a href="https://julibe.com/" target="_blank" class="top-link" title="Step through the mirror into a garden of digital thoughts" aria-label="Drift into Julibe's personal website">
+					<i class="material-icons" aria-hidden="true">public</i> <span>Web</span>
+				</a>
+			</li>
+			<li>
+				<a href="https://julibe.com/github" target="_blank" class="top-link" title="Gaze upon the woven threads of logic and starlight" aria-label="Unravel the mysteries within Julibe's code">
+					<i class="material-icons" aria-hidden="true">code</i> <span>GitHub</span>
+				</a>
+			</li>
+			<li>
+				<a href="https://julibe.com/whatsapp" target="_blank" class="top-link" title="A voice across the ether, instant and alive" aria-label="Send a whisper via WhatsApp">
+					<i class="material-icons" aria-hidden="true">chat</i> <span>WhatsApp</span>
+				</a>
+			</li>
+			<li>
+				<a href="https://julibe.com/twitter" target="_blank" class="top-link" title="Catch the drifting leaves of fleeting reflections" aria-label="Follow the stream of consciousness on Twitter">
+					<i class="material-icons" aria-hidden="true">alternate_email</i> <span>Twitter</span>
+				</a>
+			</li>
+			<li>
+				<a href="https://julibe.com/instagram" target="_blank" class="top-link" title="Wander through a gallery of frozen moments and light" aria-label="View the visions captured on Instagram">
+					<i class="material-icons" aria-hidden="true">photo_camera</i> <span>Instagram</span>
+				</a>
+			</li>
+			<li>
+				<a href="mailto:mail@julibe.com" class="top-link" title="Cast a message into a bottle and set it adrift to me" aria-label="Send a letter across the digital void">
+					<i class="material-icons" aria-hidden="true">mail</i> <span>Email</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+</div>
+
+<button class="share" onclick="shareTwitter()" title="Share a glimpse of this dreamscape with the world" aria-label="Post a whisper about Ethereal on Twitter">
+	<i class="material-icons" aria-hidden="true">thumb_up</i> <span>Spread the Dream</span>
+</button>
+
+<button id="music-ctrl" title="Let the soundscape breathe or fade into silence" aria-label="Toggle the ambient audio">
+	<i class="material-icons" aria-hidden="true">volume_up</i><span>Silence is louder</span>
+</button>
+
+<div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+<div id="menu" class="panel" role="main">
+
+	<div>
+		<h1 title="Ethereal: A puzzle woven from silence and strategy" aria-label="Game Title: Ethereal">E•the•real</h1>
+		<p class="subtitle" title="The atmosphere of this realm" aria-label="Game tagline">Where every move echoes through...</p>
+	</div>
+
+	<div class="section-spacer">
+		<div class="input-group">
+			<label for="inp-name" title="Who are you in this drifting space?">Identity</label>
+			<input type="text" id="inp-name" maxlength="10" placeholder="Your Name" aria-label="Enter your spiritual identity" title="Type the name you wish to echo in this session">
+		</div>
+	</div>
+
+	<div class="section-spacer">
+		<label id="lbl-mark-select" title="Choose the sigil that represents your spirit">Select Your Mark</label>
+		<div class="symbol-grid" id="sym-select-row" role="radiogroup" aria-labelledby="lbl-mark-select"></div>
+	</div>
+
+	<div class="menu-grid">
+		<div class="input-group">
+			<label for="inp-size" title="Expand the horizons of your inner world">Canvas</label>
+			<input type="number" id="inp-size" value="6" min="3" max="8" aria-label="Set grid dimensions" title="Adjust the breadth of the game board">
+		</div>
+		<div class="input-group">
+			<label for="inp-win" title="How many stars must align to form a constellation?">To Align</label>
+			<input type="number" id="inp-win" value="3" min="3" max="8" aria-label="Set alignment goal" title="Set the number of symbols needed to achieve harmony">
+		</div>
+		<div class="input-group">
+			<label for="inp-diff" title="How deep into the subconscious will you venture?">Dream Depth</label>
+			<select id="inp-diff" aria-label="Select AI Difficulty" title="Choose the intensity of the opposing forces">
+				<option value="0" selected>Soft (0%)</option>
+				<option value="1">REM (25%)</option>
+				<option value="2">Vivid (50%)</option>
+				<option value="3">Lucid (75%)</option>
+				<option value="4">Yume (95%)</option>
+				<option value="5">Akumu (100%)</option>
+			</select>
+		</div>
+		<div class="input-group">
+			<label for="inp-lives" title="The strength of your spirit against the void">Your Essence</label>
+			<input type="number" id="inp-lives" value="3" min="1" max="10" aria-label="Set Player Lives" title="Set the number of missteps allowed before waking">
+		</div>
+		<div class="input-group">
+			<label for="inp-enemies" title="Shadows that mimic and challenge your moves">Echoes (AI)</label>
+			<input type="number" id="inp-enemies" value="2" min="1" max="5" aria-label="Set Number of Opponents" title="Choose how many reflections will play against you">
+		</div>
+		<div class="input-group">
+			<label for="inp-time" title="The speed at which the dream shifts">Flow (Sec)</label>
+			<input type="number" id="inp-time" value="3" min="0.5" step="0.5" max="10" aria-label="Set Turn Timer" title="Adjust the seconds allowed before the pulse takes over">
+		</div>
+	</div>
+
+	<div class="menu-grid section-spacer">
+		<button id="btn-start" title="Cross the threshold into the game" aria-label="Start the journey">
+			<i class="material-icons" aria-hidden="true">play_arrow</i> Begin Journey
+		</button>
+		<button id="btn-events" class="btn-secondary" title="Tune the heartbeat of this reality" aria-label="Configure game events">
+			<i class="material-icons" aria-hidden="true">tune</i> Pulse Config
+		</button>
+	</div>
+
+	<div class="section-spacer">
+		<label title="Uncover the deeper layers of this creation">Archives</label>
+		<div class="menu-grid section-spacer">
+			<button id="btn-open-intro" class="btn-outline" title="A prelude to the experience" aria-label="Open Introduction"><i class="material-icons" aria-hidden="true">auto_stories</i> Intro</button>
+			<button id="btn-open-theory" class="btn-outline" title="The unseen threads that bind this world" aria-label="Open Theory"><i class="material-icons" aria-hidden="true">science</i> Theory</button>
+			<button id="btn-open-rules" class="btn-outline" title="The laws of this drifting plane" aria-label="Open Rules"><i class="material-icons" aria-hidden="true">menu_book</i> Rules</button>
+			<button id="btn-open-about" class="btn-outline" title="The dreamer behind the curtain" aria-label="Open About"><i class="material-icons" aria-hidden="true">face</i> About</button>
+		</div>
+	</div>
+</div>
+
+<div id="modal-events" class="overlay" role="dialog" aria-modal="true" aria-labelledby="events-header-title">
+	<div class="panel">
+		<div class="events-header">
+			<h2 id="events-header-title" title="Event Configuration">Pulse Events</h2>
+			<p class="subtitle" title="These settings guide the dream's gentle unpredictability">Configure the shifts in reality</p>
+		</div>
+		<div class="events-list" id="events-list-container" role="group" aria-label="List of toggleable phenomena"></div>
+		<div class="modal-footer">
+			<button id="btn-close-events" title="Let these choices settle into the ether" aria-label="Close Events Modal">Done</button>
+		</div>
+	</div>
+</div>
+
+<div id="modal-intro" class="overlay content-modal" role="dialog" aria-modal="true" aria-labelledby="intro-header-title">
+	<div class="panel">
+		<div class="events-header">
+			<h2 id="intro-header-title" title="Welcome to the experience">Introduction</h2>
+		</div>
+		<div class="info-content">
+			<h1 title="E•the•real Game Concept" aria-label="Ethereal Heading">E•the•real</h1>
+			<p>Step into a puzzle where the familiar loosens and possibilities open. <strong title="The name of this project">E•the•real</strong> transforms a classic grid into a shifting, meditative landscape. Let the soundscape breathe around you, feel gravity turn in quiet rhythms, and align your essence before the dream exhales. Can you sense harmony rising through the drift?</p>
+		</div>
+		<div class="modal-footer"><button class="btn-close-overlay" title="Return to the silence" aria-label="Close Introduction">Close</button></div>
+	</div>
+</div>
+
+<div id="modal-theory" class="overlay content-modal" role="dialog" aria-modal="true" aria-labelledby="theory-header-title">
+	<div class="panel">
+		<div class="events-header">
+			<h2 id="theory-header-title" title="The design philosophy">The Theory</h2>
+		</div>
+		<div class="info-content">
+			<h2 title="How gameplay flows">Strategy in the Drift</h2>
+			<p>At its heart, E•the•real grows from <em title="Mathematical strategy games">m,n,k-games</em> that follow clarity and structure. This dream invites softness instead. Here, <strong title="A measure of randomness and disorder">entropy</strong> gently bends the known, sidestepping predictable endings. Pulses like Fog, Vertigo, and Gravity encourage a fluid awareness. Strategy becomes a conversation with motion, an invitation to find <em title="The state of being in the zone">flow</em> and alignment within unfolding change.</p>
+		</div>
+		<div class="modal-footer"><button class="btn-close-overlay" title="Return to the silence" aria-label="Close Theory">Close</button></div>
+	</div>
+</div>
+
+<div id="modal-rules" class="overlay content-modal" role="dialog" aria-modal="true" aria-labelledby="rules-header-title">
+	<div class="panel">
+		<div class="events-header">
+			<h2 id="rules-header-title" title="How to navigate">Instructions</h2>
+		</div>
+		<div class="info-content">
+			<h2 title="Core mechanics">Rules of Engagement</h2>
+			<p><strong title="Time Management">Flow:</strong><br>Act before the moment fills. Each choice echoes outward.</p>
+			<p><strong title="Environmental Hazards">The Pulse:</strong><br>If time slips away, a Pulse awakens. It touches your Essence and reshapes the field around you.</p>
+			<p><strong title="Health Points">Essence:</strong><br>Your Essence shifts when Echoes align or when the Pulse arrives. Guard it well and let your presence stay bright.</p>
+			<p><strong title="Winning Condition">Harmony:</strong><br>Bring your marks into alignment. Each completed pattern renews you and stirs the Echoes into deeper awareness.</p>
+		</div>
+		<div class="modal-footer"><button class="btn-close-overlay" title="Return to the silence" aria-label="Close Instructions">Close</button></div>
+	</div>
+</div>
+
+<div id="modal-about" class="overlay content-modal" role="dialog" aria-modal="true" aria-labelledby="about-header-title">
+	<div class="panel">
+		<div class="events-header">
+			<h2 id="about-header-title" title="Credits and Origins">About</h2>
+		</div>
+		<div class="info-content">
+			<h2 title="Social Channels">Stay Connected</h2>
+			<p> Find <a href="https://julibe.com/" target="_blank" title="Follow Julibe's unfolding craft" aria-label="Visit Julibe's website">@Julibe</a> and share the harmony you discovered within the drift. </p>
+			<p> Always open to new visions and collaborative sparks. Something meaningful is always waiting to be created.</p>
+
+			<div id="copyright" title="All Rights Reserved by Julibe 2025" aria-label="Intellectual property">Copyright © 2025 <a href="https://julibe.com/" target="_blank" title="Visit Julibe.com">Julibe.com</a>.</div>
+		</div>
+		<div class="modal-footer"><button class="btn-close-overlay" title="Return to the silence" aria-label="Close About Section">Close</button></div>
+	</div>
+</div>
+
+<div id="game-view">
+	<div class="info-panel">
+		<div class="info-head" id="presence-header" title="Entities currently inhabiting this space" aria-label="List of active players">Presences</div>
+		<div id="player-list" role="list" aria-live="polite"></div>
+	</div>
+
+	<div class="stage" id="stage-area">
+		<div id="hud-top">
+			<div title="The flickering light of your persistence" aria-label="Current Essence Lives">Essence <span id="disp-lives" class="hearts" aria-hidden="true"></span></div>
+			<div title="Resonance gathered from order" aria-label="Current Harmony Score">Harmony <span id="disp-score" class="stat-val">0</span></div>
+		</div>
+
+		<div id="hud-msg" aria-live="assertive"><span id="turn-text" title="The current flow of time">Awaiting...</span></div>
+
+		<div id="timer-bar-bg" role="progressbar" aria-label="Time remaining in this moment" aria-valuemin="0" aria-valuemax="100">
+			<div id="timer-bar"></div>
+		</div>
+
+		<div id="canvas-wrap">
+			<canvas id="game-canvas" role="application" aria-label="The interactive tapestry: Place your marks here" title="The Grid of Echoes"></canvas>
+		</div>
+
+		<button class="btn-secondary btn-reflect" id="btn-pause" title="Pause and let your thoughts settle gently" aria-label="Pause the game">
+			<i class="material-icons" aria-hidden="true">pause</i> Reflect
+		</button>
+	</div>
+</div>
+
+<div id="modal-pause" class="overlay" role="dialog" aria-modal="true" aria-labelledby="pause-header">
+	<h2 id="pause-header" title="Game is currently suspended">Suspended in Time</h2>
+	<div class="modal-actions">
+		<button class="btn-action" id="btn-resume" title="Step forward when you feel aligned" aria-label="Resume Game">Resume</button>
+		<button class="btn-secondary btn-action" id="btn-quit" title="Return to the beginning and reset your path" aria-label="Quit to Main Menu">Return</button>
+	</div>
+</div>
+
+<div id="modal-over" class="overlay" role="dialog" aria-modal="true" aria-labelledby="over-header">
+	<h2 id="over-header" title="The session has concluded">A Gentle Awakening</h2>
+	<div class="score-display" title="Your final metric of resonance">Total Harmony: <span id="final-score" aria-label="Final Score">0</span></div>
+	<p class="text-conclusion" title="The dream settles, leaving its trace within you">The dream fades, but the memory remains.</p>
+	<div class="modal-actions">
+		<button class="btn-action" id="btn-replay" title="Feel free to drift again" aria-label="Play Again">Reawaken</button>
+		<button class="btn-secondary btn-action" id="btn-menu-back" title="Return to the place of choices" aria-label="Return to Main Menu">Menu</button>
+	</div>
+</div>

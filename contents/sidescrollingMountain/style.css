@@ -1,0 +1,327 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap");
+
+:root {
+	--blue-light: 76, 158, 235;
+	--blue: 29, 161, 242;
+	--orange-light: 255, 195, 0;
+	--orange: 255, 158, 0;
+	--pink: 224, 170, 255;
+	--purple-dark: 36, 0, 70;
+	--purple-light: 90, 24, 154;
+	--purple: 60, 9, 108;
+	--red: 110, 41, 86;
+	--white: 255, 255, 255;
+	--high: 0.75;
+	--mid: 0.5;
+	--low: 0.25;
+}
+
+body,
+html {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgb(var(--purple-dark));
+	overflow: hidden;
+	font-size: 1em;
+
+	* {
+		font-family: "Press Start 2P";
+		font-size: 1em;
+		line-height: 1.25em;
+	}
+}
+
+#gameWrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	background: rgb(var(--purple-dark));
+
+	canvas {
+		display: block;
+		width: 100%;
+		height: 100%;
+		image-rendering: pixelated;
+		filter: url(#pixelate);
+	}
+}
+
+.box {
+	padding: 1em;
+	max-width: 25vw;
+	text-shadow: 1px 1px 0 rgb(var(--purple));
+	background: rgba(var(--purple-dark), var(--high));
+	border: 4px solid rgb(var(--orange));
+	box-shadow: 5px 3px 0 rgb(var(--red)), 0 0 20px rgba(var(--orange), var(--low));
+	color: rgb(var(--pink));
+	font-size: 0.75em;
+	font-weight: 100;
+	border-radius: 2px;
+
+	h1,
+	.subheading {
+		font-size: 1.5em;
+		color: rgb(var(--orange));
+		margin-bottom: 0.75em;
+		text-shadow: 3px 3px 0 rgb(var(--red));
+
+		&.subheading {
+			display: block;
+			margin-bottom: 0.75em;
+		}
+	}
+
+	p {
+		margin-bottom: 0.75em;
+	}
+}
+
+button {
+	background: rgb(var(--orange));
+	border: none;
+	padding: 0.5em 1em;
+	color: rgb(var(--purple-dark));
+	box-shadow: 5px 3px 0 rgb(var(--red));
+	font-size: 1.25em;
+	cursor: pointer;
+	transition: 0.1s;
+	text-transform: uppercase;
+	margin-top: 0.75em;
+	display: inline-block;
+	width: 100%;
+	transition: all 0.5s;
+
+	&:hover {
+		box-shadow: 0 0 0 rgb(var(--red));
+		background: rgb(var(--orange-light));
+		transform: translateY(-0.25em);
+	}
+
+	&.share-btn {
+		background: rgb(var(--blue));
+		color: rgb(var(--white));
+		margin-bottom: 0.75em;
+
+		&:hover {
+			background: rgb(var(--blue-light));
+		}
+	}
+}
+
+#ui-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 10;
+	transition: opacity 1s ease-in-out;
+	opacity: 1;
+
+	&.faded {
+		opacity: 0;
+	}
+
+	.overlay-text {
+		@extend .box;
+		position: absolute;
+
+		&.ui-left {
+			top: 0;
+			left: 0;
+		}
+
+		&.ui-right {
+			top: 0;
+			right: 0;
+			text-align: right;
+		}
+	}
+}
+
+.highlight {
+	color: rgb(var(--orange-light));
+	font-weight: bold;
+}
+
+.link-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	pointer-events: auto;
+
+	li {
+		margin-bottom: 0.5em;
+		display: inline-block;
+		margin-left: 0.75em;
+	}
+
+	a {
+		font-size: 0.75em;
+		line-height: 2.25em;
+		color: rgb(var(--orange));
+		text-decoration: none;
+		border-bottom: 2px dashed rgb(var(--orange));
+		transition: 0.2s;
+		background-color: rgba(var(--purple-dark), var(--mid));
+		padding: 0.25em 0.5em;
+		margin: 0.25em;
+		border: 4px solid rgb(var(--orange));
+		box-shadow: 5px 3px 0 rgb(var(--red)),
+			0 0 20px rgba(var(--orange), var(--low));
+
+		&:hover {
+			background: rgb(var(--orange));
+			color: rgb(var(--purple-dark));
+			border-style: solid;
+			box-shadow: 0 0 0 rgb(var(--red)), 0 0 50px rgba(var(--orange), var(--low));
+		}
+	}
+}
+
+.hud {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 20;
+	display: flex;
+	align-items: center;
+	gap: 1.25em;
+	max-width: 33vw;
+
+	.hud-small-stats {
+		display: flex;
+		gap: 0.75em;
+		font-size: 0.75em;
+		color: rgb(var(--pink));
+		align-items: center;
+
+		.sep {
+			color: rgb(var(--purple-light));
+		}
+	}
+
+	#liveScoreText {
+		font-size: 2em;
+		color: rgb(var(--orange-light));
+		text-shadow: 3px 3px 0 rgb(var(--purple-dark));
+		border-right: 2px solid rgb(var(--purple-light));
+		padding-right: 1.25em;
+	}
+}
+
+#startScreen,
+#gameOverScreen {
+	@extend .box;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	pointer-events: auto;
+	z-index: 100;
+	min-width: 20em;
+
+	.stats-box {
+		padding: 0.5em;
+		font-size: 1.25em;
+		color: rgb(var(--pink));
+		text-align: center;
+	}
+}
+
+.scanlines {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(
+		to bottom,
+		rgba(var(--purple-dark), var(--low)) 50%,
+		rgba(var(--purple-dark), var(--low)) 50%
+	);
+	background-size: 100% 4px;
+	pointer-events: none;
+	opacity: 0.3;
+	z-index: 5;
+}
+
+.hidden {
+	display: none !important;
+}
+
+@media (max-width: 700px) {
+	.overlay-text {
+		padding: 0.5em;
+		max-width: 100%;
+	}
+
+	.ui-right {
+		top: auto;
+		bottom: 0;
+		left: 0;
+		right: auto;
+		text-align: left;
+		width: 100%;
+	}
+
+	.ui-left {
+		display: none;
+	}
+
+	.hud {
+		width: 90%;
+		justify-content: space-between;
+		bottom: 0.75em;
+
+		#liveScoreText {
+			font-size: 1.25em;
+		}
+	}
+}
+
+.b-pad {
+	background: rgb(var(--orange));
+	border: none;
+	margin: 0.25em;
+	padding: 0.25em;
+	min-width: 1em;
+	color: rgb(var(--purple-dark));
+	display: inline-block;
+	font-weight: 800;
+	font-size: 1em;
+	text-transform: uppercase;
+	border-radius: 2px;
+	border: solid 3px rgb(var(--purple-dark));
+	box-shadow: 5px 3px 0 rgb(var(--red));
+
+	text-shadow: 1px 1px 0 rgb(var(--red));
+	&::before {
+		content: "[";
+	}
+
+	&::after {
+		content: "]";
+	}
+}
+.delay {
+	opacity: 0;
+	animation: delay 1s forwards;
+	animation-delay: 4s;
+}
+
+@keyframes delay {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}

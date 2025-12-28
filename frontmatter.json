@@ -1,0 +1,252 @@
+{
+  "$schema": "https://frontmatter.codes/frontmatter.schema.json",
+  "frontMatter.taxonomy": {
+    "technologies": [
+      "JavaScript",
+      "HTML5",
+      "CSS",
+      "Canvas",
+      "SVG",
+      "WebGL",
+      "Three.js",
+      "GLSL Shaders",
+      "React",
+      "Vue",
+      "Node.js",
+      "Python",
+      "API",
+      "WebSockets",
+      "Firebase",
+      "LocalStorage",
+      "IndexedDB",
+      "WebAudio",
+      "Gamepad",
+      "Touch",
+      "Tailwind",
+      "Sass/SCSS",
+      "LESS",
+      "Webpack",
+      "Vite",
+      "PWA",
+      "Other"
+    ]
+  },
+  "frontMatter.taxonomy.contentTypes": [
+    {
+      "name": "Content",
+      "pageBundle": false,
+      "previewPath": null,
+      "fields": [
+        {
+          "title": "Title",
+          "name": "title",
+          "type": "string",
+          "description": "Derive a cool, memorable title inspired by the idea and purpose of the code."
+        },
+        {
+          "title": "Slogan",
+          "name": "slogan",
+          "type": "string",
+          "description": "A short tagline that complements the title. Use an existing slogan if the project already has one."
+        },
+        {
+          "title": "Slug",
+          "name": "slug",
+          "type": "string",
+          "description": "URL-friendly version of the title, converted to kebab-case."
+        },
+        {
+          "title": "Extract",
+          "name": "extract",
+          "type": "string",
+          "description": "A 160-character SEO-friendly hook with a call to action. Focus on the concept and content, not technical details."
+        },
+        {
+          "title": "Description",
+          "name": "description",
+          "type": "string",
+          "description": "A compelling, human-readable summary of what the project represents and why it exists. Avoid technical depth."
+        },
+        {
+          "title": "Concept (hrs)",
+          "name": "time_concept",
+          "type": "number",
+          "description": "Hours spent on ideation, exploration, research, and refining the idea."
+        },
+        {
+          "title": "Design (hrs)",
+          "name": "time_design",
+          "type": "number",
+          "description": "Hours spent defining the visual direction, UX decisions, and overall look and feel."
+        },
+        {
+          "title": "Coding (hrs)",
+          "name": "time_coding",
+          "type": "number",
+          "description": "Hours spent implementing the project from initial setup to completion."
+        },
+        {
+          "title": "Testing (hrs)",
+          "name": "time_testing",
+          "type": "number",
+          "description": "Hours spent manually testing all features, edge cases, and interactions."
+        },
+        {
+          "title": "Polish (hrs)",
+          "name": "time_polish",
+          "type": "number",
+          "description": "Hours spent refactoring, cleaning code, improving comments, and final refinements."
+        },
+        {
+          "title": "Price: Rate",
+          "name": "price_rate",
+          "type": "number",
+          "default": 27,
+          "description": "Hourly rate for this type of project. Typically varies by difficulty."
+        },
+        {
+          "title": "Price: Currency",
+          "name": "price_currency",
+          "type": "string",
+          "default": "USD",
+          "description": "Currency used for pricing and estimates."
+        },
+        {
+          "title": "Price: Hours per Day",
+          "name": "price_hours_day",
+          "type": "number",
+          "default": 8,
+          "description": "Standard number of working hours per day used for estimates."
+        },
+        {
+          "title": "Difficulty",
+          "name": "difficulty",
+          "type": "choice",
+          "choices": [
+            "low",
+            "medium",
+            "tedious",
+            "high",
+            "very high",
+            "extreme"
+          ],
+          "description": "Overall complexity of the project, including logic, scale, and effort required to turn an idea into a digital product."
+        },
+        {
+          "title": "Technologies",
+          "name": "technologies",
+          "type": "tags",
+          "description": "Technologies, tools, or platforms inferred from the codebase."
+        },
+        {
+          "title": "Category",
+          "name": "category",
+          "type": "choice",
+          "choices": [
+            "game",
+            "design",
+            "application",
+            "experiment",
+            "tool"
+          ],
+          "description": "High-level classification describing the type of project."
+        },
+        {
+          "title": "Tags",
+          "name": "tags",
+          "type": "tags",
+          "description": "Broad, generic tags describing genres, application types, disciplines, or design styles."
+        },
+        {
+          "title": "Emojis",
+          "name": "emojis",
+          "type": "tags",
+          "description": "Emoji icons representing the mood, theme, or personality of the project."
+        },
+        {
+          "title": "Keywords",
+          "name": "keywords",
+          "type": "tags",
+          "description": "Single-word SEO keywords relevant to the project’s concept and content."
+        },
+        {
+          "title": "Hashtags",
+          "name": "hashtags",
+          "type": "tags",
+          "description": "CamelCase hashtags intended for social media sharing and discovery."
+        },
+        {
+          "title": "Colors",
+          "name": "colors",
+          "type": "tags",
+          "description": "Colors used in the project's design."
+        },
+        {
+          "title": "Version",
+          "name": "version",
+          "type": "string",
+          "description": "Semantic version inferred from the current state of the project."
+        },
+        {
+          "title": "Iteration",
+          "name": "iteration",
+          "type": "number",
+          "description": "Iteration or revision number inferred from project maturity."
+        },
+        {
+          "title": "Content Type",
+          "name": "fmContentType",
+          "type": "string",
+          "hidden": true,
+          "default": "Content",
+          "description": "Internal identifier for the Front Matter content type."
+        },
+        {
+          "title": "Favorite",
+          "name": "favorite",
+          "type": "boolean",
+          "default": false,
+          "description": "Indicates if the project is a favorite."
+        },
+        {
+          "title": "Created",
+          "name": "created",
+          "type": "datetime",
+          "isPublishDate": true,
+          "description": "Date and time when the content entry was created."
+        },
+        {
+          "title": "Date",
+          "name": "date",
+          "type": "datetime",
+          "description": "Published date of the content."
+        },
+        {
+          "title": "Published",
+          "name": "published",
+          "type": "boolean",
+          "description": "Controls whether the content is publicly visible."
+        },
+        {
+          "title": "view_btn",
+          "name": "view_btn",
+          "type": "string"
+        },
+        {
+          "title": "read_btn",
+          "name": "read_btn",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "frontMatter.content.pageFolders": [
+    {
+      "title": "Contents",
+      "path": "[[workspace]]/contents/"
+    }
+  ],
+  "frontMatter.content.publicFolder": "",
+  "frontMatter.framework.id": "other",
+  "frontMatter.git.enabled": false
+}

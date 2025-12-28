@@ -1,0 +1,30 @@
+<div id="ui-layer">
+    <h1>Green Panic (PacMan-Clone)</h1>
+    <div class="hud-item" id="score-ui">Score: 0</div>
+    <div class="hud-item" id="chaos-ui"><span id="chaos-msg">Normal</span></div>
+    <div>WASD: Move | Space: Dash</div>
+</div>
+
+<div id="game-over">
+    <h2>Game Over</h2>
+    <p id="final-score">Score: 0</p>
+    <button onclick="game.restart()">Try Again</button>
+</div>
+
+<footer id="game-footer">
+    <h3>Let’s Connect & Share</h3> 
+    <p>
+      Follow me @Julibe and share your favorite retro games.<br>
+I'm open to new collaborations and fresh projects that inspire great ideas.
+    </p>
+    <ul class="link-list">
+        <li><a href="https://julibe.com/" target="_blank">Web</a></li>
+        <li><a href="https://julibe.com/whatsapp" target="_blank">WhatsApp</a></li>
+        <li><a href="https://julibe.com/twitter" target="_blank">Twitter</a></li>
+        <li><a href="https://julibe.com/instagram" target="_blank">Instagram</a></li>
+        <li><a href="mailto:mail@julibe.com">Email</a></li>
+    </ul>
+</footer>
+
+<div class="scanlines"></div>
+<canvas id="gameCanvas"></canvas>

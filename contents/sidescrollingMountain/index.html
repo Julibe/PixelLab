@@ -1,0 +1,121 @@
+<div id="ui-container" role="complementary" aria-label="Game introduction and sharing options">
+	<div class="overlay-text ui-left box delay" role="region" aria-labelledby="intro-title">
+		<h1 id="intro-title">THOSE DREAMY PIXELSCAPES...</h1>
+		<p>
+			Step into a wave of <span class="highlight">90s nostalgia</span>, where pixel mountains rose toward endless skies and every tiny sprite felt alive. Back then the world moved slower, afternoons drifted into night, and each climb through those digital worlds carried the same wonder we felt as kids.
+		</p>
+	</div>
+
+	<div class="overlay-text ui-right box delay" role="region" aria-labelledby="share-title">
+		<h3 id="share-title" class="subheading share-heading">SHARE THE NOSTALGIA</h3>
+		<p class="share-text">
+			Follow me @Julibe and show me the retro games that shaped your early years.
+			I’m always excited to collaborate on new ideas and creative projects that spark imagination.
+		</p>
+
+		<ul class="link-list" role="list" aria-label="Social links to connect with Julibe">
+			<li>
+				<a href="https://julibe.com/twitter" target="_blank" title="Follow Julibe on Twitter for retro vibes and creative updates" aria-label="Follow Julibe on Twitter">
+					Twitter
+				</a>
+			</li>
+
+			<li>
+				<a href="https://julibe.com/instagram" target="_blank" title="See what inspires Julibe on Instagram" aria-label="Visit Julibe’s Instagram gallery">
+					Instagram
+				</a>
+			</li>
+
+			<li>
+				<a href="https://julibe.com/whatsapp" target="_blank" title="Chat with Julibe directly on WhatsApp" aria-label="Chat with Julibe on WhatsApp">
+					WhatsApp
+				</a>
+			</li>
+
+			<li>
+				<a href="https://julibe.com/" target="_blank" title="Explore Julibe’s creative universe on the website" aria-label="Visit Julibe’s personal website">
+					Web
+				</a>
+			</li>
+
+			<li>
+				<a href="mailto:mail@julibe.com" title="Send a message straight to Julibe’s inbox" aria-label="Email Julibe">
+					Email
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<div id="gameWrapper" role="main" aria-label="Gameplay area">
+	<canvas id="gameCanvas" aria-label="Game canvas showing the pixel world" role="img"></canvas>
+	<div class="scanlines" aria-hidden="true"></div>
+
+	<div class="hud box delay" role="region" aria-label="Live stats during gameplay">
+		<div id="liveScoreText" aria-live="polite">SCORE: 0</div>
+
+		<div class="hud-small-stats">
+			<span id="scoreText" aria-live="polite">BITS: 0</span>
+			<span class="sep" aria-hidden="true">|</span>
+			<span id="distText" aria-live="polite">0m</span>
+			<span class="sep" aria-hidden="true">|</span>
+			<span id="timeText" aria-live="polite">0s</span>
+		</div>
+	</div>
+
+	<div id="startScreen" class="box" role="dialog" aria-modal="true" aria-labelledby="start-title">
+		<h1 id="start-title">DREAMY PIXELSCAPES</h1>
+
+		<span class="menu-text">
+			Use <span class="highlight">WASD</span> or the <span class="highlight">ARROWS</span> to move, and tap <span class="highlight">SPACE</span> to jump.
+
+			If you’re using a gamepad use the <span class="b-pad">+</span> to move,
+			<span class="b-pad">A</span> to jump
+
+			and <span class="b-pad">START</span> to begin.
+			Bring your nostalgia along for the ride.
+		</span>
+
+		<button onclick="startGame()" role="button" title="Start your nostalgic adventure">
+			START REMEMBERING <span class="b-pad">A</span>
+		</button>
+	</div>
+
+	<div id="gameOverScreen" class="box hidden" role="dialog" aria-modal="true" aria-labelledby="over-title">
+		<h1 id="over-title">THE DREAM FADES...</h1>
+
+		<div class="stats-box" role="region" aria-label="Final stats from your run">
+			<div>DISTANCE: <span id="endDist" class="highlight">0m</span></div>
+			<div>BITS: <span id="endBits" class="highlight">0</span></div>
+			<div>TIME: <span id="endTime" class="highlight">0s</span></div>
+			<hr>
+			<div>TOTAL SCORE: <span id="endTotal">0</span></div>
+		</div>
+
+		<button class="share-btn" onclick="shareTwitter()" role="button" title="Share your final score on Twitter">
+			SHARE YOUR SCORE <span class="b-pad">y</span>
+		</button>
+
+		<button onclick="resetGame()" role="button" title="Restart your nostalgic journey">
+			TRY AGAIN <span class="b-pad">START</span>
+		</button>
+	</div>
+</div>
+
+<svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+	<defs>
+		<filter id="pixelate" x="-50%" y="-50%" width="200%" height="200%">
+			<feFlood x="1" y="1" height="1" width="1"></feFlood>
+			<feComposite width="12" height="12"></feComposite>
+			<feTile result="a"></feTile>
+			<feComposite in="SourceGraphic" in2="a" operator="in"></feComposite>
+			<feMorphology operator="dilate" radius="4" result="base"></feMorphology>
+			<feGaussianBlur in="base" stdDeviation="1" result="glow"></feGaussianBlur>
+			<feMerge>
+				<feMergeNode in="glow"></feMergeNode>
+				<feMergeNode in="base"></feMergeNode>
+				<feMergeNode in="glow"></feMergeNode>
+			</feMerge>
+		</filter>
+	</defs>
+</svg>

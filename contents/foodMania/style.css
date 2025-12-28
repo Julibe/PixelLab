@@ -1,0 +1,626 @@
+@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Press+Start+2P&display=swap");
+
+:root {
+	/* --- Colors --- */
+	--neon-cyan: rgb(0, 243, 255);
+	--neon-pink: rgb(255, 0, 85);
+	--neon-purple: rgb(188, 19, 254);
+	--neon-orange: rgb(255, 94, 0);
+	--neon-blue: rgb(0, 68, 255);
+	--neon-yellow: rgb(255, 238, 0);
+	--bg-dark: rgb(5, 0, 17);
+	--bg-light: rgb(224, 224, 255);
+	--panel-bg: rgba(5, 0, 17, 0.25);
+
+	/* --- Spacing System (0.25em increments) --- */
+	--pad-xs: 0.25em;
+	--pad-sm: 0.5em;
+	--pad-md: 0.75em;
+	--pad-lg: 1em;
+	--pad-xl: 1.5em;
+	--pad-xxl: 2em;
+	--pad-giant: 3em;
+
+	--border: 2px;
+}
+
+body {
+	filter: url(#pixelate_2);
+	margin: 0;
+	overflow: hidden;
+	background-color: var(--bg-dark);
+	color: var(--bg-light);
+	font-family: "Press Start 2P", cursive;
+	touch-action: none;
+	user-select: none;
+
+	::-webkit-scrollbar {
+		width: var(--pad-sm);
+
+		&-track {
+			background: var(--bg-dark);
+		}
+
+		&-thumb {
+			background: var(--neon-cyan);
+			border: var(--border) solid var(--bg-dark);
+		}
+	}
+}
+
+#game-container {
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background: var(--bg-dark);
+
+	#bgCanvas {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+		filter: url(#pixelate_2);
+		opacity: 0.6;
+	}
+
+	#gameCanvas {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+		display: block;
+		filter: url(#pixelate);
+	}
+
+	.scanlines {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: repeating-linear-gradient(
+			to bottom,
+			rgba(5, 0, 17, 0),
+			rgba(5, 0, 17, 0) var(--border),
+			rgba(5, 0, 17, 0.15) var(--border),
+			rgba(5, 0, 17, 0.15) var(--border)
+		);
+		pointer-events: none;
+		z-index: 10;
+	}
+}
+
+#ui-layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 6em; /* Fixed height for top area */
+	z-index: 50;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	padding-top: 0;
+	pointer-events: none;
+
+	.top-bar-frame {
+		width: 100%;
+		height: 5em;
+		background: var(--panel-bg);
+		display: flex;
+		justify-content: center; /* Center content by default */
+		align-items: center;
+		padding: 0 var(--pad-lg);
+		border-bottom: var(--border) solid var(--neon-purple);
+		box-shadow: 0 var(--pad-sm) 2em var(--panel-bg);
+		backdrop-filter: saturate(2) brightness(0.8) url(#pixelate_2);
+		position: relative;
+		transition: all 0.3s ease;
+		pointer-events: auto;
+
+		&::before {
+			content: "";
+			position: absolute;
+			top: var(--pad-xs);
+			left: var(--pad-xs);
+			right: var(--pad-xs);
+			bottom: var(--pad-xs);
+			pointer-events: none;
+		}
+	}
+
+	.hud-module {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		min-width: 4.5em; /* Prevent squishing */
+
+		.label-text {
+			font-size: var(--pad-lg);
+			color: var(--neon-cyan);
+			margin-bottom: var(--pad-xs);
+			text-transform: uppercase;
+			letter-spacing: var(--border);
+		}
+
+		.value-text {
+			font-family: "Black Ops One", cursive;
+			font-size: var(--pad-lg);
+			color: var(--bg-light);
+			text-shadow: var(--border) var(--border) 0 var(--bg-dark);
+		}
+
+		#livesVal {
+			color: var(--neon-pink);
+			font-size: var(--pad-lg);
+			letter-spacing: -var(--border);
+		}
+	}
+}
+
+/* --- Menu & HUD Layouts --- */
+
+/* Ensures the HUD elements span the full width */
+#hud-content {
+	width: 100%;
+	justify-content: space-between;
+}
+
+/* Fixes the "stretched" look: Centers buttons with gap instead of pushing to edges */
+#menu-header {
+	width: 100%;
+	justify-content: center;
+	gap: var(--pad-xl);
+}
+
+.top-menu-btn {
+	background: var(--panel-bg);
+	border: var(--border) solid var(--neon-cyan);
+	color: var(--neon-cyan);
+	font-family: "Press Start 2P";
+	font-size: var(--pad-lg);
+	padding: var(--pad-md) var(--pad-lg);
+	cursor: pointer;
+	text-transform: uppercase;
+	box-shadow: 0 0 var(--border) rgba(0, 243, 255, 0.2);
+	transition: all 0.2s;
+	text-shadow: var(--border) var(--border) 0 var(--bg-dark);
+	z-index: 60;
+	white-space: nowrap;
+
+	&:hover {
+		color: var(--bg-dark);
+		background: var(--neon-cyan);
+		box-shadow: 0 0 1var (--border) rgba(0, 243, 255, 0.5);
+		text-shadow: none;
+	}
+}
+
+#hud-pause-btn {
+	background: var(--neon-orange);
+	color: var(--bg-light);
+	border: var(--border) solid var(--bg-light);
+	width: 2.2em;
+	height: 2.2em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: var(--pad-lg);
+	cursor: pointer;
+	box-shadow: var(--border) var(--border) 0 var(--bg-dark);
+	transition: transform 0.1s;
+
+	&:active {
+		transform: translate(var(--border), var(--border));
+		box-shadow: var(--border) var(--border) 0 var(--bg-dark);
+	}
+
+	&:hover {
+		background: var(--bg-light);
+		color: var(--neon-orange);
+	}
+}
+
+#level-indicator {
+	font-size: var(--pad-lg);
+	color: var(--neon-yellow);
+	margin-bottom: var(--pad-xs);
+	text-transform: uppercase;
+	letter-spacing: var(--border);
+	text-shadow: var(--border) var(--border) 0 var(--bg-dark);
+	transition: transform 0.2s;
+}
+
+#combo-container {
+	position: absolute;
+	top: 9em;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 4;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.1s;
+	text-align: center;
+
+	.combo-num {
+		font-family: "Black Ops One", cursive;
+		font-size: 6em;
+		color: var(--neon-yellow);
+		text-shadow: var(--border) var(--border) 0 var(--bg-dark);
+		line-height: 0.8;
+		filter: url(#pixelate);
+	}
+
+	.combo-label {
+		font-family: "Press Start 2P", cursive;
+		font-size: 1.25em;
+		color: var(--neon-cyan);
+		background: var(--bg-dark);
+		padding: var(--pad-sm) var(--pad-md);
+		border: var(--border) solid var(--neon-cyan);
+		box-shadow: var(--pad-sm) var(--pad-sm) 0 var(--bg-dark);
+		margin-top: var(--pad-sm);
+		display: inline-block;
+		text-transform: uppercase;
+	}
+
+	.combo-bar {
+		width: 15em;
+		height: 0.6em;
+		background: #222;
+		margin: var(--pad-md) auto 0;
+		border: var(--border) solid var(--bg-light);
+		box-shadow: var(--pad-sm) var(--pad-sm) 0 var(--bg-dark);
+
+		.combo-fill {
+			width: 100%;
+			height: 100%;
+			background: var(--neon-yellow);
+			transform-origin: left;
+			transition: width 0.1s linear;
+		}
+	}
+}
+
+.animate-pop {
+	animation: pop 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes pop {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.4);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.screen {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	z-index: 30;
+	text-align: center;
+	background: var(--panel-bg);
+	transition: opacity 0.3s;
+
+	.screen-content {
+		backdrop-filter: saturate(2) brightness(0.8) url(#pixelate_2);
+		padding: var(--pad-xxl) 2.5em;
+		background: var(--panel-bg);
+		border: var(--border) solid var(--neon-pink);
+		box-shadow: 0 0 0 var(--border) var(--bg-dark), 0.6em 0.6em 0 var(--panel-bg);
+		position: relative;
+		min-width: 2var (--pad-lg);
+	}
+}
+
+h1 {
+	font-family: "Black Ops One", cursive;
+	background: linear-gradient(
+		to bottom,
+		var(--bg-light) 40%,
+		var(--neon-cyan) 100%
+	);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	filter: drop-shadow(var(--border) var(--border) 0 var(--neon-blue));
+	font-size: 3.75em;
+	margin-bottom: var(--pad-lg);
+	line-height: 1;
+	letter-spacing: 0.25em;
+}
+
+.btn-container {
+	display: flex;
+	gap: var(--pad-lg);
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-top: var(--pad-lg);
+}
+
+.game-btn {
+	background: var(--neon-purple);
+	border: var(--border) solid var(--bg-light);
+	color: var(--bg-light);
+	font-family: "Press Start 2P";
+	padding: var(--pad-lg) var(--pad-xl);
+	font-size: var(--pad-lg);
+	cursor: pointer;
+	text-transform: uppercase;
+	box-shadow: 0.35em 0.35em 0 var(--bg-dark);
+	transition: transform 0.1s;
+	text-shadow: var(--border) var(--border) 0 var(--bg-dark);
+	position: relative;
+	image-rendering: pixelated;
+
+	&:active {
+		transform: translate(0.25em, 0.25em);
+		box-shadow: 0.15em 0.15em 0 var(--bg-dark);
+	}
+
+	&:hover {
+		background: var(--neon-pink);
+		color: var(--bg-light);
+	}
+}
+
+#menu-btn {
+	background: #333;
+	color: #ccc;
+
+	&:hover {
+		background: #555;
+		color: var(--bg-light);
+	}
+}
+
+#share-btn-gameover {
+	background: #1da1f2;
+	border-color: var(--bg-light);
+	margin-top: var(--pad-lg);
+
+	&:hover {
+		background: var(--bg-light);
+		color: #1da1f2;
+		text-shadow: none;
+	}
+}
+
+.options-panel {
+	width: 100%;
+	max-width: 22em;
+	margin: var(--pad-md) auto;
+	border-top: var(--border) dashed rgba(255, 255, 255, 0.2);
+	border-bottom: var(--border) dashed rgba(255, 255, 255, 0.2);
+	padding: var(--pad-lg) 0;
+
+	.option-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: var(--pad-md);
+		font-size: var(--pad-md);
+		color: var(--neon-cyan);
+	}
+
+	.toggle-group {
+		display: flex;
+		gap: var(--pad-xs);
+
+		.toggle-btn {
+			background: var(--bg-dark);
+			border: var(--border) solid #555;
+			color: #777;
+			padding: var(--pad-sm) var(--pad-md);
+			font-family: "Press Start 2P";
+			font-size: var(--pad-md);
+			cursor: pointer;
+			transition: all 0.2s;
+			min-width: var(--pad-xl);
+
+			&:hover {
+				border-color: var(--bg-light);
+			}
+
+			&.active {
+				border-color: var(--neon-cyan);
+				color: var(--bg-light);
+				background: rgba(0, 243, 255, 0.2);
+				box-shadow: 0 0 var(--pad-sm) var(--neon-cyan);
+				text-shadow: 0 0 var(--border) var(--neon-cyan);
+			}
+		}
+	}
+}
+
+.hidden {
+	display: none !important;
+}
+
+#social-floating {
+	position: absolute;
+	bottom: 2em;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 50;
+	width: 100%;
+	text-align: center;
+	pointer-events: none;
+
+	.social-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: inline-flex;
+		gap: var(--pad-lg);
+		flex-wrap: wrap;
+		justify-content: center;
+		pointer-events: auto;
+		background: var(--panel-bg);
+		padding: var(--pad-md) var(--pad-xl);
+		border: var(--border) solid var(--neon-pink);
+		box-shadow: 0 0 0 var(--border) var(--bg-dark), 0.6em 0.6em 0 var(--panel-bg);
+
+		li a {
+			color: #ccc;
+			text-decoration: none;
+			font-size: var(--pad-lg);
+			transition: all 0.2s;
+			display: block;
+			text-transform: uppercase;
+			font-family: "Press Start 2P";
+
+			&:hover {
+				color: var(--neon-cyan);
+				text-shadow: 0 0 var(--border) var(--neon-cyan);
+				transform: translateY(-0.15em);
+			}
+		}
+	}
+}
+
+#modal-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: var(--panel-bg);
+	z-index: 100;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	backdrop-filter: saturate(2) brightness(0.8) url(#pixelate_2);
+
+	.modal-box {
+		background: var(--bg-dark);
+		border: var(--border) solid var(--neon-cyan);
+		padding: 2em;
+		max-width: 32em;
+		width: 80%;
+		max-height: 80vh;
+		overflow-y: auto;
+		box-shadow: 0 0 2em rgba(0, 243, 255, 0.4);
+		text-align: left;
+		position: relative;
+
+		h2 {
+			color: var(--neon-yellow);
+			font-family: "Black Ops One";
+			font-size: var(--pad-giant);
+			margin-top: 0;
+			border-bottom: var(--border) solid #333;
+			padding-bottom: var(--pad-sm);
+			margin-bottom: var(--pad-lg);
+		}
+
+		p {
+			font-size: var(--pad-md);
+			line-height: 1.6;
+			color: #eee;
+			margin-bottom: var(--pad-lg);
+			font-family: sans-serif;
+		}
+
+		.modal-close-btn {
+			position: absolute;
+			top: var(--pad-sm);
+			right: var(--pad-sm);
+			background: transparent;
+			border: none;
+			color: var(--neon-pink);
+			font-size: var(--pad-xl);
+			cursor: pointer;
+			font-family: "Press Start 2P";
+
+			&:hover {
+				transform: scale(1.1);
+				color: var(--bg-light);
+			}
+		}
+	}
+}
+
+/* --- Refactored Inline Styles & Helpers --- */
+
+.svg-hidden {
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+.flex-bar {
+	display: flex;
+	align-items: center;
+	/* Justify content is now handled by IDs (#menu-header or #hud-content) */
+}
+
+.hud-score-val {
+	font-size: var(--pad-lg);
+}
+
+.hud-high-score {
+	font-size: var(--pad-lg);
+	color: #888;
+	margin-top: var(--pad-xs);
+}
+
+.hud-time-val {
+	font-size: var(--pad-lg);
+	color: var(--neon-cyan);
+}
+
+.align-end {
+	align-items: flex-end;
+}
+
+.game-over-title {
+	font-size: var(--pad-giant);
+	color: #fff;
+	-webkit-text-fill-color: white;
+	filter: none;
+	text-shadow: var(--border) var(--border) 0 var(--neon-pink);
+}
+
+.game-over-score {
+	font-size: var(--pad-xl);
+	color: var(--neon-yellow);
+	text-shadow: var(--border) var(--border) 0 #000;
+	font-family: "Press Start 2P";
+	margin: 1.25em 0;
+}
+
+.game-over-time {
+	font-size: var(--pad-md);
+	color: #aaa;
+	margin-bottom: var(--pad-xs);
+}
+
+.game-over-high {
+	font-size: var(--pad-md);
+	color: #aaa;
+}
+
+.copyright-text {
+	font-size: var(--pad-sm);
+	color: #fff;
+	margin-top: var(--pad-lg);
+	text-shadow: var(--border) var(--border) 0 #000;
+}

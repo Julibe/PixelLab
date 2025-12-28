@@ -1,0 +1,135 @@
+<div id="grid-wrapper" class="grid-background">
+
+	<div id="intro" class="box delay" role="region" aria-labelledby="snake-intro-title">
+		<h1 class="uppercase" id="snake-intro-title">Snake Adventures</h1>
+		<p>
+			Step into the <span class="highlight">Snake world</span>, where every move counts.
+			Control your snake, collect food, and experience the thrill of classic arcade gameplay.
+			Every run is a challenge, every segment adds to your score, and every turn tests your skill.
+		</p>
+	</div>
+
+	<div id="share" class="box delay" role="region" aria-labelledby="snake-share-title">
+		<h3 class="subheading uppercase" id="snake-share-title">Play & Share</h3>
+		<p>
+			Show off your longest Snake runs! Follow me @Julibe to swap tips, tricks, and celebrate classic Snake nostalgia.
+		</p>
+
+		<ul class="link-list" role="list" aria-label="Social links to connect with Julibe">
+			<li>
+				<a href="https://julibe.com/twitter" target="_blank" class="uppercase" aria-label="Follow Julibe on Twitter for Snake updates and creative fun" title="Follow Julibe on Twitter">
+					Twitter
+				</a>
+			</li>
+
+			<li>
+				<a href="https://julibe.com/instagram" target="_blank" class="uppercase" aria-label="See behind the scenes and visual experiments by Julibe on Instagram" title="Visit Julibe’s Instagram">
+					Instagram
+				</a>
+			</li>
+
+			<li>
+				<a href="https://julibe.com/whatsapp" target="_blank" class="uppercase" aria-label="Chat with Julibe on WhatsApp" title="Start a WhatsApp chat with Julibe">
+					WhatsApp
+				</a>
+			</li>
+
+			<li>
+				<a href="https://julibe.com" target="_blank" class="uppercase" aria-label="Visit Julibe’s creative web portfolio" title="Explore Julibe’s Portfolio">
+					Web
+				</a>
+			</li>
+
+			<li>
+				<a href="mailto:mail@julibe.com" class="uppercase" aria-label="Send an email to Julibe" title="Email Julibe">
+					Email
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<div id="game-zone" role="main" aria-label="Snake gameplay area">
+		<canvas id="gameCanvas" class="ani" aria-label="Snake game canvas"></canvas>
+
+		<div id="hud-layer" role="region" aria-label="Live gameplay stats">
+			<div id="combo" class="box delay">
+				<span class="uppercase">Length: <span id="hudLength" class="highlight">0</span> </span>
+				<span class="uppercase">Food: <span id="hudFood" class="highlight">0</span></span>
+				<span class="uppercase">Time: <span id="hudTime" class="highlight">0</span></span>
+				<span class="uppercase">Score: <span id="hudScore" class="highlight">0</span></span>
+				<span class="uppercase big">Combo: <span id="hudCombo" class="highlight">0</span></span>
+
+				<div class="bar-bg" aria-hidden="true">
+					<div id="combo-bar" class="bar-fill ani"></div>
+				</div>
+			</div>
+
+			<div id="msg-overlay" aria-live="polite"></div>
+			<div id="pause" class="uppercase" aria-hidden="true">Paused</div>
+		</div>
+
+		<div id="ui-container">
+
+			<div id="gameOver" class="box hidden ani" role="dialog" aria-modal="true" aria-labelledby="gameover-title">
+				<h1 class="uppercase" id="gameover-title">Game Over!</h1>
+
+				<div class="panel" role="region" aria-label="Final game results">
+					<div class="uppercase">Length: <span id="endLength" class="highlight">0</span> </div>
+					<div class="uppercase">Food Collected: <span id="endFood" class="highlight">0</span></div>
+					<div class="uppercase">Time Survived: <span id="endTime" class="highlight">0</span></div>
+					<div class="uppercase">Score: <span id="endScore" class="highlight">0</span></div>
+					<div class="uppercase">Best: <span id="bestScore" class="highlight">0</span></div>
+				</div>
+
+				<button class="share-btn uppercase" onclick="shareTwitter()" role="button" title="Share your high score on Twitter" aria-label="Share your Snake high score on Twitter">
+					Share Your Score <span class="b-pad uppercase">Y</span>
+				</button>
+
+				<button class="uppercase" onclick="resetGame()" role="button" title="Restart your Snake adventure" aria-label="Restart the game">
+					Try Again <span class="b-pad uppercase">Start</span>
+				</button>
+			</div>
+
+			<div id="start" class="box" role="dialog" aria-modal="true" aria-labelledby="start-title">
+				<h1 class="uppercase" id="start-title">Snake Snake Snake</h1>
+
+				<span class="menu-text">
+					Use <span class="highlight uppercase">Arrows</span> or
+					<span class="highlight uppercase">WASD</span> to guide your snake.
+					<span class="highlight uppercase">E</span> to dash.
+					<span class="highlight uppercase">Space</span> to pause.<br>
+					Gamepad users: <span class="b-pad uppercase">+</span> to move,
+					<span class="b-pad uppercase">Start</span> to play,
+					<span class="b-pad uppercase">A</span> to dash.
+					Collect food, grow in length, and avoid hitting yourself.
+					Are you ready to become the ultimate Snake master?
+				</span>
+
+				<div class="panel" role="form" aria-label="Game configuration settings">
+					<div class="row">
+						<label class="uppercase" for="cols-input">Cols</label>
+						<input type="number" id="cols-input" value="10" min="5" max="256" aria-label="Number of columns" title="Set the number of columns for the grid">
+
+						<label class="uppercase" for="rows-input">Rows</label>
+						<input type="number" id="rows-input" value="10" min="5" max="256" aria-label="Number of rows" title="Set the number of rows for the grid">
+					</div>
+
+					<div class="row" id="difficulty-buttons" role="group" aria-label="Difficulty selection">
+						<button class="sm-btn uppercase" id="easy-btn" onclick="setDifficulty('easy')" title="Play with a relaxed speed" aria-label="Set difficulty to Easy">Easy (0.5X)</button>
+						<button class="sm-btn uppercase" id="medium-btn" onclick="setDifficulty('medium')" title="Play at normal speed" aria-label="Set difficulty to Medium">Medium (1X)</button>
+						<button class="sm-btn uppercase" id="hard-btn" onclick="setDifficulty('hard')" title="Play at super high speed" aria-label="Set difficulty to Hard">Hard (2X)</button>
+					</div>
+
+					<div id="diff-label" class="uppercase" style="font-size:14px; font-weight:700; opacity: 0.8;" aria-live="polite">
+						Mode: Easy (200ms)
+					</div>
+				</div>
+
+				<button class="uppercase" onclick="startGame()" role="button" title="Begin the Snake challenge" aria-label="Start the game">
+					Start Snake <span class="b-pad uppercase">A</span>
+				</button>
+			</div>
+		</div>
+	</div>
+
+</div>

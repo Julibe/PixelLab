@@ -1,0 +1,202 @@
+<div id="pause-btn" onclick="togglePause()" role="button" tabindex="0" aria-label="Suspend the kinetic motion" title="Freeze the digital sculpture in time">
+	<div id="pause-icon"></div>
+	<span>Pause Game</span>
+</div>
+
+<button id="top-right-share" onclick="shareTwitter()" aria-label="Broadcast your result on Twitter" title="Unveil your aesthetic merit to the world">
+	<i class="fa-brands fa-twitter" aria-hidden="true"></i>
+	<span>Share</span>
+</button>
+
+<nav id="socials" aria-label="Artist Connections">
+	<ul>
+		<li>
+			<a href="https://julibe.com/" target="_blank" aria-label="Enter Julibe's Digital Gallery (opens in new tab)" title="Explore the complete portfolio of works by Julibe">
+				<i class="fa-solid fa-globe" aria-hidden="true"></i>
+				<span>Web</span>
+			</a>
+		</li>
+		<li>
+			<a href="https://julibe.com/github" target="_blank" aria-label="Inspect Julibe's Architecture on GitHub (opens in new tab)" title="Review the code structures curated by Julibe">
+				<i class="fa-brands fa-github" aria-hidden="true"></i>
+				<span>GitHub</span>
+			</a>
+		</li>
+		<li>
+			<a href="https://julibe.com/whatsapp" target="_blank" aria-label="Dialogue with Julibe via WhatsApp (opens in new tab)" title="Open a direct line of communication with Julibe">
+				<i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+				<span>WhatsApp</span>
+			</a>
+		</li>
+		<li>
+			<a href="https://julibe.com/twitter" target="_blank" aria-label="Follow the Narrative of Julibe on X (opens in new tab)" title="Stay informed on the latest updates from Julibe">
+				<i class="fa-brands fa-twitter" aria-hidden="true"></i>
+				<span>X (Twitter)</span>
+			</a>
+		</li>
+		<li>
+			<a href="https://julibe.com/instagram" target="_blank" aria-label="View Julibe's Visual Studies on Instagram (opens in new tab)" title="Witness the visual evolution of Julibe">
+				<i class="fa-brands fa-instagram" aria-hidden="true"></i>
+				<span>Instagram</span>
+			</a>
+		</li>
+		<li>
+			<a href="mailto:mail@julibe.com" aria-label="Commission Julibe via Email" title="Send a formal inquiry to Julibe">
+				<i class="fa-solid fa-envelope" aria-hidden="true"></i>
+				<span>Email</span>
+			</a>
+		</li>
+	</ul>
+</nav>
+
+<div id="game-wrapper" role="main" aria-label="Interactive Canvas">
+	<div id="p1-container" class="board-container" aria-label="Primary Composition Area">
+		<div id="p1-stats" class="game-text stats-bar" role="status" aria-live="polite">
+			<h4 title="Current Depth of Complexity">LVL <span id="p1-lvl">1</span></h4>
+			<h4 title="Aesthetic Merit Accumulated"><span id="p1-score">0</span> PTS</h4>
+		</div>
+		<canvas id="p1-canvas" role="img" aria-label="The active player canvas"></canvas>
+
+		<div class="hud-wrapper hud-left">
+			<h4 id="p1-hold-lbl" class="game-text hud-label" title="Geometry currently in reserve">HOLD</h4>
+			<canvas id="p1-hold" class="hud-canvas" width="60" height="60" role="img" aria-label="Visual representation of the held piece"></canvas>
+		</div>
+		<div class="hud-wrapper hud-right">
+			<h4 id="p1-next-lbl" class="game-text hud-label" title="Imminent geometry approaching">NEXT</h4>
+			<canvas id="p1-next" class="hud-canvas" width="60" height="60" role="img" aria-label="Visual representation of the next piece"></canvas>
+		</div>
+		<h3 id="p1-lbl" class="game-text player-label" title="You are the Curator of this session">SPECTATOR</h3>
+	</div>
+
+	<div id="p2-container" class="board-container" style="display:none;" aria-label="Secondary Composition Area">
+		<div id="p2-stats" class="game-text stats-bar" role="status" aria-live="off">
+			<h4 title="Automaton Complexity Level">LVL <span id="p2-lvl">1</span></h4>
+			<h4 title="Automaton Merit Score"><span id="p2-score">0</span> PTS</h4>
+		</div>
+		<canvas id="p2-canvas" role="img" aria-label="The opponent's active canvas"></canvas>
+		<div class="hud-wrapper hud-left">
+			<h4 id="p2-hold-lbl" class="game-text hud-label" title="Automaton's reserved geometry">HOLD</h4>
+			<canvas id="p2-hold" class="hud-canvas" width="60" height="60" role="img" aria-label="Piece held by the AI"></canvas>
+		</div>
+		<div class="hud-wrapper hud-right">
+			<h4 id="p2-next-lbl" class="game-text hud-label" title="Automaton's upcoming geometry">NEXT</h4>
+			<canvas id="p2-next" class="hud-canvas" width="60" height="60" role="img" aria-label="Next piece for the AI"></canvas>
+		</div>
+		<h3 id="p2-lbl" class="game-text player-label" title="The Algorithmic Adversary">AUTOMATON</h3>
+	</div>
+</div>
+
+<div id="modal-intro" class="hidden overlay modal-overlay" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+	<div class="modal-box">
+		<span class="close-btn" onclick="toggleModal('modal-intro')" role="button" tabindex="0" aria-label="Dismiss Exhibit Intro" title="Close this description">×</span>
+		<h3 id="intro-title" title="The artistic statement">The Concept</h3>
+		<p><strong>METRIO isn't merely a game; it is a kinetic sculpture you build in real-time.</strong></p>
+		<p>Step into an arena where geometry meets emotion. METRIO invites you to explore the delicate tension between absolute order and total entropy. This is not just about stacking blocks—it is about curating a fleeting digital masterpiece under pressure.</p>
+		<p>With an adaptive <strong>hydro-acoustic soundscape</strong> that responds to your every move and a visual style that evolves as you progress, METRIO transforms the classic puzzle experience into an immersive, high-stakes exhibit. Are you ready to find your flow?</p>
+	</div>
+</div>
+
+<div id="modal-theory" class="hidden overlay modal-overlay" role="dialog" aria-modal="true" aria-labelledby="theory-title">
+	<div class="modal-box">
+		<span class="close-btn" onclick="toggleModal('modal-theory')" role="button" tabindex="0" aria-label="Dismiss Theory Panel" title="Close the historical context">×</span>
+		<h3 id="theory-title" title="The mechanics of the medium">The Theory</h3>
+		<p>Since the 1984 inception of the "falling block" puzzle by Alexey Pajitnov, the <strong>Tetromino</strong> has served as a symbol of our innate desire to organize chaos. METRIO elevates this historical concept through the lens of <strong>Kinetic Minimalism</strong>.</p>
+		<p>Unlike traditional implementations, METRIO introduces distinct mechanics to test your spatial reasoning:</p>
+		<ul>
+			<li><strong>Vertical Purification:</strong> A rare mechanic allowing you to clear vertical columns, rewarding vertical architectural planning.</li>
+			<li><strong>Obsidian Anomalies:</strong> Randomly generated "Bombs" that disrupt the matrix, forcing immediate tactical shifts.</li>
+			<li><strong>Zero-Sum Duality:</strong> In AI mode, the game explores the transfer of entropy—your purified lines become your opponent's chaos (Garbage).</li>
+		</ul>
+	</div>
+</div>
+
+<div id="modal-rules" class="hidden overlay modal-overlay" role="dialog" aria-modal="true" aria-labelledby="rules-title">
+	<div class="modal-box">
+		<span class="close-btn" onclick="toggleModal('modal-rules')" role="button" tabindex="0" aria-label="Dismiss Directives" title="Close the guidelines">×</span>
+		<h3 id="rules-title" title="Protocols for interaction">Directives</h3>
+		<ul>
+			<li><i class="fa-solid fa-arrow-down-long" aria-hidden="true"></i> <strong>Vertical Clear:</strong> Fill a column to erase it.</li>
+			<li><i class="fa-solid fa-bomb" aria-hidden="true"></i> <strong>Anomaly:</strong> Black blocks clear 5x5 zones.</li>
+			<li><i class="fa-solid fa-right-left" aria-hidden="true"></i> <strong>Exchange (F/X):</strong> Swap grid (200pts).</li>
+			<li><i class="fa-solid fa-hand" aria-hidden="true"></i> <strong>Suspension (Q/Y):</strong> Hold active geometry.</li>
+			<li><i class="fa-solid fa-clock" aria-hidden="true"></i> <strong>Passive:</strong> Accumulate merit over time.</li>
+			<li><i class="fa-solid fa-layer-group" aria-hidden="true"></i> <strong>Evolution:</strong> Palette shifts every 5 lines.</li>
+			<li><i class="fa-solid fa-skull" aria-hidden="true"></i> <strong>Conflict:</strong> Cleared lines become garbage for opponent.</li>
+		</ul>
+	</div>
+</div>
+
+<div id="modal-about" class="hidden overlay modal-overlay" role="dialog" aria-modal="true" aria-labelledby="about-title">
+	<div class="modal-box">
+		<span class="close-btn" onclick="toggleModal('modal-about')" role="button" tabindex="0" aria-label="Dismiss Artist Bio" title="Close the creator profile">×</span>
+		<h3 id="about-title" title="The mind behind the exhibit">The Artist</h3>
+		<p>This interactive study was architected by <a href="https://julibe.com/" target="_blank" aria-label="Visit the portfolio of Julibe" title="Discover the body of work by Julibe"><strong>@Julibe</strong></a>, a solo front-end designer and developer obsessed with the intersection of clean code and art.</p>
+		<p>The Artist believes the web is the ultimate canvas for interactive storytelling. If you are passionate about pushing the boundaries of creative coding, or digital product design, Julibe is here to invite you to connect.</p>
+		<p style="margin-top: 15px; font-weight: 400;">Let's build the next digital experience together.</p>
+		<div id="copyright" title="All Rights Reserved by Julibe 2025" style="margin-top:20px; font-size: 0.8rem; opacity: 0.6;">Copyright © 2025 <a href="https://julibe.com/" target="_blank" aria-label="Navigate to Julibe.com" title="Return to the artist's homepage">Julibe.com</a>.</div>
+	</div>
+</div>
+
+<div id="menu" class="overlay" role="form" aria-label="Exhibit Configuration">
+	<h1 title="METRIO: A Digital Sculpture">METRIO</h1>
+	<h2 style="font-size:0.9rem; letter-spacing:2px; margin-bottom:20px; opacity:0.7;" title="The Exhibit Theme">A SHAPES IN KINETIC AFFINITY</h2>
+	<h4 id="high-score-display" style="margin-top:-10px; color:var(--text-sub);" title="Your highest aesthetic achievement">High Score: 0</h4>
+
+	<div class="config-row">
+		<label for="inp-cols" class="input-col">
+			<span title="Horizontal breadth of the canvas">Width</span>
+			<input type="number" id="inp-cols" value="12" min="4" max="30" placeholder="12" aria-label="Define grid column width">
+		</label>
+		<label for="inp-rows" class="input-col">
+			<span title="Vertical scope of the canvas">Height</span>
+			<input type="number" id="inp-rows" value="20" min="4" max="30" placeholder="20" aria-label="Define grid row height">
+		</label>
+		<label for="inp-speed" class="input-col">
+			<span title="Tempo of the falling elements">Velocity</span>
+			<input type="number" id="inp-speed" value="5" min="0.1" max="20" step="0.1" placeholder="5" aria-label="Set drop speed">
+		</label>
+	</div>
+
+	<div class="config-row" style="gap:40px;">
+		<label for="chk-ai" class="input-col" style="flex-direction:row; gap:10px;">
+			<input type="checkbox" id="chk-ai" aria-label="Engage Algorithmic Opponent">
+			<span style="margin:0;" title="Challenge the Automaton">VS. Automaton</span>
+		</label>
+		<label for="chk-grid" class="input-col" style="flex-direction:row; gap:10px;">
+			<input type="checkbox" id="chk-grid" aria-label="Toggle Structural Guide">
+			<span style="margin:0;" title="Reveal the underlying grid">Visible Grid</span>
+		</label>
+		<label for="chk-dark" class="input-col" style="flex-direction:row; gap:10px;">
+			<input type="checkbox" id="chk-dark" onchange="toggleTheme()" aria-label="Switch to Noir Ambiance">
+			<span style="margin:0;" title="Enable the darkened palette">Dark Theme</span>
+		</label>
+	</div>
+
+	<div style="margin-top:30px; display:flex; gap:15px; justify-content:center; flex-wrap:wrap;">
+		<button onclick="toggleModal('modal-intro')" aria-label="Read the Concept Statement" title="Explore the philosophy of Metrio"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Concept</button>
+		<button onclick="toggleModal('modal-theory')" aria-label="Study the Theory" title="Understand the historical context"><i class="fa-solid fa-shapes" aria-hidden="true"></i> Theory</button>
+		<button onclick="toggleModal('modal-rules')" aria-label="Review the Directives" title="Learn the rules of engagement"><i class="fa-solid fa-list-ul" aria-hidden="true"></i> Directives</button>
+		<button onclick="toggleModal('modal-about')" aria-label="Meet the Artist" title="Information about Julibe"><i class="fa-solid fa-user" aria-hidden="true"></i> Artist</button>
+	</div>
+
+	<div style="margin-top:30px;">
+		<button onclick="startGame()" style="border-width:2px; padding: 15px 60px;" aria-label="Commence Experience" title="Initiate the kinetic sequence"><i class="fa-solid fa-play" aria-hidden="true"></i> INITIATE</button>
+	</div>
+</div>
+
+<div id="pause-menu" class="hidden overlay modal-overlay" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+	<h1 id="pause-title" title="The piece is currently suspended">SUSPENDED</h1>
+	<div style="display:flex; gap:20px;">
+		<button onclick="resumeGame()" aria-label="Resume Composition" title="Continue the performance"><i class="fa-solid fa-play" aria-hidden="true"></i> Resume</button>
+		<button onclick="showMenu()" aria-label="Return to Curation" title="Abort and return to settings"><i class="fa-solid fa-bars" aria-hidden="true"></i> Menu</button>
+	</div>
+</div>
+
+<div id="game-over" class="hidden overlay modal-overlay" role="dialog" aria-modal="true" aria-labelledby="go-title">
+	<h1 id="go-title" title="Composition Finalized">CONCLUSION</h1>
+	<h3 id="go-msg" style="font-weight:300; letter-spacing:2px; margin-bottom:30px;" role="alert"></h3>
+	<div style="display:flex; gap:20px;">
+		<button onclick="startGame()" aria-label="Recompose" title="Start a fresh composition"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i> Restart</button>
+		<button onclick="showMenu()" aria-label="Return to Curation" title="Back to configuration"><i class="fa-solid fa-bars" aria-hidden="true"></i> Menu</button>
+	</div>
+</div>

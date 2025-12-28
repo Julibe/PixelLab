@@ -1,0 +1,207 @@
+
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+<!-- Three.js Import -->
+<script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+</script>
+
+<div id="game-container" role="application" aria-label="Interactive Hexplosion puzzle grid, ready for your moves"></div>
+<footer id="bottom-dashboard" role="contentinfo" aria-label="Game dashboard and controls">
+	<div id="dashboard-left">
+		<div class="big-level-box" id="level-display" title="Current difficulty tier" aria-label="You are currently playing on Level 1">
+			<span class="lbl" aria-hidden="true">Level</span>
+			<span class="val" id="ui-level" role="status" aria-live="polite">1</span>
+		</div>
+		<div class="stats-container">
+			<div class="bar-wrap" title="Your progress towards the next level" aria-label="Experience points bar">
+				<div id="bar-score" class="bar-fill fill-xp" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+				<span class="stat-label">XP
+					<span id="txt-score" role="status" aria-live="polite" aria-label="Current experience percentage">0%</span></span>
+			</div>
+			<div class="bar-wrap" title="Energy available for special abilities" aria-label="Mana charge meter">
+				<div id="bar-charge" class="bar-fill fill-mana" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+				<span class="stat-label">CHARGE</span>
+			</div>
+		</div>
+	</div>
+	<div id="dashboard-right">
+		<div class="row-header">
+			<h1 class="game-title" title="The ultimate hexagonal puzzle challenge" aria-label="Hexplosion: A strategic puzzle game created by Julibe">
+				HEXPLOSION
+			</h1>
+			<h2 class="game-slogan" title="The core philosophy of the game" aria-label="Game motto: Six sides, sweet combos, twist the hex">
+				Six sides, sweet combos, twist the hex!
+			</h2>
+			<div class="hint-text" title="Mouse control instructions" aria-label="Guide: Left-Click rotates clockwise, Right-Click rotates counter-clockwise">
+				L-Click: Rotate CW | R-Click: CCW
+			</div>
+		</div>
+		<div class="row-controls" role="toolbar" aria-label="Game control buttons">
+			<div class="dock-group">
+				<button class="g-btn btn-1" onclick="resetGame()" title="Ready for a fresh start?" aria-label="Restart the current game session immediately">
+					<span class="material-symbols-rounded" aria-hidden="true">refresh</span>
+					<span>Reset</span>
+				</button>
+				<button class="g-btn btn-3" onclick="toggleSound()" title="Adjust the acoustic vibes" aria-label="Toggle game audio effects on or off">
+					<span class="material-symbols-rounded" id="icon-sound" aria-hidden="true">volume_up</span>
+					<span>Sound</span>
+				</button>
+				<button class="g-btn btn-4" onclick="document.getElementById('modal-colors').showModal()" title="Paint it your way" aria-label="Open the color palette to customize the game theme">
+					<span class="material-symbols-rounded" aria-hidden="true">palette</span>
+					<span>Theme</span>
+				</button>
+				<button class="g-btn btn-5" onclick="hint()" title="Need a little nudge?" aria-label="Reveal a potential move to help you progress">
+					<span class="material-symbols-rounded" aria-hidden="true">help</span>
+					<span>Hint</span>
+				</button>
+			</div>
+			<div class="dock-group">
+				<button class="g-btn btn-1" onclick="document.getElementById('modal-intro').showModal()" title="Learn the ropes" aria-label="Open the tutorial and introduction window">
+					<span class="material-symbols-rounded" aria-hidden="true">info</span>
+					<span>Intro</span>
+				</button>
+				<button class="g-btn btn-3" onclick="document.getElementById('modal-theory').showModal()" title="Discover the logic behind the grid" aria-label="Read about the mathematical theory of the hexagonal system">
+					<span class="material-symbols-rounded" aria-hidden="true">menu_book</span>
+					<span>Theory</span>
+				</button>
+				<button class="g-btn btn-2" onclick="document.getElementById('modal-about').showModal()" title="Meet Julibe" aria-label="View information about Julibe and the project credits">
+					<span class="material-symbols-rounded" aria-hidden="true">person</span>
+					<span>About</span>
+				</button>
+				<button class="g-btn btn-4" onclick="shareTwitter()" title="Spread the hex love on Twitter" aria-label="Share your current score and game status on social media">
+					<span class="material-symbols-rounded" aria-hidden="true">share</span>
+					<span>Share</span>
+				</button>
+			</div>
+		</div>
+		<nav class="row-socials" aria-label="Connect with Julibe">
+			<ul>
+				<li>
+					<a href="https://julibe.com" class="social-link sl-1" title="Visit Julibe's digital headquarters" aria-label="Explore the full portfolio website of Julibe"><i class="fa-solid fa-globe" aria-hidden="true"></i>
+						<span>Web</span></a>
+				</li>
+				<li>
+					<a href="https://julibe.com/whatsapp" class="social-link sl-4" title="Say hello to Julibe on WhatsApp" aria-label="Start a direct chat conversation with Julibe"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+						<span>Chat</span></a>
+				</li>
+				<li>
+					<a href="https://julibe.com/twitter" class="social-link sl-2" title="Catch Julibe's latest updates" aria-label="Follow Julibe on Twitter for design and code tweets"><i class="fa-brands fa-twitter" aria-hidden="true"></i>
+						<span>Tweet</span></a>
+				</li>
+				<li>
+					<a href="https://julibe.com/github" class="social-link sl-3" title="Dive into Julibe's code repositories" aria-label="Check out open source contributions by Julibe on GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i>
+						<span>Code</span></a>
+				</li>
+				<li>
+					<a href="https://julibe.com/mail" class="social-link sl-2" title="Drop a digital letter to Julibe" aria-label="Send an email directly to Julibe's inbox"><i class="fa-solid fa-envelope" aria-hidden="true"></i>
+						<span>Mail</span></a>
+				</li>
+				<li class="copyright-text">
+					Copyright &copy; 2025
+					<a href="https://julibe.com/" target="_blank" title="All Rights Reserved by Julibe" aria-label="Intellectual property and design meticulously crafted by Julibe">Julibe</a>.
+				</li>
+			</ul>
+		</nav>
+	</div>
+</footer>
+<dialog id="modal-colors" aria-modal="true" aria-labelledby="modal-colors-title">
+	<div class="modal-header">
+		<h3 id="modal-colors-title" title="Choose your visual flavor" aria-label="Select a color scheme for the game interface">
+			Themes
+		</h3>
+		<button class="close-x" onclick="this.closest('dialog').close()" title="Dismiss the palette" aria-label="Close the theme selection window">
+			✕
+		</button>
+	</div>
+	<div class="palette-grid" id="palette-container" role="listbox" aria-label="List of available color themes"></div>
+</dialog>
+
+<dialog id="modal-intro" aria-modal="true" aria-labelledby="modal-intro-title">
+	<div class="modal-header">
+		<h3 id="modal-intro-title" title="Quick start guide" aria-label="Instructions on how to play Hexplosion">
+			How to Play
+		</h3>
+		<button class="close-x" onclick="this.closest('dialog').close()" title="Got it, let's play!" aria-label="Close the tutorial modal">
+			<span class="material-symbols-rounded" aria-hidden="true">close</span>
+		</button>
+	</div>
+	<p><strong>Goal:</strong> Match 3 or more gems of the same color.</p>
+	<p>
+		1. Hover over a cluster of 3 gems.<br />2.
+		<strong title="Primary interaction" aria-label="Use the primary mouse button">Left Click</strong>
+		to rotate Clockwise.<br />3.
+		<strong title="Secondary interaction" aria-label="Use the secondary mouse button">Right Click</strong>
+		to rotate Counter-Clockwise.
+	</p>
+	<hr style="
+			border: 0;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+			margin: 15px 0;
+		" aria-hidden="true" />
+	<button class="g-btn btn-3" style="width: 100%" onclick="this.closest('dialog').close(); document.getElementById('modal-theory').showModal()" title="Curious about the math?" aria-label="Switch from the tutorial to the theory explanation">
+		<span class="material-symbols-rounded" aria-hidden="true">menu_book</span>
+		Read Theory
+	</button>
+</dialog>
+
+<dialog id="modal-theory" aria-modal="true" aria-labelledby="modal-theory-title">
+	<div class="modal-header">
+		<h3 id="modal-theory-title" title="The geometry behind the game" aria-label="Explanation of the hexagonal grid advantage">
+			Why the Hex?
+		</h3>
+		<button class="close-x" onclick="this.closest('dialog').close()" title="Return to game" aria-label="Close the theory modal">
+			<span class="material-symbols-rounded" aria-hidden="true">close</span>
+		</button>
+	</div>
+	<p>
+		Squares limit you to 4 neighbors. Hexagons unlock 6 axes of freedom.
+		We've harnessed this efficiency to build a fluid, gravity-defying system
+		where every move ripples through the grid.
+	</p>
+</dialog>
+
+<dialog id="modal-about" aria-modal="true" aria-labelledby="modal-about-title">
+	<div class="modal-header">
+		<h3 id="modal-about-title" title="Behind the screen" aria-label="Information about the developer, Julibe">
+			About Julibe
+		</h3>
+		<button class="close-x" onclick="this.closest('dialog').close()" title="Back to the action" aria-label="Close the about modal">
+			<span class="material-symbols-rounded" aria-hidden="true">close</span>
+		</button>
+	</div>
+	<p>
+		Crafted with love by
+		<a href="https://julibe.com/" target="_blank" title="Visit Julibe's main site" aria-label="Link to Julibe's personal homepage">@Julibe</a>. <br />
+		I build interactive experiences that bridge code and art. Whether you're
+		here for the high score or the flow, thanks for playing.
+	</p>
+	<p>
+		Always open to new ideas and collaborations. Let's create something
+		great.
+	</p>
+	<p class="legal-txt" title="All rights reserved by Julibe" aria-label="Copyright Information">
+		Copyright © 2025 Julibe. All rights reserved.
+	</p>
+</dialog>
+
+<dialog id="game-over-modal" style="text-align: center" aria-modal="true" aria-labelledby="game-over-title">
+	<h1 id="game-over-title" style="color: var(--btn-1-top); font-size: 32px; margin-bottom: 10px" title="Stage cleared!" aria-label="You have successfully completed this level">
+		Level Complete
+	</h1>
+	<p>
+		Final Score:
+		<strong id="final-score" style="font-size: 24px" role="status" aria-live="assertive" title="Your total points" aria-label="Final score achieved in this level">0</strong>
+	</p>
+	<button class="g-btn btn-4" style="width: 100%; margin-top: 20px; height: 60px; font-size: 20px" onclick="nextLevel()" title="Onward to the next challenge!" aria-label="Load the next level and continue your journey">
+		Next Level
+	</button>
+</dialog>

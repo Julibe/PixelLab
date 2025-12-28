@@ -1,0 +1,275 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+
+<div class="game-stage">
+	<canvas id="gameCanvas"></canvas>
+
+	<div class="ui-layer">
+		<!-- HUD -->
+		<div class="stats-box">
+			<div class="stat-row">
+				<span class="stat-label">Points</span>
+				<span class="stat-val" id="uiScore">0</span>
+			</div>
+			<div class="stat-row">
+				<span class="stat-label">Time</span>
+				<span class="stat-val" id="uiTime">00:00</span>
+			</div>
+		</div>
+
+		<!-- ALERTS -->
+		<div id="alertBanner" class="alert">System Ready</div>
+		<div class="pause-corner" onclick="Game.togglePause()" title="Pause">||</div>
+
+		<!-- START INDICATOR -->
+		<div id="startIndicator" class="start-overlay">
+			<div class="start-arrow">▼</div>
+			<div class="uppercase" style="font-size: 0.8rem; margin-top: 5px; color: #0ff">You</div>
+		</div>
+
+		<!-- SOCIAL TEMPLATE -->
+		<div id="socialTemplate" style="display: none">
+			<div id="globalFooter">
+				<ul class="social-list">
+					<li>
+						<a href="https://julibe.com/" target="_blank" class="nav-item" title="Warp speed to Julibe's Portfolio!" aria-label="Visit Julibe's Portfolio"><i class="fa-solid fa-globe"></i><span>Web</span></a>
+					</li>
+					<li>
+						<a href="https://julibe.com/whatapp/" target="_blank" class="nav-item" title="Explore more projects" aria-label="Chat with Julibe on WhatApp"><i class="fa-brands fa-whatsapp"></i><span>WhatApp</span></a>
+					</li>
+					<li>
+						<a href="https://julibe.com/github" target="_blank" class="nav-item" title="Inspect source code" aria-label="Visit Julibe's GitHub"><i class="fa-brands fa-github"></i><span>GitHub</span></a>
+					</li>
+					<li>
+						<a href="https://julibe.com/twitter" target="_blank" class="nav-item" title="Follow updates" aria-label="Follow on Twitter"><i class="fa-brands fa-twitter"></i><span>Twitter</span></a>
+					</li>
+					<li>
+						<a href="mailto:mail@julibe.com" class="nav-item" title="Send a signal" aria-label="Send Email"><i class="fa-solid fa-envelope"></i><span>Email</span></a>
+					</li>
+				</ul>
+				<div class="copyright" title="All Rights Reserved by Julibe 2025" aria-label="Intellectual property and design by Julibe">
+					Copyright &copy; 2025 <a href="https://julibe.com/" target="_blank">Julibe.com</a>.
+				</div>
+			</div>
+		</div>
+
+		<!-- MAIN MENU -->
+		<div id="mainMenu" class="menu-container active">
+			<div id="intro">
+				<h1>Luminora</h1>
+			</div>
+
+			<div class="settings-grid">
+				<div class="setting-box">
+					<span class="setting-label">Combatants</span>
+					<input type="number" id="optPlayers" min="2" max="25" value="4" />
+				</div>
+				<div class="setting-box">
+					<span class="setting-label">Signature ID</span>
+					<input type="color" id="optColor" value="#ff00ff" />
+				</div>
+				<div class="setting-box">
+					<span class="setting-label">Sim Speed</span>
+					<select id="optDiff">
+						<option value="0.8">0.8x (Easy)</option>
+						<option value="1.0" selected>1.0x (Normal)</option>
+						<option value="1.3">1.3x (Hard)</option>
+						<option value="1.6">1.6x (Extreme)</option>
+					</select>
+				</div>
+				<div class="setting-box">
+					<span class="setting-label">Lives</span>
+					<input type="number" id="optLives" value="3" min="1" max="99" />
+				</div>
+			</div>
+
+			<div class="btn-row">
+				<button class="cyber-btn primary" onclick="Game.init()">Initialize</button>
+				<button class="cyber-btn secondary" onclick="Game.showChaos()">Chaos Config</button>
+				<button class="cyber-btn secondary" onclick="Game.showInfo()">System Data Log</button>
+			</div>
+			<div class="menu-footer"></div>
+		</div>
+
+		<!-- CHAOS MENU -->
+		<div id="chaosMenu" class="menu-container">
+			<h2>Chaos Config</h2>
+			<p style="color: #888; font-size: 0.9rem; font-family: 'Inter'; margin-bottom: 20px;">
+				Customize entropy levels to your liking. Toggle anomalies on or off.
+			</p>
+
+			<div class="settings-grid">
+				<div class="setting-box" style="grid-column: span 3">
+					<span class="setting-label">Event Frequency: <span id="freqLabel" style="color: #0ff">NORMAL</span></span>
+					<input type="range" id="optChaosFreq" min="0" max="3" step="1" value="1" oninput="Game.updateFreqLabel(this.value)" />
+				</div>
+			</div>
+
+			<h2 class="setting-label" style="text-align: left; margin-bottom: 10px">Active Anomalies</h2>
+			<div id="chaosList" class="chaos-grid" style="margin-bottom: 30px"></div>
+
+			<div class="btn-row">
+				<button class="cyber-btn primary" onclick="Game.hideChaos()">Confirm Sequence</button>
+			</div>
+			<div class="menu-footer"></div>
+		</div>
+
+		<!-- INFO MENU (TAB SYSTEM) -->
+		<div id="infoMenu" class="menu-container">
+			<!-- Tabs Navigation -->
+			<div class="tab-nav">
+				<button class="tab-btn active" onclick="Game.switchTab('instructions', this)">System</button>
+				<button class="tab-btn" onclick="Game.switchTab('events', this)">Anomalies</button>
+				<button class="tab-btn" onclick="Game.switchTab('theory', this)">Protocol</button>
+				<button class="tab-btn" onclick="Game.switchTab('about', this)">About</button>
+			</div>
+
+			<!-- Tab 1: Instructions -->
+			<div id="instructions" class="tab-content active">
+				<div class="settings-grid">
+					<div class="setting-box" style="grid-column: 1 / -1;">
+						<p style="font-size: 0.95rem; line-height: 1.6; color: #ccc; margin: 0;">
+							Welcome to the digital frontier. Luminora is a fast-paced, physics-based battle arena where survival requires precision, strategy, and a bit of luck. Enter the void and claim your victory.
+						</p>
+					</div>
+					<div class="setting-box">
+						<span class="setting-label" style="color: #0ff">Manual Control</span>
+						<p style="font-size: 0.8rem; line-height: 1.6; color: #ccc; font-family: monospace; margin: 0;">
+							> <b style="color: #fff">W A S D / ARROWS</b> : Navigate<br />
+							> <b style="color: #fff">ENTER / SHIFT</b> : Phoenix Shot<br />
+							> <b style="color: #fff">MOUSE</b> : Gyro Assist
+						</p>
+					</div>
+					<div class="setting-box">
+						<span class="setting-label" style="color: #f0f">Scoring Data</span>
+						<p style="font-size: 0.8rem; line-height: 1.6; color: #ccc; font-family: monospace; margin: 0;">
+							> Survival: <b>Scaling / 10s</b><br />
+							> Elimination: <b>+500</b><br />
+							> Victory: <b>+3000</b>
+						</p>
+					</div>
+				</div>
+				<div class="btn-row">
+					<button class="cyber-btn secondary" onclick="Game.hideInfo()">Return to Menu</button>
+				</div>
+			</div>
+
+			<!-- Tab 2: Events -->
+			<div id="events" class="tab-content">
+				<h3 style="color: #fff; text-align: left; border-bottom: 1px solid #333; padding-bottom: 5px; margin-top: 10px;" class="uppercase">
+					Anomaly Database
+				</h3>
+				<div class="data-log-grid">
+					<div class="log-entry">
+						<div class="log-title">Wormhole</div>
+						<div class="log-desc">Quantum tunnel detected. Instant teleportation between cyan and orange zones.</div>
+					</div>
+					<div class="log-entry">
+						<div class="log-title">Multi-Ball</div>
+						<div class="log-desc">Replicant spawn. System injects additional kinetic spheres.</div>
+					</div>
+					<div class="log-entry">
+						<div class="log-title">Surge</div>
+						<div class="log-desc">Velocity overdrive. All projectiles accelerate permanently.</div>
+					</div>
+					<div class="log-entry">
+						<div class="log-title">Chaos</div>
+						<div class="log-desc">Vector scramble. All trajectory angles randomized instantly.</div>
+					</div>
+					<div class="log-entry">
+						<div class="log-title">Curveball</div>
+						<div class="log-desc">Gravity well active. Projectiles follow non-linear arcs.</div>
+					</div>
+					<div class="log-entry">
+						<div class="log-title">Zigzag</div>
+						<div class="log-desc">Glitch protocol. Projectiles exhibit erratic lateral shifts.</div>
+					</div>
+					<div class="log-entry">
+						<div class="log-title">Flux</div>
+						<div class="log-desc">Temporal variance. Speeds fluctuate randomly.</div>
+					</div>
+					<div class="log-entry">
+						<div class="log-title">Shrink</div>
+						<div class="log-desc">Defense matrix compromised. Paddle width reduced by 50%.</div>
+					</div>
+					<div class="log-entry">
+						<div class="log-title">Grow</div>
+						<div class="log-desc">Defense matrix fortified. Paddle width increased by 50%.</div>
+					</div>
+					<div class="log-entry">
+						<div class="log-title">Reverse</div>
+						<div class="log-desc">Polarity inversion. Projectiles reverse direction instantly.</div>
+					</div>
+					<div class="log-entry">
+						<div class="log-title">Spin</div>
+						<div class="log-desc">Gyroscope unstable. Arena orientation shifts continuously.</div>
+					</div>
+				</div>
+				<div class="btn-row">
+					<button class="cyber-btn secondary" onclick="Game.hideInfo()">Return to Menu</button>
+				</div>
+			</div>
+
+			<!-- Tab 3: Theory -->
+			<div id="theory" class="tab-content">
+				<h2>The Protocol</h2>
+				<p>
+					Luminora simulates a closed geometric system in constant flux. The goal is simple: outlast the other vectors. As the match progresses, the system injects random anomalies—wormholes, gravity shifts, and velocity surges—to test your adaptability.
+				</p>
+				<p>
+					Even in death, you remain a threat. The <strong>Phoenix Protocol</strong> allows ghosts to fire projectiles. If your shot eliminates a survivor within 1 second, you instantly respawn into the match.
+				</p>
+				<div class="btn-row">
+					<button class="cyber-btn secondary" onclick="Game.hideInfo()">Return to Menu</button>
+				</div>
+			</div>
+
+			<!-- Tab 4: About -->
+			<div id="about" class="tab-content">
+				<h2>About Julibe</h2>
+				<p>
+					Designed and developed with love <i class="fa-solid fa-heart" style="color:#f0f"></i> by <a href="https://julibe.com/" target="_blank">@Julibe</a>. This project is an exploration of generative audio and canvas physics.
+				</p>
+				<p>
+					I'm always looking for new challenges. Feel free to reach out if you want to collaborate on something unique.
+				</p>
+				<div class="btn-row">
+					<button class="cyber-btn secondary" onclick="Game.hideInfo()">Return to Menu</button>
+				</div>
+			</div>
+
+			<div class="menu-footer"></div>
+		</div>
+
+		<!-- PAUSE MENU -->
+		<div id="pauseMenu" class="menu-container">
+			<h1 class="uppercase">System Halted</h1>
+			<div class="btn-row" style="flex-direction: column; width: 60%; margin: 0 auto">
+				<button class="cyber-btn primary" onclick="Game.resume()">Resume Simulation</button>
+				<button class="cyber-btn secondary" onclick="Game.restart()">Reboot</button>
+				<button class="cyber-btn secondary" onclick="Game.toMainMenu()">Abort</button>
+			</div>
+			<div class="menu-footer"></div>
+		</div>
+
+		<!-- GAME OVER MENU -->
+		<div id="gameOverMenu" class="menu-container">
+			<h1 id="goTitle" style="font-size: 3.5rem" class="uppercase">Terminated</h1>
+			<h2 id="goSubtitle" style="color: #fff; margin-bottom: 20px"></h2>
+
+			<div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border: 1px solid #333; margin-bottom: 30px;">
+				<div style="font-size: 0.8rem; color: #888; letter-spacing: 2px" class="uppercase">Final Score</div>
+				<div id="goScore" style="font-size: 3.5rem; color: #0ff; text-shadow: 0 0 25px #0ff; font-weight: 900;">0</div>
+			</div>
+
+			<div class="btn-row">
+				<button class="cyber-btn share" onclick="shareTwitter()">Broadcast High Score <i class="fa-brands fa-twitter"></i></button>
+				<button class="cyber-btn primary" onclick="Game.restart()">Retry Simulation <i class="fa-solid fa-rotate-right"></i></button>
+				<button class="cyber-btn secondary" onclick="Game.toMainMenu()">Main Menu <i class="fa-solid fa-house"></i></button>
+			</div>
+			<div class="menu-footer"></div>
+		</div>
+	</div>
+</div>

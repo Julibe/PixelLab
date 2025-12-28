@@ -1,0 +1,67 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+<div id="setup-screen">
+  <div class="setup-card">
+    <h1 title="Set up your playful pastel adventure!" aria-label="Game Setup: configure rows, columns, and mines">Game Setup</h1>
+    <div class="input-group">
+      <label for="set-rows" title="Choose how many rows for the grid" aria-label="Rows input: pick the number of rows in the game grid">ROWS</label>
+      <input type="number" id="set-rows" value="6" min="5" max="30" placeholder="Enter rows">
+    </div>
+    <div class="input-group">
+      <label for="set-cols" title="Choose how many columns for the grid" aria-label="Columns input: pick the number of columns in the game grid">COLUMNS</label>
+      <input type="number" id="set-cols" value="6" min="5" max="30" placeholder="Enter columns">
+    </div>
+    <div class="input-group">
+      <label for="set-mines" title="Pick the number of mines to make it spicy" aria-label="Mines input: set how many mines to hide">MINES</label>
+      <input type="number" id="set-mines" value="3" min="1" max="200" placeholder="Enter mines">
+    </div>
+    <button class="big-btn" onclick="submitSetup()" title="Launch the pastel fun!" aria-label="Start the game with chosen settings">START</button>
+  </div>
+
+  <div class="connect-box">
+    <h3 class="section-title" title="Hang out and share with Julibe" aria-label="Connect with Julibe">Support & Connect</h3>
+    <p class="desc-text" title="Friendly invitation to follow Julibe" aria-label="Follow and collaborate invitation">Follow Julibe @Julibe and share your favorite classic puzzle games.<br>
+      Excited to explore ideas, collaborate, and dive into fresh projects together.
+    </p>
+    <ul class="link-list">
+      <li><a href="https://julibe.com/" target="_blank" title="Hop over to Julibe's site for more fun" aria-label="Visit Julibe's website">Web</a></li>
+      <li><a href="https://julibe.com/whatsapp" target="_blank" title="Chat with Julibe on WhatsApp anytime!" aria-label="Contact Julibe via WhatsApp">WhatsApp</a></li>
+      <li><a href="https://julibe.com/twitter" target="_blank" title="Catch Julibe's latest tweets" aria-label="Follow Julibe on Twitter">Twitter</a></li>
+      <li><a href="https://julibe.com/instagram" target="_blank" title="Peek at Julibe's pastel vibes" aria-label="See Julibe's Instagram creations">Instagram</a></li>
+      <li><a href="mailto:mail@julibe.com" title="Send a cheerful note to Julibe" aria-label="Email Julibe for fun collaborations">Email</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="header" title="Game stats header" aria-label="Top game status panel">
+  <div class="pill" title="Current flag count" aria-label="Flags remaining">
+    <span class="pill-icon">🚩</span> <span id="flag-cnt">000</span>
+  </div>
+  <button class="smiley-btn" id="face-btn" onclick="restartGame()" title="Smiley restart button" aria-label="Restart game with a smile">🙂</button>
+  <div class="pill" title="Elapsed game time" aria-label="Timer display">
+    <span class="pill-icon">🕒</span> <span id="timer-disp">00:00</span>
+  </div>
+</div>
+
+<div class="stats-bar" title="Player stats in pastel mode" aria-label="Game statistics bar">
+  <div class="stat-item" title="Hit points remaining" aria-label="Player health points">HP: <b id="hp-val" style="color: var(--c-magenta)">3/3</b></div>
+  <div class="stat-item" title="Current level" aria-label="Game level tracker">LEVEL: <b id="lvl-val">1</b></div>
+  <div class="stat-item" title="Current score" aria-label="Player score tracker">SCORE: <b id="score-val">0</b></div>
+</div>
+
+<div id="game-container" title="Game grid container" aria-label="Minesweeper game grid">
+  <div id="grid"></div>
+</div>
+
+<div id="inventory" title="Special items for playful fun" aria-label="Inventory items panel">
+  <button class="item-btn" id="btn-scan" onclick="useItem('scan')" title="Use the scanner to peek around" aria-label="Activate scanner item 📡">📡 Scanner (<b id="scan-qty">1</b>)</button>
+  <button class="item-btn" id="btn-heal" onclick="useItem('heal')" title="Use a medkit to restore HP" aria-label="Activate medkit item 💊">💊 Medkit (<b id="heal-qty">0</b>)</button>
+</div>
+
+<div id="overlay" title="Game over overlay" aria-label="Game completion overlay">
+  <h1 id="ov-title" title="Game Over!" aria-label="Overlay title: game over">GAME OVER</h1>
+  <p id="ov-msg" title="Encouraging message for the player" aria-label="Overlay message: try again">Try harder next time!</p>
+  <button class="big-btn" onclick="restartGame()" title="Restart button with fun vibe" aria-label="Restart the game">RESTART</button>
+</div>

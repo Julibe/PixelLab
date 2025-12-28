@@ -1,0 +1,182 @@
+<svg class="svg-hidden" aria-hidden="true">
+	<defs>
+		<filter id="pixelate_2" x="-50%" y="-50%" width="200%" height="200%">
+			<feFlood x="1" y="1" height="5" width="5"></feFlood>
+			<feComposite width="2" height="2"></feComposite>
+			<feTile result="a"></feTile>
+			<feComposite in="SourceGraphic" in2="a" operator="in"></feComposite>
+			<feMorphology operator="dilate" radius=".35" result="base"></feMorphology>
+			<feGaussianBlur in="base" stdDeviation="2.5" result="glow"></feGaussianBlur>
+			<feMerge>
+				<feMergeNode in="base"></feMergeNode>
+				<feMergeNode in="glow"></feMergeNode>
+				<feMergeNode in="base"></feMergeNode>
+				<feMergeNode in="base"></feMergeNode>
+			</feMerge>
+		</filter>
+	</defs>
+</svg>
+
+<svg class="svg-hidden" aria-hidden="true">
+	<defs>
+		<filter id="pixelate" x="-50%" y="-50%" width="200%" height="200%">
+			<feFlood x="1" y="1" height="1" width="1"></feFlood>
+			<feComposite width="4" height="4"></feComposite>
+			<feTile result="a"></feTile>
+			<feComposite in="SourceGraphic" in2="a" operator="in"></feComposite>
+			<feMorphology operator="dilate" radius="2" result="base"></feMorphology>
+			<feGaussianBlur in="base" stdDeviation="4" result="glow"></feGaussianBlur>
+			<feMerge>
+				<feMergeNode in="glow"></feMergeNode>
+				<feMergeNode in="base"></feMergeNode>
+			</feMerge>
+		</filter>
+	</defs>
+</svg>
+
+<div id="game-container">
+	<canvas id="bgCanvas"></canvas>
+	<canvas id="gameCanvas"></canvas>
+	<div class="scanlines"></div>
+
+	<div id="ui-layer">
+		<div class="top-bar-frame">
+			<!-- Added class 'flex-bar' -->
+			<div id="hud-content" class="hidden flex-bar">
+				<div class="hud-module">
+					<span class="label-text">SCORE</span>
+					<!-- Added class 'hud-score-val' -->
+					<span class="value-text hud-score-val" id="scoreVal">0</span>
+				</div>
+				<div class="hud-module">
+					<div class="hud-high-score">HIGH: <span id="highScoreVal">0</span></div>
+				</div>
+				<div class="hud-module">
+					<div id="level-indicator">STAGE 1</div>
+				</div>
+				<div class="hud-module">
+					<span class="label-text">TIME</span>
+					<!-- Added class 'hud-time-val' -->
+					<span class="value-text hud-time-val" id="timeVal">00:00</span>
+				</div>
+				<!-- Added class 'align-end' -->
+				<div class="hud-module align-end" id="lives-container">
+					<span class="label-text">LIVES</span>
+					<div id="livesVal">❤️❤️❤️</div>
+				</div>
+				<div class="hud-module">
+					<div id="level-indicator">STAGE 1</div>
+				</div>
+			</div>
+			<!-- Added class 'flex-bar' -->
+			<div id="menu-header" class="flex-bar">
+				<button class="top-menu-btn" onclick="openModal('intro-modal')">INFO</button>
+				<button class="top-menu-btn" onclick="openModal('about-modal')">ABOUT</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="combo-container">
+		<span class="combo-num" id="combo-num">0</span>
+		<div class="combo-label" id="combo-label">COMBO</div>
+		<div class="combo-bar">
+			<div class="combo-fill" id="combo-bar-fill"></div>
+		</div>
+	</div>
+
+	<div id="start-screen" class="screen">
+		<div class="screen-content">
+			<h1>FOOD<br>MANIA</h1>
+			<div class="options-panel">
+				<div class="option-row">
+					<span>LIVES</span>
+					<div class="toggle-group" id="opt-lives">
+						<button class="toggle-btn" data-val="1">1</button>
+						<button class="toggle-btn active" data-val="3">3</button>
+						<button class="toggle-btn" data-val="5">5</button>
+						<button class="toggle-btn" data-val="INF">Ꝏ</button>
+					</div>
+				</div>
+				<div class="option-row">
+					<span>BOMBS</span>
+					<div class="toggle-group" id="opt-bombs">
+						<button class="toggle-btn" data-val="NONE">NO</button>
+						<button class="toggle-btn active" data-val="LOW">LOW</button>
+						<button class="toggle-btn" data-val="MID">MID</button>
+						<button class="toggle-btn" data-val="HIGH">HI</button>
+					</div>
+				</div>
+				<div class="option-row">
+					<span>SPEED</span>
+					<div class="toggle-group" id="opt-speed">
+						<button class="toggle-btn" data-val="SLOW">SLOW</button>
+						<button class="toggle-btn active" data-val="NORM">NORM</button>
+						<button class="toggle-btn" data-val="FAST">FAST</button>
+					</div>
+				</div>
+			</div>
+			<div class="btn-container">
+				<button id="start-btn" class="game-btn">START GAME</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="pause-screen" class="screen hidden">
+		<div class="screen-content">
+			<h1>PAUSED</h1>
+			<div class="btn-container">
+				<button onclick="togglePause()" class="game-btn">RESUME</button>
+				<button onclick="showMenu()" class="game-btn">MENU</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="game-over-screen" class="screen hidden">
+		<div class="screen-content">
+			<!-- Added class 'game-over-title' -->
+			<h1 class="game-over-title">GAME OVER</h1>
+			<!-- Added class 'game-over-score' -->
+			<p class="game-over-score">SCORE: <span id="final-score">0</span></p>
+			<!-- Added class 'game-over-time' -->
+			<p class="game-over-time">TIME: <span id="final-time">00:00</span></p>
+			<!-- Added class 'game-over-high' -->
+			<p class="game-over-high">HIGH SCORE: <span id="final-highscore">0</span></p>
+
+			<button id="share-btn-gameover" class="game-btn" onclick="shareTwitter()">🐦 SHARE SCORE</button>
+			<br><br>
+			<div class="btn-container">
+				<button id="restart-btn" class="game-btn">RETRY</button>
+				<button id="menu-btn" class="game-btn">MENU</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="social-floating">
+		<ul class="social-list">
+			<li><a href="https://julibe.com/" target="_blank" aria-label="Visit Julibe's Portfolio" title="Portfolio">Web</a></li>
+			<li><a href="https://julibe.com/github" target="_blank" aria-label="Explore Julibe's GitHub" title="GitHub">GitHub</a></li>
+			<li><a href="https://julibe.com/whatsapp" target="_blank" aria-label="Chat with Julibe on WhatsApp" title="WhatsApp">WhatsApp</a></li>
+			<li><a href="https://julibe.com/twitter" target="_blank" aria-label="Follow Julibe on Twitter" title="Twitter">Twitter</a></li>
+			<li><a href="https://julibe.com/instagram" target="_blank" aria-label="Follow Julibe on Instagram" title="Instagram">Insta</a></li>
+			<li><a href="mailto:mail@julibe.com" aria-label="Send an Email to Julibe" title="Email">Email</a></li>
+		</ul>
+		<!-- Added class 'copyright-text' -->
+		<div class="copyright-text">© 2025 Julibe</div>
+	</div>
+
+	<div id="modal-overlay" class="hidden">
+		<div id="intro-modal" class="modal-box hidden">
+			<button class="modal-close-btn" onclick="closeAllModals()">×</button>
+			<h2>FOOD MANIA</h2>
+			<p>Welcome to the ultimate reflex test. Immerse yourself in a cyber-gastronomic arcade experience where every slice counts.</p>
+			<p>It's not just about cutting food—it's about rhythm, precision, and avoiding the dreaded bombs. Ready to top the leaderboard?</p>
+		</div>
+		<div id="about-modal" class="modal-box hidden">
+			<button class="modal-close-btn" onclick="closeAllModals()">×</button>
+			<h2>Pure Arcade</h2>
+			<p>Crafted with raw HTML5 Canvas and zero external libraries, Food Mania is a love letter to classic arcade gaming.</p>
+			<p>I designed this experience to be buttery smooth and visually electric, using custom fluid backgrounds and pixel-perfect hit detection.</p>
+			<p>Whether you're chasing high scores in Arcade Mode or finding your flow in Zen Mode, this is digital craftsmanship served fresh.</p>
+		</div>
+	</div>
+</div>
