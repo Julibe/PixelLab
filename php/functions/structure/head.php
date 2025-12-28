@@ -91,20 +91,22 @@
 		$kw_input  = $headers['keywords'] ?? null;
 		$kw_string = ( is_array( $kw_input ) ? implode( ', ', $kw_input ) : $kw_input );
 
-		$title = $headers['title'] ?? null;
-		$name = $headers['name'] ?? $title;
-		$desc_base  = $headers['description'] ?? null;
-		$year       = $headers['year'] ?? date( 'Y' );
-
 		$author = $headers['author'] ?? 'Julibe';
 		$slogan = 'Crafting Amazing Digital Experiences';
 		$domain = $headers['domain'] ?? 'julibe.com';
 
+
+		$title =( $headers['title'] ?? 'PixelLab') . ' | By ' . $author . ' ❤️';
+		$name = $headers['name'] ?? $title;
+		$desc_base  = $headers['description'] ?? null;
+		$year       = $headers['year'] ?? date( 'Y' );
+
+
 		/* Default Configuration */
 		$config = [
-			'title'      => $title,
-			'title_full'            => htmlspecialchars( $title ?: 'Experience by ' . $author . ' ❤️', ENT_NOQUOTES, 'UTF-8' ),
-			'name'      => htmlspecialchars( $name ? $name . ' | By ' . $author . ' ❤️' : 'Experience crafted by ' . $author . ' ❤️', ENT_NOQUOTES, 'UTF-8' ),
+			'title'      => $title ,
+			'title_full'            =>  $title ?: 'Experience by ' . $author . ' ❤️',
+			'name'      =>     $name ? $name  : 'Experience crafted by ' . $author . ' ❤️',
 			'desc'            => $desc_base ? $desc_base . ' Developed with ❤️ By ' . $author : 'Developed with ❤️ By ' . $author . ' - ' . $slogan,
 			'keywords'        => ( $kw_string ? $kw_string . ', ' . $author . ', Amazing, Designer' : ' ' . $author . ', Amazing, Designer, Creative, Digital, Experiences, Love' ),
 			'author'          => $author,
@@ -119,6 +121,7 @@
 			'year'            => $year,
 			'copyright'       => $headers['copyright'] ?? $year,
 			'date'            => $headers['date'] ?? date( 'Y-m-d' ),
+			'modified'        => $headers['modified_date'] ?? date( 'Y-m-d' ),
 			'locale'          => $headers['locale'] ?? ( $headers['language'] ?? 'en' ) . '_' . ( $headers['country'] ?? 'US' ),
 			'favicon'         => $headers['favicon'] ?? './favicon.webp',
 			'manifest'        => $headers['manifest'] ?? './manifest.json',
@@ -154,7 +157,7 @@
 			'frame_options'   => $headers['frame_options'] ?? 'SAMEORIGIN',
 
 			// Default Services
-			'contact'         => array_merge( [ 'email' => 'mail@julibe.com' ], $headers['contact'] ?? [] ),
+			'contact'         => array_merge( [ 'email' => 'mail@julibe.com'  ], $headers['contact'] ?? [] ),
 			'google'          => array_merge( [
 				'analytics'   => 'G-416Q6HW7MT', // Updated GA4
 				'tag_manager' => 'GTM-TFV56799', // GTM
@@ -212,6 +215,7 @@
 		$key_twitter      = '05. Twitter';
 		$key_apple        = '06. Apple/iOS';
 		$key_microsoft    = '07. Microsoft';
+		$key_dublin       = '08. Dublin';
 		$key_feeds        = '10. Feeds & Search';
 		$key_fonts        = '20. Fonts';
 		$key_styles       = '21. Styles';
@@ -266,6 +270,7 @@
 			[ 'tag' => 'meta', 'name' => 'author', 'content' => $config['author'] ],
 			[ 'tag' => 'meta', 'name' => 'copyright', 'content' => $config['copyright'] ],
 			[ 'tag' => 'meta', 'name' => 'date', 'content' => $config['date'] ],
+			[ 'tag' => 'meta', 'name' => 'modified', 'content' => $config['modified_date'] ?? $config['date'] ],
 			[ 'tag' => 'meta', 'name' => 'robots', 'content' => $config['seo']['robots'] ?? 'index, follow' ],
 			[ 'tag' => 'meta', 'name' => 'googlebot', 'content' => $config['seo']['googlebot'] ?? 'index, follow' ],
 			[ 'tag' => 'meta', 'name' => 'bingbot', 'content' => $config['seo']['bingbot'] ?? 'index, follow' ],
@@ -328,7 +333,7 @@
 				( isset( $config['article']['published_time'] ) ? [ 'tag' => 'meta', 'property' => 'article:published_time', 'content' => $config['article']['published_time'] ] : null ),
 				( isset( $config['article']['modified_time'] ) ? [ 'tag' => 'meta', 'property' => 'article:modified_time', 'content' => $config['article']['modified_time'] ] : null ),
 				( isset( $config['article']['expiration_time'] ) ? [ 'tag' => 'meta', 'property' => 'article:expiration_time', 'content' => $config['article']['expiration_time'] ] : null ),
-				( isset( $config['article']['author'] ) ? [ 'tag' => 'meta', 'property' => 'article:author', 'content' => $config['article']['author'] ] : null ),
+				( isset( $config['article']['author'] ) ? [ 'tag' => 'meta', 'property' => 'article:author', 'content' => $config['author'] ] : null ),
 				( isset( $config['article']['section'] ) ? [ 'tag' => 'meta', 'property' => 'article:section', 'content' => $config['article']['section'] ] : null ),
 				( isset( $config['article']['tag'] ) ? [ 'tag' => 'meta', 'property' => 'article:tag', 'content' => $config['article']['tag'] ] : null ),
 				( isset( $config['contact']['email'] ) ? [ 'tag' => 'meta', 'property' => 'og:email', 'content' => $config['contact']['email'] ] : null ),
@@ -437,6 +442,24 @@
 			[ 'tag' => 'meta', 'name' => 'msapplication-starturl', 'content' => $config['url'] ],
 		], $filter_null );
 
+
+		/* Dublin Core Metadata */
+		$tags[ $key_dublin ] = array_merge( $tags[ $key_microsoft ] ?? [], array_filter( [
+			[ 'tag' => 'meta', 'name' => 'DC.title', 'content' => $config['title_full'] ?? null],
+			[ 'tag' => 'meta', 'name' => 'DC.creator', 'content' => $config['author'] ?? null],
+			[ 'tag' => 'meta', 'name' => 'DC.description', 'content' => $config['desc']?? null ],
+			[ 'tag' => 'meta', 'name' => 'DC.subject', 'content' => $config['keywords'] ?? null],
+			[ 'tag' => 'meta', 'name' => 'DC.issued', 'content' => $config['date'] ?? null],
+			[ 'tag' => 'meta', 'name' => 'DC.date', 'content' => $config['date'] ?? null],
+			[ 'tag' => 'meta', 'name' => 'DC.modified', 'content' => $config['modified_date'] ?? null ],
+			[ 'tag' => 'meta', 'name' => 'DC.language', 'content' => $config['language'] ?? null],
+			[ 'tag' => 'meta', 'name' => 'DC.type', 'content' => $config['type'] ?? null],
+			[ 'tag' => 'meta', 'name' => 'DC.format', 'content' => 'text/html' ],
+			[ 'tag' => 'meta', 'name' => 'DC.identifier', 'content' => $config['url'] ?? null],
+			[ 'tag' => 'meta', 'name' => 'DC.source', 'content' => $config['domain'] ?? null],
+			[ 'tag' => 'meta', 'name' => 'DC.rights', 'content' => $config['copyright'] ?? null],
+		] ) );
+
 		/* Feeds & Search */
 		$tags[ $key_feeds ] = array_filter( [
 			( ! empty( $config['feeds']['rss'] ) ? [ 'tag' => 'link', 'rel' => 'alternate', 'type' => 'application/rss+xml', 'title' => 'RSS Feed', 'href' => $config['feeds']['rss'] ] : null ),
@@ -500,7 +523,10 @@
 					"url"         => $config['url'],
 					"description" => $config['desc'],
 					"author"      => [ "@type" => "Person", "name" => $config['author'] ],
-					"image"       => $config['image']['src'] ?? null
+					"image"       => $config['image']['src'] ?? null,
+					"dateCreated" => $config['date'] ?? null,
+					"dateModified" => $config['modified'] ?? null,
+					"inLanguage" => $config['language'] ?? null,
 				] ), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT )
 			],
 
