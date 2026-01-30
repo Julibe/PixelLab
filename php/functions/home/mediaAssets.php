@@ -34,31 +34,59 @@
 		$fallback_icon = $media_url . '/none-icon.webp';
 
 		// Local helper to check and return paths
-		$find_asset = function ($name, $fallback) use ($media_dir, $media_url) {
-			return is_file($media_dir . '/' . $name)
-				? $media_url . '/' . $name
-				: $fallback;
+		$find_asset = function ($names, $fallback) use ($media_dir, $media_url) {
+			$names = is_array($names) ? $names : [$names];
+			foreach ($names as $name) {
+				if (is_file($media_dir . '/' . $name)) {
+					return $media_url . '/' . $name;
+				}
+			}
+			return $fallback;
 		};
 
 		$assets = [];
 
 		// Primary Visuals
-		$assets['cover']   = $find_asset('cover.webp', $fallback_img);
-		$assets['poster']  = $find_asset('poster.webp', $assets['cover']);
+		$assets['cover']   = $find_asset(['cover.webp', 'cover.png', 'cover.jpg', 'cover.svg', 'cover.gif','thumb.webp', 'thumb.png', 'thumb.jpg', 'thumb.svg', 'thumb.gif'], $fallback_img);
+		$assets['poster']  = $find_asset(['poster.webp', 'poster.png', 'poster.jpg', 'poster.svg', 'poster.gif'], $assets['cover']);
 
 		// Brand Visuals
-		$assets['icon']    = $find_asset('icon.webp', $fallback_icon);
-		$assets['favicon'] = $find_asset('favicon.webp', $assets['icon']);
+		$assets['icon']    = $find_asset(['icon.webp', 'icon.png', 'icon.jpg', 'icon.svg', 'icon.gif'], $fallback_icon);
+		$assets['favicon'] = $find_asset(['favicon.webp', 'favicon.png', 'favicon.jpg', 'favicon.svg', 'favicon.gif'], $assets['icon']);
 
 		// Screenshot Collection
 		$assets['screenshots'] = [];
 		$screenshot_index = 0;
 
 		while (true) {
-			$file_name = 'screenshot_' . str_pad($screenshot_index++, 3, '0', STR_PAD_LEFT) . '.webp';
-			if (!is_file($media_dir . '/' . $file_name)) break;
+			$screenshot_names = [
+				'screenshot_' . str_pad($screenshot_index, 3, '0', STR_PAD_LEFT),
+				'image_' . str_pad($screenshot_index, 3, '0', STR_PAD_LEFT),
+				'thumbnail_' . str_pad($screenshot_index, 3, '0', STR_PAD_LEFT),
+				'thumb_' . str_pad($screenshot_index, 3, '0', STR_PAD_LEFT)
+			];
 
-			$assets['screenshots'][] = $media_url . '/' . $file_name;
+			$found = false;
+			foreach ($screenshot_names as $screenshot_name) {
+				$screenshot_formats = [
+					$screenshot_name . '.webp',
+					$screenshot_name . '.png',
+					$screenshot_name . '.jpg',
+					$screenshot_name . '.gif',
+					$screenshot_name . '.svg'
+				];
+
+				foreach ($screenshot_formats as $format) {
+					if (is_file($media_dir . '/' . $format)) {
+						$assets['screenshots'][] = $media_url . '/' . $format;
+						$found = true;
+						break 2;
+					}
+				}
+			}
+
+			if (!$found) break;
+			$screenshot_index++;
 
 			// Safety ceiling
 			if ($screenshot_index > 100) break;

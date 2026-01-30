@@ -1,0 +1,233 @@
+:root {
+	--c-bg: #1a1614;
+	--c-card: #241e1b;
+	--c-text: #f3ead6;
+	--c-accent: #f27d3b;
+	--c-border: rgba(243, 234, 214, 0.15);
+
+	--font-display: "Archivo Black", sans-serif;
+	--font-body: "Inter", sans-serif;
+	--font-mono: "Space Mono", monospace;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: var(--c-bg);
+	color: var(--c-text);
+	font-family: var(--font-body);
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	padding: 4rem 2rem;
+	line-height: 1.5;
+
+	&::after {
+		content: "";
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+		opacity: 0.15;
+		pointer-events: none;
+		z-index: 999;
+	}
+
+	&::before {
+		content: "";
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: radial-gradient(circle at center, transparent 50%, #000 150%);
+		pointer-events: none;
+		z-index: 998;
+	}
+}
+
+a {
+	color: var(--c-text);
+	text-decoration: none;
+	border-bottom: 1px solid var(--c-accent);
+	transition: 0.2s;
+
+	&:hover {
+		background: var(--c-accent);
+		color: var(--c-bg);
+	}
+}
+
+.layout-grid {
+	display: grid;
+	grid-template-columns: 1fr 1.5fr;
+	gap: 4rem;
+	max-width: 1200px;
+	width: 100%;
+	position: relative;
+	z-index: 1;
+
+	@media (max-width: 900px) {
+		grid-template-columns: 1fr;
+		gap: 2rem;
+	}
+}
+
+.intro-col {
+	position: sticky;
+	top: 4rem;
+	height: fit-content;
+
+	.badge {
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		color: var(--c-accent);
+		border: 1px solid var(--c-accent);
+		padding: 4px 8px;
+		margin-bottom: 1.5rem;
+		text-transform: uppercase;
+		display: inline-block;
+	}
+
+	h1 {
+		font-family: var(--font-display);
+		font-size: clamp(2.5rem, 5vw, 4rem);
+		line-height: 1;
+		text-transform: uppercase;
+		margin-bottom: 2rem;
+		color: var(--c-text);
+	}
+
+	.desc {
+		font-size: 1rem;
+		opacity: 0.8;
+		margin-bottom: 1.5rem;
+		font-weight: 300;
+	}
+
+	.alert-box {
+		background: rgba(242, 125, 59, 0.1);
+		border-left: 3px solid var(--c-accent);
+		padding: 1rem;
+		margin: 2rem 0;
+		font-size: 0.9rem;
+	}
+
+	.links-section {
+		margin-top: 3rem;
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		opacity: 0.7;
+
+		h3 {
+			font-size: 0.9rem;
+			margin-bottom: 1rem;
+			text-transform: uppercase;
+		}
+
+		.link-list {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 1rem;
+			line-height: 1.8;
+
+			& {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+
+			li {
+				& a {
+					text-decoration: none;
+				}
+			}
+		}
+	}
+}
+
+.examples-col {
+	display: flex;
+	flex-direction: column;
+	gap: 3rem;
+}
+
+.tech-card {
+	background-color: var(--c-card);
+	border: 1px solid var(--c-border);
+	padding: 1rem;
+	position: relative;
+	box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+
+	.card-header {
+		font-family: var(--font-mono);
+		text-transform: uppercase;
+		font-size: 0.75rem;
+		margin-bottom: 0.8rem;
+		display: flex;
+		justify-content: space-between;
+		opacity: 0.6;
+		border-bottom: 1px solid var(--c-border);
+		padding-bottom: 0.5rem;
+	}
+
+	.media-wrapper {
+		position: relative;
+		overflow: hidden;
+		background: #000;
+
+		&::after {
+			content: " ";
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+				linear-gradient(
+					90deg,
+					rgba(255, 0, 0, 0.06),
+					rgba(0, 255, 0, 0.02),
+					rgba(0, 0, 255, 0.06)
+				);
+			background-size: 100% 2px, 3px 100%;
+			z-index: 2;
+			pointer-events: none;
+		}
+	}
+}
+
+img,
+video {
+	display: block;
+	width: 100%;
+	height: auto;
+	filter: sepia(20%) contrast(110%) brightness(90%);
+	transition: transform 0.3s ease, filter 0.3s ease;
+	position: relative;
+	z-index: 1;
+}
+
+.aberration {
+	filter: url(#aberration) sepia(20%) contrast(110%);
+}
+
+.aberration-hv {
+	&:hover img {
+		filter: url(#aberration) sepia(20%) contrast(110%);
+		transform: scale(1.02);
+	}
+}
+
+.svg-def {
+	position: absolute;
+	width: 0;
+	height: 0;
+}

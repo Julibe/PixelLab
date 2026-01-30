@@ -1,0 +1,194 @@
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Light Table Inspection">
+	<div class="lightbox-content">
+		<div class="loader" role="status" aria-label="Developing negative..."></div>
+		<img id="lightbox-img" src="" alt="High-fidelity enlargement of the selected exposure, showcasing grain structure and fine details">
+	</div>
+	<div class="lightbox-controls">
+		<button class="close" onclick="closeLightbox()" title="Close shutter" aria-label="Close light table view"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+		<button class="prev" onclick="changeImage(-1)" title="Rewind film" aria-label="View previous exposure"><span class="material-symbols-outlined" aria-hidden="true">arrow_back_ios</span></button>
+		<button class="next" onclick="changeImage(1)" title="Advance film" aria-label="View next exposure"><span class="material-symbols-outlined" aria-hidden="true">arrow_forward_ios</span></button>
+	</div>
+</div>
+
+<div class="page-transition" id="page-transition" role="status" aria-live="polite">
+	<div class="loader" aria-label="Mixing chemicals for new page..."></div>
+</div>
+
+<div class="cursor-effect" id="cursor-effect" aria-hidden="true"></div>
+
+<div class="scroll-hint" id="scroll-hint" title="Pan down to scan the roll" aria-hidden="true">
+	<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+
+<button class="menu-toggle" onclick="toggleMenuOverlay()" title="Unpack Camera Bag" aria-label="Toggle studio navigation" aria-expanded="false" aria-controls="main-nav">
+	<span class="material-symbols-outlined" id="toggle-icon" aria-hidden="true">menu</span>
+</button>
+
+<div class="modal-overlay" id="info-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+	<div class="modal-content">
+		<button class="close-modal" onclick="closeModal()" title="Dismiss overlay" aria-label="Close information modal">
+			<span class="material-symbols-outlined" aria-hidden="true">close</span>
+		</button>
+		<div id="modal-body">
+			<div id="content-intro" class="modal-section">
+				<h1 id="modal-title" title="Philosophy of the Darkroom" aria-label="Gradux Photographic Journal">Gradux | The Photographic Journal</h1>
+				<p>Developing the visual narrative. Gradux operates like a variable aperture for your digital collection, controlling depth of field and exposure. It transforms the static negative into a dynamic print, allowing you to adjust the focal point of your viewing experience. Navigate through grain, contrast, and composition in a space designed to breathe with the imagery it holds.</p>
+			</div>
+			<div id="content-theory" class="modal-section">
+				<h2 title="The mechanics of framing" aria-label="Heading: The Composition of Code">The Composition of Code</h2>
+				<p>Layout is the new shutter speed. By shifting between the organic grain of Masonry, the contact-sheet discipline of the Grid, the panoramic linearity of Horizontal, and the telephoto isolation of Focus mode, Gradux alters the cognitive exposure of visual data. It empowers the viewer to meter their own pacing and framing.</p>
+			</div>
+			<div id="content-about" class="modal-section">
+				<h2 title="The Photographer" aria-label="Heading: In The Frame">In The Frame</h2>
+				<p>Focus on <a href="https://julibe.com/" target="_blank" title="Step into Julibe's main studio" aria-label="Visit Julibe.com">@Julibe</a> to discuss light, code, and visual storytelling.</p>
+				<p>Always scouting for new subjects and collaborative exposures. Let's develop something iconic together.</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="app-container" data-nav="left" data-socials="std">
+	<nav id="main-nav" data-align="start" data-socials="std" role="navigation" aria-label="Studio Navigation">
+		<div class="nav-group-main">
+			<div class="brand" title="Gradux Visual Archive" aria-label="Brand: Gradux">
+				<i class="fa-solid fa-layer-group" aria-hidden="true"></i> GRADUX
+			</div>
+			<ul class="nav-links">
+				<li><a href="#" class="active" onclick="loadCategory('portfolio', this)" title="Open the Master Archive" aria-label="View Portfolio Prints">Portfolio</a></li>
+				<li><a href="#" onclick="loadCategory('exhibitions', this)" title="Walk the Gallery Walls" aria-label="View Public Exhibitions">Exhibitions</a></li>
+				<li><a href="#" onclick="loadCategory('series', this)" title="View Sequential Narratives" aria-label="View Photo Series">Series</a></li>
+				<li><a href="#" onclick="loadCategory('journal', this)" title="Read Field Notes" aria-label="View Journal Entries">Journal</a></li>
+				<li><a href="#" onclick="loadCategory('contact', this)" title="Inquire about Commissions" aria-label="View Booking Information">Contact</a></li>
+			</ul>
+		</div>
+
+		<div class="nav-socials">
+			<a href="https://julibe.com/" target="_blank" title="Visit Julibe's Main Studio" aria-label="Navigate to Julibe's personal website"><i class="fa-solid fa-globe" aria-hidden="true"></i></a>
+			<a href="https://julibe.com/github" target="_blank" title="Inspect the Technical Blueprints" aria-label="View Julibe's GitHub code"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+			<a href="https://julibe.com/whatsapp" target="_blank" title="Direct Line for Bookings" aria-label="Chat with Julibe on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
+			<a href="https://julibe.com/twitter" target="_blank" title="Live Field Updates" aria-label="View Julibe's Twitter feed"><i class="fa-brands fa-twitter" aria-hidden="true"></i></a>
+			<a href="https://julibe.com/instagram" target="_blank" title="Daily Contact Sheets" aria-label="View Julibe's Instagram gallery"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+			<a href="mailto:mail@julibe.com" title="Send a Commission Inquiry" aria-label="Email Julibe for projects"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>
+		</div>
+	</nav>
+
+	<main id="main-content" role="main">
+		<div class="toolbar" id="main-toolbar" role="toolbar" aria-label="Viewfinder Controls">
+			<div class="dropdown" id="menu-dd">
+				<button onclick="toggleDropdown('menu-dd')" title="Calibrate Interface" aria-haspopup="true" aria-expanded="false" aria-label="Open layout calibration settings">
+					<span class="material-symbols-outlined" aria-hidden="true">tune</span>
+				</button>
+				<div class="dropdown-menu" role="menu">
+					<div class="section-label" id="lbl-pos">Mounting</div>
+					<button class="text-btn" onclick="setNavPosition('left')" role="menuitem" title="Mount Left" aria-label="Set navigation position: Left"><span class="material-symbols-outlined" aria-hidden="true">dock_to_right</span> Left</button>
+					<button class="text-btn" onclick="setNavPosition('right')" role="menuitem" title="Mount Right" aria-label="Set navigation position: Right"><span class="material-symbols-outlined" aria-hidden="true">dock_to_left</span> Right</button>
+					<button class="text-btn" onclick="setNavPosition('top')" role="menuitem" title="Mount Top" aria-label="Set navigation position: Top"><span class="material-symbols-outlined" aria-hidden="true">vertical_align_top</span> Top</button>
+					<button class="text-btn" onclick="setNavPosition('bottom')" role="menuitem" title="Mount Bottom" aria-label="Set navigation position: Bottom"><span class="material-symbols-outlined" aria-hidden="true">vertical_align_bottom</span> Bottom</button>
+					<button class="text-btn" onclick="setNavPosition('hamburger')" role="menuitem" title="Overlay Mode" aria-label="Set navigation position: Overlay"><span class="material-symbols-outlined" aria-hidden="true">menu</span> Overlay</button>
+
+					<div class="divider" style="width: 100%; height: 1px; margin: 5px 0;" role="separator"></div>
+
+					<div class="section-label" id="lbl-align">Framing</div>
+					<button class="text-btn" onclick="setNavAlign('start')" role="menuitem" title="Align Start" aria-label="Navigation alignment: Start"><span class="material-symbols-outlined" aria-hidden="true">align_horizontal_left</span> Start</button>
+					<button class="text-btn" onclick="setNavAlign('center')" role="menuitem" title="Align Center" aria-label="Navigation alignment: Center"><span class="material-symbols-outlined" aria-hidden="true">align_horizontal_center</span> Center</button>
+					<button class="text-btn" onclick="setNavAlign('end')" role="menuitem" title="Align End" aria-label="Navigation alignment: End"><span class="material-symbols-outlined" aria-hidden="true">align_horizontal_right</span> End</button>
+
+					<div class="divider" style="width: 100%; height: 1px; margin: 5px 0;" role="separator"></div>
+
+					<div class="section-label" id="lbl-socials">Signal Pos</div>
+					<button class="text-btn" onclick="toggleSocialsPos()" role="menuitem" title="Swap Position" aria-label="Toggle social icons placement"><span class="material-symbols-outlined" aria-hidden="true">swap_vert</span> Toggle</button>
+
+					<div class="divider" style="width: 100%; height: 1px; margin: 5px 0;" role="separator"></div>
+
+					<div class="section-label" id="lbl-spacing">Matte Size</div>
+					<div class="slider-container">
+						<label for="input-padding">Pad</label>
+						<input type="range" id="input-padding" min="0" max="100" value="40" oninput="updateStyleVar('--main-padding', this.value + 'px')" title="Adjust Outer Matte" aria-label="Control container padding">
+					</div>
+				</div>
+			</div>
+
+			<div class="divider" role="separator"></div>
+
+			<div class="dropdown" id="gallery-dd">
+				<button onclick="toggleDropdown('gallery-dd')" title="Film Format & Crop" aria-haspopup="true" aria-expanded="false" aria-label="Open gallery format settings">
+					<span class="material-symbols-outlined" aria-hidden="true">grid_view</span>
+				</button>
+				<div class="dropdown-menu" role="menu">
+					<div class="section-label" id="lbl-mode">Film Type</div>
+					<button class="text-btn" onclick="setLayoutMode('grid')" role="menuitem" title="Contact Sheet (Grid)" aria-label="Layout: Grid"><span class="material-symbols-outlined" aria-hidden="true">grid_on</span> Grid</button>
+					<button class="text-btn" onclick="setLayoutMode('masonry')" role="menuitem" title="Organic Flow (Masonry)" aria-label="Layout: Masonry"><span class="material-symbols-outlined" aria-hidden="true">waterfall_chart</span> Masonry</button>
+					<button class="text-btn" onclick="setLayoutMode('horizontal')" role="menuitem" title="Panoramic Strip" aria-label="Layout: Horizontal"><span class="material-symbols-outlined" aria-hidden="true">view_carousel</span> Horizontal</button>
+					<button class="text-btn" onclick="setLayoutMode('horizontal-grid')" role="menuitem" title="Linear Sheet" aria-label="Layout: Horizontal Grid"><span class="material-symbols-outlined" aria-hidden="true">table_rows</span> H. Grid</button>
+					<button class="text-btn" onclick="setLayoutMode('focus')" role="menuitem" title="Telephoto (Focus)" aria-label="Layout: Focus Mode"><span class="material-symbols-outlined" aria-hidden="true">crop_portrait</span> Focus</button>
+
+					<div class="divider" style="width: 100%; height: 1px; margin: 5px 0;" role="separator"></div>
+
+					<div class="section-label" id="lbl-ratio">Crop Factor</div>
+					<button class="text-btn" onclick="setAspectRatio('auto')" role="menuitem" title="Uncropped Original" aria-label="Aspect Ratio: Original"><span class="material-symbols-outlined" aria-hidden="true">auto_awesome</span> Original</button>
+					<button class="text-btn" onclick="setAspectRatio('1/1')" role="menuitem" title="Medium Format 1:1" aria-label="Aspect Ratio: Square"><span class="material-symbols-outlined" aria-hidden="true">crop_square</span> 1:1 Square</button>
+					<button class="text-btn" onclick="setAspectRatio('3/2')" role="menuitem" title="35mm Classic 3:2" aria-label="Aspect Ratio: 3:2"><span class="material-symbols-outlined" aria-hidden="true">crop_3_2</span> 3:2 Classic</button>
+					<button class="text-btn" onclick="setAspectRatio('4/5')" role="menuitem" title="Portrait 4:5" aria-label="Aspect Ratio: 4:5"><span class="material-symbols-outlined" aria-hidden="true">crop_portrait</span> 4:5 Portrait</button>
+					<button class="text-btn" onclick="setAspectRatio('16/9')" role="menuitem" title="Cinema 16:9" aria-label="Aspect Ratio: 16:9"><span class="material-symbols-outlined" aria-hidden="true">crop_16_9</span> 16:9 Cinema</button>
+
+					<div class="divider" style="width: 100%; height: 1px; margin: 5px 0;" role="separator"></div>
+
+					<div class="section-label" id="lbl-cols">Exposures</div>
+					<div style="display:flex; gap:5px; padding:0 8px 8px;" role="group" aria-labelledby="lbl-cols">
+						<button onclick="setColumns(1)" style="flex:1; height:32px" title="Single Exposure" aria-label="1 Column"><span class="material-symbols-outlined" style="font-size:16px" aria-hidden="true">looks_one</span></button>
+						<button onclick="setColumns(2)" style="flex:1; height:32px" title="Diptych" aria-label="2 Columns"><span class="material-symbols-outlined" style="font-size:16px" aria-hidden="true">looks_two</span></button>
+						<button onclick="setColumns(3)" style="flex:1; height:32px" title="Triptych" aria-label="3 Columns"><span class="material-symbols-outlined" style="font-size:16px" aria-hidden="true">looks_3</span></button>
+						<button onclick="setColumns(4)" style="flex:1; height:32px" title="Quad Strip" aria-label="4 Columns"><span class="material-symbols-outlined" style="font-size:16px" aria-hidden="true">looks_4</span></button>
+					</div>
+
+					<div class="divider" style="width: 100%; height: 1px; margin: 5px 0;" role="separator"></div>
+
+					<div class="section-label" id="lbl-style">Finishing</div>
+					<div class="slider-container">
+						<label for="input-gap">Gap</label>
+						<input type="range" id="input-gap" min="0" max="100" value="20" oninput="updateStyleVar('--gap', this.value + 'px')" title="Negative Space" aria-label="Grid Gap Control">
+					</div>
+					<div class="slider-container">
+						<label for="input-radius">Rad</label>
+						<input type="range" id="input-radius" min="0" max="40" value="12" oninput="updateStyleVar('--radius', this.value + 'px')" title="Corner Softness" aria-label="Border Radius Control">
+					</div>
+				</div>
+			</div>
+
+			<div class="divider" role="separator"></div>
+
+			<div class="dropdown" id="info-dd">
+				<button onclick="toggleDropdown('info-dd')" title="Project Metadata" aria-haspopup="true" aria-expanded="false" aria-label="Open project info">
+					<span class="material-symbols-outlined" aria-hidden="true">info</span>
+				</button>
+				<div class="dropdown-menu" role="menu">
+					<div class="section-label" id="lbl-info">Exif Data</div>
+					<button class="text-btn" onclick="openModal('intro')" role="menuitem" title="Read Intro" aria-label="Open Intro"><span class="material-symbols-outlined" aria-hidden="true">article</span> Intro</button>
+					<button class="text-btn" onclick="openModal('theory')" role="menuitem" title="Read Theory" aria-label="Open Theory"><span class="material-symbols-outlined" aria-hidden="true">psychology</span> Theory</button>
+					<button class="text-btn" onclick="openModal('about')" role="menuitem" title="About the Artist" aria-label="Open About"><span class="material-symbols-outlined" aria-hidden="true">face</span> About</button>
+				</div>
+			</div>
+
+			<div class="divider" role="separator"></div>
+
+			<button onclick="toggleTheme()" id="btn-theme" title="Toggle Safelight" aria-label="Switch Dark/Light Room Mode">
+				<span class="material-symbols-outlined" aria-hidden="true">dark_mode</span>
+			</button>
+		</div>
+
+		<button class="fab-share" onclick="shareTwitter()" title="Share this Shot" aria-label="Share on Twitter">
+			<span class="material-symbols-outlined" aria-hidden="true">ios_share</span> Share
+		</button>
+
+		<div id="gallery" class="gallery" data-mode="masonry" data-cols="3" role="region" aria-label="Digital Contact Sheet"></div>
+
+		<footer>
+			Copyright &copy; 2026 <a href="https://julibe.com/" target="_blank" title="Don't forget to visit Julibe's Studio" aria-label="Visit Julibe's Homepage">Julibe.com</a>. All rights reserved.
+		</footer>
+	</main>
+</div>

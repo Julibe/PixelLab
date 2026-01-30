@@ -70,11 +70,11 @@
 
 	/*
 		Function Name: Build Head Configuration
-		Version: 1.3.0
+		Version: 1.3.2
 		Author: Julibe - Crafting Amazing Digital Experiences
 		Copyright: 2025 © https://julibe.com
 		License: MIT
-		Description: Normalizes configuration. Includes updated defaults for GA4, GTM, Firebase, Cloudflare, and reCAPTCHA.
+		Description: Normalizes configuration. Includes updated defaults for GA4, GTM, Firebase, Cloudflare, reCAPTCHA, Clarity, and Pinterest.
 
 		Parameters:
 			@param array $headers Raw configuration array.
@@ -85,7 +85,7 @@
 		Returns:
 			Standardized configuration array.
 
-		Last Updated: 2025-12-12
+		Last Updated: 2026-01-15
 	*/
 	function buildHeadConfig( array $headers ): array {
 		$kw_input  = $headers['keywords'] ?? null;
@@ -136,7 +136,9 @@
 			'video'           => $headers['video'] ?? [],
 			'apple'           => $headers['apple'] ?? [],
 			'android'         => $headers['android'] ?? [],
-			'seo'             => $headers['seo'] ?? [],
+			'seo'             => array_merge( [
+				'pinterest' => '194c03ce4137043917b6eeafb295fcbb' // Default Pinterest Verification
+			], $headers['seo'] ?? [] ),
 			'geo'             => $headers['geo'] ?? [],
 			'links'           => $headers['links'] ?? [],
 			'feeds'           => [
@@ -166,6 +168,9 @@
 			'cloudflare'      => array_merge( [
 				'token'       => '0948b735ca7842359091b2bd8fdefb54' // Beacon
 			], $headers['cloudflare'] ?? [] ),
+			'clarity'         => array_merge( [
+				'project_id'  => 'v20xjtjk1h' // Microsoft Clarity
+			], $headers['clarity'] ?? [] ),
 			'recaptcha'       => array_merge( [
 				'site_key'    => '6Ld4TyMpAAAAACbAKsLgBs25Wy4TztEPRmZJANRt', // v3
 				'score'       => 0.5
@@ -187,11 +192,11 @@
 
 	/*
 		Function Name: Generate Complete Head Section
-		Version: 1.5.0
+		Version: 1.5.1
 		Author: Julibe - Crafting Amazing Digital Experiences
 		Copyright: 2025 © https://julibe.com
 		License: MIT
-		Description: Generates a SEO-optimized HTML <head> section. Includes automatic handling for GTM, GA4, Firebase, and Cloudflare.
+		Description: Generates a SEO-optimized HTML <head> section. Includes automatic handling for GTM, GA4, Firebase, Cloudflare, Clarity, and Verification.
 
 		Parameters:
 			@param array $headers Head configuration array.
@@ -205,7 +210,7 @@
 		Dependencies:
 			Requires buildHeadConfig() and renderHeadTag().
 
-		Last Updated: 2025-12-12
+		Last Updated: 2026-01-15
 	*/
 	function generateHead( array $headers ): string {
 		$key_core         = '01. Standard';
@@ -537,6 +542,13 @@
 			( ! empty( $config['google']['analytics'] ) ? [ 'tag' => 'script', 'async' => true, 'src' => "https://www.googletagmanager.com/gtag/js?id={$config['google']['analytics']}" ] : null ),
 			( ! empty( $config['google']['analytics'] ) ? [ 'tag' => 'script', '_html' => "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{$config['google']['analytics']}');" ] : null ),
 
+			/* Microsoft Clarity */
+			( ! empty( $config['clarity']['project_id'] ) ? [
+				'tag'   => 'script',
+				'type'  => 'text/javascript',
+				'_html' => '(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "' . $config['clarity']['project_id'] . '");'
+			] : null ),
+
 			/* Cloudflare */
 			( ! empty( $config['cloudflare']['token'] ) ? [ 'tag' => 'script', 'defer' => true, 'src' => 'https://static.cloudflareinsights.com/beacon.min.js', 'data-cf-beacon' => json_encode( [ 'token' => $config['cloudflare']['token'] ] ) ] : null ),
 
@@ -560,8 +572,6 @@
 					"inLanguage" => $config['language'] ?? null,
 				] ), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT )
 			],
-
-
 
 			/* Service Worker */
 			( ! empty( $config['sw_path'] ) ? [ 'tag' => 'script', '_html' => "if('serviceWorker' in navigator){navigator.serviceWorker.register('{$config['sw_path']}');}" ] : null ),

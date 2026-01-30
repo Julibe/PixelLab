@@ -1,0 +1,1216 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+
+
+  <canvas id="bg-canvas"></canvas> <canvas id="confetti-canvas"></canvas>
+<div class="cursor-dot" id="cursor-dot"></div>
+<div class="cursor-outline" id="cursor-outline"></div>
+<header class="fixed-header">
+	<div class="logo-container interactable magnetic-btn">
+		<img src="https://raw.githubusercontent.com/Julibe/Guau/master/public/images/logo.webp" alt="GUAU logo - the mark of a very good brand" title="Guau! Where every dog has its day" class="brand-logo" />
+	</div>
+	<nav class="main-nav" role="navigation" aria-label="Main Website Navigation">
+		<a href="#intro" class="interactable magnetic-btn" title="Go back to the doghouse (the good kind!)" aria-label="Trot back to the home section">Home</a>
+		<a href="#food" class="interactable magnetic-btn" title="Bon Appétit! Chow down on these options" aria-label="Sniff out the food section">Food</a>
+		<a href="#groom" class="interactable magnetic-btn" title="Fur-tastic makeovers happen here" aria-label="Visit the grooming aisle">Grooming</a>
+		<a href="#health" class="interactable magnetic-btn" title="Keep them fit as a fiddle and ready to fetch" aria-label="Check the health and wellness section">Health</a>
+		<a href="#about" class="interactable magnetic-btn" title="Get the scoop on our pack" aria-label="Learn about us">About</a>
+	</nav>
+	<div id="socials">
+		<nav>
+			<ul>
+				<li>
+					<a href="https://julibe.com/" target="_blank" class="nav-item interactable magnetic-btn" title="Fetch Julibe’s portfolio, no leash required" aria-label="Fetch Julibe’s portfolio website">
+						<i class="fa-solid fa-globe" aria-hidden="true"></i>
+						<span>Web</span>
+					</a>
+				</li>
+
+				<li>
+					<a href="https://julibe.com/github" target="_blank" class="nav-item interactable magnetic-btn" title="Sniff around Julibe’s GitHub codebase" aria-label="Sniff around Julibe’s GitHub repositories">
+						<i class="fa-brands fa-github" aria-hidden="true"></i>
+						<span>GitHub</span>
+					</a>
+				</li>
+
+				<li>
+					<a href="https://julibe.com/whatsapp" target="_blank" class="nav-item interactable magnetic-btn" title="Bark directly at Julibe on WhatsApp" aria-label="Chat with Julibe on WhatsApp">
+						<i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+						<span>WhatsApp</span>
+					</a>
+				</li>
+
+				<li>
+					<a href="https://julibe.com/twitter" target="_blank" class="nav-item interactable magnetic-btn" title="Howl along with Julibe on X" aria-label="Follow Julibe on X Twitter">
+						<i class="fa-brands fa-twitter" aria-hidden="true"></i>
+						<span>X (Twitter)</span>
+					</a>
+				</li>
+
+				<li>
+					<a href="https://julibe.com/instagram" target="_blank" class="nav-item interactable magnetic-btn" title="Paws and enjoy Julibe’s Instagram feed" aria-label="View Julibe’s Instagram profile">
+						<i class="fa-brands fa-instagram" aria-hidden="true"></i>
+						<span>Instagram</span>
+					</a>
+				</li>
+
+				<li>
+					<a href="mailto:mail@julibe.com" class="nav-item interactable magnetic-btn" title="Drop Julibe an email, sit, stay, send" aria-label="Send an email to Julibe">
+						<i class="fa-solid fa-envelope" aria-hidden="true"></i>
+						<span>Email</span>
+					</a>
+				</li>
+
+				<li>
+					<button class="share interactable magnetic-btn share-nav" onclick="shareTwitter()" title="Let this project off the leash and share it" aria-label="Share this project on social media">
+						Share <i class="fa-solid fa-share"></i>
+					</button>
+				</li>
+			</ul>
+
+		</nav>
+	</div>
+</header>
+<div id="offeringsModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="m_title" aria-describedby="m_desc">
+	<div class="modal-card">
+		<button class="modal-close interactable magnetic-btn" onclick="closeModal()" aria-label="Close this window" title="All done sniffing around? Click to close">
+			×
+		</button>
+		<span id="m_icon" role="img" aria-hidden="true"></span>
+		<h1 class="modal-title" id="m_title" title="Here's the treat details" aria-label="Offering title"></h1>
+		<p class="modal-desc" id="m_desc"></p>
+	</div>
+</div>
+<main class="vertical-scroll-snap" id="main_scroll">
+	<section class="slide" id="intro" data-ui-color="rgb(63, 22, 119)" data-ui-text-color="rgb(255, 255, 255)" onclick="
+			triggerConfetti();
+			document
+				.getElementById('welcome')
+				.scrollIntoView({ behavior: 'smooth' });
+		">
+		<div class="cover">
+			<img src="https://raw.githubusercontent.com/Julibe/Guau/master/public/images/logo.webp" class="logo" alt="Giant GUAU Logo - Premium stuff for premium pups" title="Paw-lease click anywhere to start!" />
+		</div>
+		<div class="grid" id="grid-container" aria-hidden="true"></div>
+		<div class="scroll-hint" aria-label="Scroll down to fetch more info">
+			Scroll to Explore
+		</div>
+	</section>
+	<section id="welcome" class="slide" data-ui-color="rgb(192, 95, 231)" data-ui-text-color="rgb(255, 255, 255)">
+		<div class="content-wrapper">
+			<div class="text-content">
+				<span class="category-label">Welcome</span>
+				<div class="title-container">
+					<span class="emoji-float tilt-emoji" role="img" aria-label="Paw prints">🐾</span>
+					<h1 title="High-fives and happy barks to you!" aria-label="Welcome to Guau official greeting">
+						Welcome to
+						<strong title="The leader of the pack" aria-label="Guau brand name">Guau</strong>!
+					</h1>
+				</div>
+				<h2 class="excerpt" title="We live for the wag!" aria-label="Subtitle: We are here for our best friends">
+					We are here for our best friends! those that are cute and
+					dog-tastic!
+				</h2>
+				<p>
+					We make heads turn and tails wag, while our hearts soar with
+					high-quality goodies, designed especially for our furry
+					companions and their proud paw-rents!
+				</p>
+				<button class="main-btn interactable magnetic-btn" onclick="
+						triggerConfetti();
+						document
+							.getElementById('food')
+							.scrollIntoView({ behavior: 'smooth' });
+					" title="Hungry for more? Let's go!" aria-label="Scroll down to see the delicious food">
+					Explore More! 😋
+				</button>
+			</div>
+			<div class="image-content">
+				<video src="https://raw.githubusercontent.com/Julibe/Guau/master/public/video/dogs/kelpie.mp4" autoplay muted loop playsinline role="img" aria-label="A charming Kelpie wagging its tail and looking for a friend"></video>
+			</div>
+		</div>
+	</section>
+	<section class="slide horizontal-wrapper" id="food" data-ui-color="rgb(255, 31, 26)" data-ui-text-color="rgb(255, 255, 255)">
+
+		<div class="horizontal-scroll-snap">
+			<div class="slide horizontal-slide" id="tail-bites" data-ui-color="rgb(255, 31, 26)" data-ui-text-color="rgb(255, 255, 255)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Dry Food</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Dinner Plate">🍽️</span>
+							<h1 title="Kibble that makes them dribble" aria-label="Product Name: Tail Bites">
+								Tail Bites
+							</h1>
+						</div>
+						<h2 class="excerpt" title="Good mood food" aria-label="Tagline: Fuel Their Play, Feed Their Soul">
+							Fuel Their Play, Feed Their Soul!
+						</h2>
+						<p>
+							"Bold and vibrant, packed with energy to keep those
+							tails wagging.<br />
+							A warm, nourishing blend that ignites vitality in
+							every bite."
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('crimson-surge')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Beef up their diet! Check Crimson Surge" aria-label="Navigate to Crimson Surge product">
+							Meat the Beef! 🥩
+						</button>
+					</div>
+					<div class="image-content">
+						<video src="https://raw.githubusercontent.com/Julibe/Guau/master/public/video/dogs/border_collieup.mp4" autoplay muted loop playsinline role="img" aria-label="A Border Collie looking up with puppy dog eyes"></video>
+					</div>
+				</div>
+			</div>
+			<div class="slide horizontal-slide" id="crimson-surge" data-ui-color="rgb(240, 15, 33)" data-ui-text-color="rgb(255,255,255)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Beef</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Love Heart">❤️</span>
+							<h1 title="For the serious meat lovers" aria-label="Product Name: Crimson Surge">
+								Crimson Surge
+							</h1>
+						</div>
+						<h2 class="excerpt" title="Smells like a BBQ!" aria-label="Tagline: A hearty blend of roasted beef">
+							A hearty blend that bursts with the savory aroma of
+							rich roasted beef.
+						</h2>
+						<p>
+							Your pup will savor every bite, feeling the warmth
+							of a summer barbecue!
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('rose-drift')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Pig out on something else? See Rose Drift" aria-label="Navigate to Rose Drift product">
+							Pig Out! 🐷
+						</button>
+					</div>
+					<div class="image-content">
+						<img src="https://raw.githubusercontent.com/Julibe/Guau/master/public/images/products/crimson_surge.webp" alt="A bowl of meaty beef goodness that looks paw-sitively delicious" title="Crimson Surge - Beefy perfection" />
+					</div>
+				</div>
+			</div>
+			<div class="slide horizontal-slide" id="rose-drift" data-ui-color="rgb(216, 135, 154)" data-ui-text-color="rgb(255,255,255)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Pork</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Flower">🌸</span>
+							<h1 title="Hog wild for flavor" aria-label="Product Name: Rose Drift">
+								Rose Drift
+							</h1>
+						</div>
+						<h2 class="excerpt" title="A picnic in a bowl" aria-label="Tagline: Fuel Their Play, Feed Their Soul">
+							Fuel Their Play, Feed Their Soul!
+						</h2>
+						<p>
+							A delightful fusion of tender pork and sweet
+							fragrant undertones of fruits, this meal is like a
+							picnic in a blooming garden, inviting your pup to
+							indulge in every “paw-sible” delicious moments!
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('ember-glow')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Winner winner chicken dinner? Go to Ember Glow" aria-label="Navigate to Ember Glow product">
+							Chicken Run! 🐔
+						</button>
+					</div>
+					<div class="image-content">
+						<img src="https://raw.githubusercontent.com/Julibe/Guau/master/public/images/products/rose_drift.webp" alt="Rose Drift packaging looking blooming beautiful" title="Rose Drift - Pork & Fruit Fusion" />
+					</div>
+				</div>
+			</div>
+			<div class="slide horizontal-slide" id="ember-glow" data-ui-color="rgb(230, 180, 81)" data-ui-text-color="rgb(255,255,255)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Chicken</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Glowing Star">⭐</span>
+							<h1 title="Poultry in motion" aria-label="Product Name: Ember Glow">
+								Ember Glow
+							</h1>
+						</div>
+						<h2 class="excerpt" title="Cozy comfort food" aria-label="Tagline: Ignite their appetite">
+							Let the delicious warmth ignite their appetite!
+						</h2>
+						<p>
+							Golden chicken infused with a hint of herbs that
+							tickles those noses, reminiscent of a cozy kitchen
+							filled with the scent of a home-cooked feast.
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('food-snacks')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Time for treats! Skip to Snacks" aria-label="Navigate to the Snacks section">
+							Snack Attack! 🦴
+						</button>
+					</div>
+					<div class="image-content">
+						<img src="https://raw.githubusercontent.com/Julibe/Guau/master/public/images/products/ember_glow.webp" alt="Ember Glow chicken dish looking golden and yummy" title="Ember Glow - Comfort food for dogs" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="slide horizontal-wrapper" id="food-snacks" data-ui-color="rgb(244, 159, 0)" data-ui-text-color="rgb(255, 255, 255)">
+
+		<div class="horizontal-scroll-snap">
+			<div class="slide horizontal-slide" id="crispy-munchies" data-ui-color="rgb(244, 159, 0)" data-ui-text-color="rgb(255, 255, 255)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Snacks</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Sweet Candy">🍬</span>
+							<h1 title="Love at first crunch" aria-label="Product Name: Crispy Munchies">
+								Crispy Munchies
+							</h1>
+						</div>
+						<h2 class="excerpt" title="Crunch time!" aria-label="Tagline: Satisfy Their Cravings">
+							Satisfy Their Cravings with Every Crunch!
+						</h2>
+						<p>
+							Irresistible treats that keep those tails happy and
+							wagging!!
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('azure-crunch')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Fish are friends AND food! See Azure Crunch" aria-label="Navigate to Azure Crunch product">
+							Go Fish! 🐟
+						</button>
+					</div>
+					<div class="image-content">
+						<video src="https://raw.githubusercontent.com/Julibe/Guau/master/public/video/dogs/pomeranian.mp4" autoplay muted loop playsinline role="img" aria-label="A fluffy Pomeranian smiling because life is good"></video>
+					</div>
+				</div>
+			</div>
+			<div class="slide horizontal-slide" id="azure-crunch" data-ui-color="rgb(142, 199, 218)" data-ui-text-color="rgb(255, 255, 255)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Salmon</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Blue Fish">🐟</span>
+							<h1 title="Reel-y good salmon treats" aria-label="Product Name: Azure Crunch">
+								Azure Crunch
+							</h1>
+						</div>
+						<h2 class="excerpt" title="Catch of the day" aria-label="Tagline: Delightful blend of salmon">
+							A delightful blend of rich salmon and wholesome
+							grains, offering a taste that’s both savory and
+							satisfying.
+						</h2>
+						<p>
+							Your pup will relish every crunchy bite, enjoying
+							the refreshing flavor of the sea with its
+							ocean-inspired essence—a perfect “paw-some” snack
+							that keeps those tails wagging!
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('mystic-dream')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Counting sheep? Try Mystic Dream" aria-label="Navigate to Mystic Dream product">
+							Sweet Dreams! 🌙
+						</button>
+					</div>
+					<div class="image-content">
+						<img src="https://raw.githubusercontent.com/Julibe/Guau/master/public/images/products/azure_crunch.webp" alt="Azure Crunch treats - The catch of the day" title="Azure Crunch - Salmon delight" />
+					</div>
+				</div>
+			</div>
+			<div class="slide horizontal-slide" id="mystic-dream" data-ui-color="rgb(186, 173, 217)" data-ui-text-color="rgb(255, 255, 255)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Lamb</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Crystal Ball">🔮</span>
+							<h1 title="Sweet dreams are made of paws" aria-label="Product Name: Mystic Dream">
+								Mystic Dream
+							</h1>
+						</div>
+						<h2 class="excerpt" title="Snooze button in treat form" aria-label="Tagline: A magical treat for dreamers">
+							A magical treat for your little dreamer—perfect for
+							“paw-sitive” vibes!
+						</h2>
+						<p>
+							An enchanting blend of tender lamb with a subtle
+							touch of ham, creating a calming aroma that whispers
+							sweet dreams of playful adventures.
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('food-wet')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Let's get sloppy! Go to Wet Food" aria-label="Navigate to Wet Food section">
+							Get Sloppy! 🥫
+						</button>
+					</div>
+					<div class="image-content">
+						<img src="https://raw.githubusercontent.com/Julibe/Guau/master/public/images/products/crispy_munchies.webp" alt="Mystic Dream treats for the sleepy puppy" title="Mystic Dream - Calming Lamb" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="slide horizontal-wrapper" id="food-wet" data-ui-color="rgb(221, 213, 204)" data-ui-text-color="rgb(37, 35, 36)">
+
+		<div class="horizontal-scroll-snap">
+			<div class="slide horizontal-slide" id="furry-feasts" data-ui-color="rgb(221, 213, 204)" data-ui-text-color="rgb(37, 35, 36)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Wet Food</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Juicy Meat">🍖</span>
+							<h1 title="Wet nose, happy tummy" aria-label="Product Name: Furry Feasts">
+								Furry Feasts
+							</h1>
+						</div>
+						<h2 class="excerpt" title="So soft, so good" aria-label="Tagline: Deliciously Soft">
+							Deliciously Soft, Tail-Wagging Goodness!
+						</h2>
+						<p>
+							Wholesome and delectable meals to keep your pup’s
+							tail wagging with joy.
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('regal-morsels')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Only the best? See Regal Morsels" aria-label="Navigate to Regal Morsels product">
+							Royal Feast! 👑
+						</button>
+					</div>
+					<div class="image-content">
+						<video src="https://raw.githubusercontent.com/Julibe/Guau/master/public/video/dogs/basenji.mp4" autoplay muted loop playsinline role="img" aria-label="A Basenji waiting patiently for dinner time"></video>
+					</div>
+				</div>
+			</div>
+			<div class="slide horizontal-slide" id="regal-morsels" data-ui-color="rgb(199, 184, 166)" data-ui-text-color="rgb(0,0,0)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Turkey</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Royal Crown">👑</span>
+							<h1 title="A feast fit for a Furry King or Queen" aria-label="Product Name: Regal Morsels">
+								Regal Morsels
+							</h1>
+						</div>
+						<h2 class="excerpt" title="The royal treatment" aria-label="Tagline: Savory turkey with gravy">
+							Savory turkey paired with a hint of delicious gravy,
+							creating an aroma fit for royalty.
+						</h2>
+						<p>
+							Your pup will feel like the king or queen of the
+							castle with every delectable bite—it’s a
+							“re-bark-ingly” good meal!
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('luminous-meadow')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Eat your greens! Go to Luminous Meadow" aria-label="Navigate to Luminous Meadow product">
+							Veggie Power! 🥕
+						</button>
+					</div>
+					<div class="image-content">
+						<img src="https://raw.githubusercontent.com/Julibe/Guau/master/public/images/products/regal_morsels.webp" alt="Can of Regal Morsels - The crown jewel of dog food" title="Regal Morsels - Royal Turkey" />
+					</div>
+				</div>
+			</div>
+			<div class="slide horizontal-slide" id="luminous-meadow" data-ui-color="rgb(61, 163, 37)" data-ui-text-color="rgb(255,255,255)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Veggie</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Green Leaf">🌿</span>
+							<h1 title="Green paws, clean paws!" aria-label="Product Name: Luminous Meadow">
+								Luminous Meadow
+							</h1>
+						</div>
+						<h2 class="excerpt" title="Garden fresh goodness" aria-label="Tagline: A paw-some salad">
+							It’s like a “paw-some” salad that makes those tails
+							wag with delight!
+						</h2>
+						<p>
+							A refreshing blend of garden-fresh veggies and
+							aromatic herbs, bringing the essence of a sunlit
+							meadow into every bowl.
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('groom')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Time for a makeover! Go to Grooming" aria-label="Navigate to Grooming section">
+							Spa Time! 🛁
+						</button>
+					</div>
+					<div class="image-content">
+						<img src="https://raw.githubusercontent.com/Julibe/Guau/master/public/images/products/luminous_meadow.webp" alt="Bowl of Luminous Meadow - The salad dogs actually like" title="Luminous Meadow - Veggie Delight" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="slide horizontal-wrapper" id="groom" data-ui-color="rgb(166, 194, 217)" data-ui-text-color="rgb(255, 255, 255)">
+
+		<div class="horizontal-scroll-snap">
+			<div class="slide horizontal-slide" id="shiny-paws" data-ui-color="rgb(166, 194, 217)" data-ui-text-color="rgb(255, 255, 255)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Fur Cream</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Sparkles">✨</span>
+							<h1 title="Glow up time for your pup!" aria-label="Product Name: Shiny Paws">
+								Shiny Paws
+							</h1>
+						</div>
+						<h2 class="excerpt" title="Shine bright like a diamond" aria-label="Tagline: Hydrate, Smooth and Shine">
+							Hydrate, Smooth & Shine
+						</h2>
+						<p>
+							Because Every Pup Deserves a Little Glow! Hydrate,
+							smooth and shine.
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('aqua-mists')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Go nuts! Check Aqua Mists" aria-label="Navigate to Aqua Mists product">
+							Go Coconuts! 🥥
+						</button>
+					</div>
+					<div class="image-content">
+						<video src="https://raw.githubusercontent.com/Julibe/Guau/master/public/video/dogs/chinese_crested.mp4" autoplay muted loop playsinline role="img" aria-label="A Chinese Crested dog showing off its fabulous skin"></video>
+					</div>
+				</div>
+			</div>
+			<div class="slide horizontal-slide" id="aqua-mists" data-ui-color="rgb(166, 194, 213)" data-ui-text-color="rgb(255, 255, 255)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Coconut</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Snowflake">❄️</span>
+							<h1 title="We're coco-nuts about this spray" aria-label="Product Name: Aqua Mists">
+								Aqua Mists
+							</h1>
+						</div>
+						<h2 class="excerpt" title="Smells like a vacation" aria-label="Tagline: Every Pup Deserves a Glow">
+							Because Every Pup Deserves a Little Glow!
+						</h2>
+						<p>
+							Refreshing like a cool ocean breeze, this
+							coconut-infused cream hydrates and nourishes,
+							leaving your pup’s coat irresistibly soft.<br />
+							It’s like a tropical vacation that refreshes both
+							coat and spirit—“woof-uly” good!
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('eclipse-haze')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Chill out... See Eclipse Haze" aria-label="Navigate to Eclipse Haze product">
+							Chill Out! 💜
+						</button>
+					</div>
+					<div class="image-content">
+						<img src="https://raw.githubusercontent.com/Julibe/Guau/master/public/images/products/aqua_mists.webp" alt="Aqua Mists bottle - Tropical vibes included" title="Aqua Mists - Coconut Freshness" />
+					</div>
+				</div>
+			</div>
+			<div class="slide horizontal-slide" id="eclipse-haze" data-ui-color="rgb(191, 84, 235)" data-ui-text-color="rgb(255, 255, 255)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Lavender & Chamomile</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Milky Way">🌌</span>
+							<h1 title="Paws, relax, and unwind" aria-label="Product Name: Eclipse Haze">
+								Eclipse Haze
+							</h1>
+						</div>
+						<h2 class="excerpt" title="Zen mode: Activated" aria-label="Tagline: A dreamy blend that soothes">
+							A dreamy blend that soothes and relaxes, with the
+							calming aroma of lavender and chamomile.
+						</h2>
+						<p>
+							Your pup will feel pampered and serene, as if they
+							just emerged from a peaceful slumber under a starlit
+							sky—“paw-sitively” dreamy!
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('solar-flare')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Wake up call! Go to Solar Flare" aria-label="Navigate to Solar Flare product">
+							Rise & Shine! ☀️
+						</button>
+					</div>
+					<div class="image-content">
+						<img src="https://raw.githubusercontent.com/Julibe/Guau/master/public/images/products/eclipse_haze.webp" alt="Eclipse Haze bottle - Sleepy time magic" title="Eclipse Haze - Calming Lavender" />
+					</div>
+				</div>
+			</div>
+			<div class="slide horizontal-slide" id="solar-flare" data-ui-color="rgb(248, 200, 12)" data-ui-text-color="rgb(255, 255, 255)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Citrus & Honey</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Bright Sun">☀️</span>
+							<h1 title="Orange you glad your dog smells great?" aria-label="Product Name: Solar Flare">
+								Solar Flare
+							</h1>
+						</div>
+						<h2 class="excerpt" title="Bottled sunshine" aria-label="Tagline: Sunny day in a bottle">
+							It’s like a sunny day in a bottle, radiating joy
+							with every application—truly “paw-some”!
+						</h2>
+						<p>
+							Bursting with the cheerful scents of zesty citrus
+							and sweet honey, this vibrant cream brightens up
+							your pup’s coat while lifting their spirits.
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('cleansing-waves')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Rub-a-dub-dub! Go to Shampoos" aria-label="Navigate to Shampoo section">
+							Rub-a-Dub! 🧼
+						</button>
+					</div>
+					<div class="image-content">
+						<img src="https://raw.githubusercontent.com/Julibe/Guau/master/public/images/products/solar_flare.webp" alt="Solar Flare bottle - Liquid sunshine" title="Solar Flare - Citrus Burst" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="slide horizontal-wrapper" id="shampoos" data-ui-color="rgb(41, 130, 159)" data-ui-text-color="rgb(255, 255, 255)">
+
+		<div class="horizontal-scroll-snap">
+			<div class="slide horizontal-slide" id="cleansing-waves" data-ui-color=" rgb(41, 130, 159)" data-ui-text-color="rgb(255, 255, 255)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Shampoo</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Soap Bubbles">🫧</span>
+							<h1 title="Scrub-a-dub-dub, pup in the tub" aria-label="Product Name: Cleansing Waves">
+								Cleansing Waves
+							</h1>
+						</div>
+						<h2 class="excerpt" title="Fresh and clean" aria-label="Tagline: Refresh, Revive and Rejuvenate">
+							Refresh, Revive & Rejuvenate
+						</h2>
+						<p>
+							For a fresh start to every adventure! Gentle care
+							for our best friends.
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('ocean-breeze')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Seas the day! Check Ocean Breeze" aria-label="Navigate to Ocean Breeze product">
+							Catch the Wave! 🌊
+						</button>
+					</div>
+					<div class="image-content">
+						<video src="https://raw.githubusercontent.com/Julibe/Guau/master/public/video/dogs/wet_corgi.mp4" autoplay muted loop playsinline role="img" aria-label="A wet Corgi wondering why bath time happens"></video>
+					</div>
+				</div>
+			</div>
+			<div class="slide horizontal-slide" id="ocean-breeze" data-ui-color="rgb(41, 130, 159)" data-ui-text-color="rgb(255, 255, 255)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Blueberry</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Ocean Wave">🌊</span>
+							<h1 title="Seas the day with this fresh scent" aria-label="Product Name: Ocean Breeze">
+								Ocean Breeze
+							</h1>
+						</div>
+						<h2 class="excerpt" title="Wave hello to cleanliness" aria-label="Tagline: A revitalizing wash">
+							It’s a revitalizing wash that will leave your pup
+							feeling fresh and ready for new adventures—let’s
+							“wave” goodbye to dirt!
+						</h2>
+						<p>
+							A refreshing blend that captures the essence of a
+							seaside escape, with the clean scent of cotton and a
+							hint of sweet blueberry.
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('coat-mists')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Make it shine! Go to Coat Mists" aria-label="Navigate to Coat Mists section">
+							Spray & Slay! ✨
+						</button>
+					</div>
+					<div class="image-content">
+						<img src="https://raw.githubusercontent.com/Julibe/Guau/master/public/images/products/ocean_breeze.webp" alt="Ocean Breeze shampoo - For the salty dog" title="Ocean Breeze - Blueberry & Cotton" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="slide horizontal-wrapper" id="coat-mists" data-ui-color="rgb(250, 118, 46)" data-ui-text-color="rgb(255, 255, 255)">
+
+		<div class="horizontal-scroll-snap">
+			<div class="slide horizontal-slide" id="coat-mists" data-ui-color="rgb(250, 118, 46)" data-ui-text-color="rgb(255, 255, 255)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Aromatic Oils</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Lotion Bottle">🧴</span>
+							<h1 title="Make them scent-sational!" aria-label="Product Category: Coat Mists">
+								Coat Mists
+							</h1>
+						</div>
+						<h2 class="excerpt" title="Smell ya later!" aria-label="Tagline: Refresh and Rejuvenate Naturally">
+							Refresh & Rejuvenate, Naturally!
+						</h2>
+						<p>
+							Natural oils that refresh your pet’s coat, leaving a
+							bright and energizing scent!
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('citrus-zest')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Orange you curious? Check Citrus Zest" aria-label="Navigate to Citrus Zest product">
+							Zest Life! 🍋
+						</button>
+					</div>
+					<div class="image-content">
+						<video src="https://raw.githubusercontent.com/Julibe/Guau/master/public/video/dogs/border_collie.mp4" autoplay muted loop playsinline role="img" aria-label="A Border Collie running free and smelling good"></video>
+					</div>
+				</div>
+			</div>
+			<div class="slide horizontal-slide" id="citrus-zest" data-ui-color="rgb(230, 110, 50)" data-ui-text-color="rgb(255, 255, 255)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Orange & Lime</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Orange Fruit">🍊</span>
+							<h1 title="Squeeze the day with citrus" aria-label="Product Name: Citrus Zest">
+								Citrus Zest
+							</h1>
+						</div>
+						<h2 class="excerpt" title="Zesty bestie" aria-label="Tagline: Natural oils that refresh">
+							Natural oils that refresh your pet’s coat, leaving a
+							bright & energizing scent!
+						</h2>
+						<p>
+							"Citrus Zest bursts with the vibrant aromas of
+							oranges, mandarin, lemon, and lime, delivering an
+							experience that’s as refreshing as it is
+							luxurious—cleanliness that will have those tails
+							wagging with citrus delight! <br />
+							It’s like a zesty splash for your pup’s coat,
+							brightening their day and keeping them feeling
+							""woof-tastically"" fresh!"
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('deodorizing-sprays')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Smell that? Go to Deodorizing Sprays" aria-label="Navigate to Deodorizing Sprays section">
+							Smell Ya Later! 👃
+						</button>
+					</div>
+					<div class="image-content">
+						<img src="https://raw.githubusercontent.com/Julibe/Guau/master/public/images/products/citrus_zest.webp" alt="Citrus Zest oil - Freshly squeezed scent" title="Citrus Zest - Orange & Lime" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="slide horizontal-wrapper" id="deodorizing-sprays" data-ui-color="rgb(77, 168, 174)" data-ui-text-color="rgb(255, 255, 255)">
+
+		<div class="horizontal-scroll-snap">
+			<div class="slide horizontal-slide" id="omega-scent" data-ui-color="rgb(77, 168, 174)" data-ui-text-color="rgb(255, 255, 255)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Deodorizing Spray</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Water Drop">💧</span>
+							<h1 title="Eau de Doggo - The fancy stuff" aria-label="Product Name: Omega Scent">
+								Omega Scent
+							</h1>
+						</div>
+						<h2 class="excerpt" title="Stink be gone!" aria-label="Tagline: Freshen Up and Revitalize">
+							Freshen Up, Revitalize & Fragant!
+						</h2>
+						<p>
+							Because your pup is happy with a lasting and
+							refreshing fragrance. Fresh vibes only!
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('aqua-auras')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Mint condition? Check Aqua Auras" aria-label="Navigate to Aqua Auras product">
+							Mint to Be! 🍃
+						</button>
+					</div>
+					<div class="image-content">
+						<video src="https://raw.githubusercontent.com/Julibe/Guau/master/public/video/dogs/dante.mp4" autoplay muted loop playsinline role="img" aria-label="Dante looking fresh, clean, and confident"></video>
+					</div>
+				</div>
+			</div>
+			<div class="slide horizontal-slide" id="aqua-auras" data-ui-color="rgb(86, 175, 173)" data-ui-text-color="rgb(255, 255, 255)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Mint</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Mint Leaf">🍃</span>
+							<h1 title="We are mint to be fresh" aria-label="Product Name: Aqua Auras">
+								Aqua Auras
+							</h1>
+						</div>
+						<h2 class="excerpt" title="Coolest pup in the park" aria-label="Tagline: Lasting and refreshing fragrance">
+							Because your pup is happy with a lasting &
+							refreshing fragrance.
+						</h2>
+						<p>
+							A refreshing blend that cools like a summer breeze,
+							combining the crispness of mint with the
+							invigorating essence of aquamarine. <br />
+							Let your pup enjoy the “paw-some” freshness that
+							keeps them wagging and happy!
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('vital-chews')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Get fit! Go to Health" aria-label="Navigate to Health section">
+							Get Buff! 💪
+						</button>
+					</div>
+					<div class="image-content">
+						<img src="https://raw.githubusercontent.com/Julibe/Guau/master/public/images/products/aqua_auras.webp" alt="Aqua Auras spray - Minty fresh doggo" title="Aqua Auras - Cool Mint" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="slide horizontal-wrapper" id="health" data-ui-color="rgb(255, 231, 134)" data-ui-text-color="rgb(0, 0, 0)">
+
+		<div class="horizontal-scroll-snap">
+			<div class="slide horizontal-slide" id="vital-chews" data-ui-color="rgb(255, 231, 134)" data-ui-text-color="rgb(0, 0, 0)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Vitamins</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Strong Arm">💪</span>
+							<h1 title="A vitamin a day keeps the vet away" aria-label="Product Name: Vital Chews">
+								Vital Chews
+							</h1>
+						</div>
+						<h2 class="excerpt" title="Strong like a bull-dog" aria-label="Tagline: Power Up Your Pup">
+							Power Up Your Pup!
+						</h2>
+						<p>
+							Give them the boost they need to stay active and
+							full of life! Vital nutrition.
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('sunbeam-radiance')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Radiant health? Check Sunbeam Radiance" aria-label="Navigate to Sunbeam Radiance product">
+							Glow Up! 🌟
+						</button>
+					</div>
+					<div class="image-content">
+						<video src="https://raw.githubusercontent.com/Julibe/Guau/master/public/video/dogs/lupe.mp4" autoplay muted loop playsinline role="img" aria-label="Lupe showing off her athletic skills"></video>
+					</div>
+				</div>
+			</div>
+			<div class="slide horizontal-slide" id="sunbeam-radiance" data-ui-color="rgb(255, 231, 134)" data-ui-text-color="rgb(0,0,0)">
+				<div class="content-wrapper">
+					<div class="text-content">
+						<span class="category-label">Vanilla</span>
+						<div class="title-container">
+							<span class="emoji-float tilt-emoji" role="img" aria-label="Happy Sun">🌞</span>
+							<h1 title="You are my sun-shine, my only sun-shine" aria-label="Product Name: Sunbeam Radiance">
+								Sunbeam Radiance
+							</h1>
+						</div>
+						<h2 class="excerpt" title="Glow from the inside out" aria-label="Tagline: A sunny burst of nutrition">
+							It’s like a sunny burst of nutrition that keeps
+							tails wagging and spirits high—talk about “vitamin
+							sea!
+						</h2>
+						<p>
+							This tasty vanilla chew not only supports your pup’s
+							immune system but also promotes a shiny coat,
+							healthy skin and “paw-some” breath with a delightful
+							blend of essential vitamins—A, B, C, and D—plus
+							Omega-3 fatty acids.
+						</p>
+						<button class="main-btn interactable magnetic-btn" onclick="
+								triggerConfetti();
+								document
+									.getElementById('about')
+									.scrollIntoView({ behavior: 'smooth' });
+							" title="Get to know us! Go to About" aria-label="Navigate to About section">
+							Who Are We? 🐕
+						</button>
+					</div>
+					<div class="image-content">
+						<img src="https://raw.githubusercontent.com/Julibe/Guau/master/public/images/products/sunbeam_radiance.webp" alt="Sunbeam Radiance chews - Bottled happiness" title="Sunbeam Radiance - Vanilla Vitamins" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="slide" id="about" data-ui-color="rgb(137, 191, 222)" data-ui-text-color="rgb(255, 255, 255)">
+		<div class="content-wrapper">
+			<div class="text-content">
+				<span class="category-label">What We Do</span>
+				<h1 title="We're not barking up the wrong tree" aria-label="Section Title: Our Offerings">
+					Our Offerings
+				</h1>
+				<h2 class="excerpt" title="Only the good stuff" aria-label="Subtitle: Nutritious and tasty options">
+					Nutritious and tasty options for pups!
+				</h2>
+				<p>
+					From tasty treats to spa-worthy shampoos, we’ve got
+					everything to keep your pup wagging!
+				</p>
+				<div class="pill-container">
+					<button class="btn-pill interactable magnetic-btn" onclick="
+							openModal(
+								'Dog Food',
+								document.getElementById('content-dog-food')
+									.innerHTML,
+								'🍖',
+							)
+						" title="Bone Appétit!" aria-label="Open details about Dog Food">
+						Dog Food 🍖
+					</button>
+					<button class="btn-pill interactable magnetic-btn" onclick="
+							openModal(
+								'Grooming Products',
+								document.getElementById(
+									'content-grooming',
+								).innerHTML,
+								'🛁',
+							)
+						" title="Squeaky clean!" aria-label="Open details about Grooming Products">
+						Grooming 🛁
+					</button>
+					<button class="btn-pill interactable magnetic-btn" onclick="
+							openModal(
+								'Health Care',
+								document.getElementById('content-health-care')
+									.innerHTML,
+								'💊',
+							)
+						" title="Fit as a fiddle!" aria-label="Open details about Health Care">
+						Health 💊
+					</button>
+				</div>
+				<br />
+				<button class="main-btn interactable magnetic-btn" onclick="
+						triggerConfetti();
+						document
+							.getElementById('promos')
+							.scrollIntoView({ behavior: 'smooth' });
+					" title="Unleash the savings! Go to Promos" aria-label="Navigate to Promos section">
+					Grab a Bargain! 🏷️
+				</button>
+			</div>
+			<div class="image-content">
+				<video src="https://raw.githubusercontent.com/Julibe/Guau/master/public/video/dogs/bernese_mountain.mp4" autoplay muted loop playsinline role="img" aria-label="A big fluffy Bernese Mountain Dog relaxing like a boss"></video>
+			</div>
+		</div>
+	</section>
+	<section class="slide" id="promos" data-ui-color="rgb(213, 135, 155)" data-ui-text-color="rgb(255, 255, 255)">
+		<div class="content-wrapper">
+			<div class="text-content">
+				<span class="category-label">Promos</span>
+				<div class="title-container">
+					<span class="emoji-float tilt-emoji" role="img" aria-label="Present">🎁</span>
+					<h1 title="It's like your birthday but better" aria-label="Section Title: Special Offers">
+						Special Offers!
+					</h1>
+				</div>
+				<h2 class="excerpt" title="More bang for your bark" aria-label="Tagline: Spoil Your Pup">
+					Spoil Your Pup Without Breaking the Bank!
+				</h2>
+				<p>
+					Discover our exclusive bundles and save big on premium dog
+					products. Happy pups, happy wallet!
+				</p>
+				<button class="main-btn interactable magnetic-btn" onclick="
+						triggerConfetti();
+						document
+							.getElementById('mission')
+							.scrollIntoView({ behavior: 'smooth' });
+					" title="What's our purpose? See Mission" aria-label="Shop the latest deals">
+					Shop Deals 🛍️
+				</button>
+			</div>
+			<div class="image-content">
+				<video src="https://raw.githubusercontent.com/Julibe/Guau/master/public/video/dogs/french_bulldog.mp4" autoplay muted loop playsinline role="img" aria-label="A Frenchie doing a happy dance"></video>
+			</div>
+		</div>
+	</section>
+	<section class="slide" id="mission" data-ui-color="rgb(23, 155, 17)" data-ui-text-color="rgb(255, 255, 255)">
+		<div class="content-wrapper">
+			<div class="text-content">
+				<span class="category-label">Our Goal</span>
+				<h1 title="Our pledge of allegiance to the paw" aria-label="Section Title: Mission">
+					Mission
+				</h1>
+				<h2 class="excerpt" title="In Dog We Trust" aria-label="Subtitle: Dogs deserve the best">
+					Dogs deserve the best!
+				</h2>
+				<p>
+					We're on a mission to pamper them responsibly while keeping
+					Mother Earth smiling. High-quality goodies only.
+				</p>
+				<div class="pill-container">
+					<button class="btn-pill interactable magnetic-btn" onclick="
+							openModal(
+								'Quality Care',
+								document.getElementById('content-quality-care')
+									.innerHTML,
+								'🌟',
+							)
+						" title="5-Star belly rubs standard" aria-label="Open details about Quality Care">
+						Quality Care 🌟
+					</button>
+					<button class="btn-pill interactable magnetic-btn" onclick="
+							openModal(
+								'Dogs First',
+								document.getElementById('content-dogs-first')
+									.innerHTML,
+								'🐶',
+							)
+						" title="Paws before laws" aria-label="Open details about Dogs First policy">
+						Dogs First 🐶
+					</button>
+				</div>
+				<br />
+				<button class="main-btn interactable magnetic-btn" onclick="
+						triggerConfetti();
+						document
+							.getElementById('about-project')
+							.scrollIntoView({ behavior: 'smooth' });
+					" title="Learn more about our Paw-some project" aria-label="Navigate to About Project section">
+					Behind the Paws 🐾
+				</button>
+			</div>
+			<div class="image-content">
+				<video src="https://raw.githubusercontent.com/Julibe/Guau/master/public/video/dogs/happy.mp4" autoplay muted loop playsinline role="img" aria-label="The happiest dog you've ever seen"></video>
+			</div>
+		</div>
+	</section>
+	<section class="slide" id="about-project" data-ui-color="rgb(255, 39, 104)" data-ui-text-color="rgb(255, 255, 255)">
+		<div class="content-wrapper">
+			<div class="text-content">
+				<span class="category-label">Project Insights</span>
+				<h1 title="About the Project" aria-label="Project Title">
+					Behind the Paws
+				</h1>
+				<h2 class="excerpt">
+					Crafted with code, designed for joy.
+				</h2>
+				<p>
+					Discover the creative process and technology that brings
+					this interactive dog-lovers experience to life.
+				</p>
+				<div class="pill-container">
+					<button class="btn-pill interactable magnetic-btn" onclick="
+							openModal(
+								'Intro',
+								document.getElementById('content-intro')
+									.innerHTML,
+								'🚀',
+							)
+						" title="The Concept" aria-label="Read Intro">
+						Intro 🚀
+					</button>
+					<button class="btn-pill interactable magnetic-btn" onclick="
+							openModal(
+								'Theory',
+								document.getElementById('content-theory')
+									.innerHTML,
+								'🧠',
+							)
+						" title="The Tech Stack" aria-label="Read Theory">
+						Theory 🧠
+					</button>
+					<button class="btn-pill interactable magnetic-btn" onclick="
+							openModal(
+								'About',
+								document.getElementById('about-julibe')
+									.innerHTML,
+								'👋',
+							)
+						" title="Meet Julibe" aria-label="Read About">
+						About 👋
+					</button>
+				</div>
+				<br />
+				<button class="main-btn interactable magnetic-btn" onclick="
+						triggerConfetti();
+						document
+							.getElementById('contact')
+							.scrollIntoView({ behavior: 'smooth' });
+					" title="Bark at us! Go to Contact" aria-label="Navigate to Contact section">
+					Bark at Us! 🗣️
+				</button>
+				</button>
+			</div>
+			<div class="image-content">
+				<video src="https://raw.githubusercontent.com/Julibe/Guau/master/public/video/dogs/labrador_retriever.mp4" autoplay="" muted="" loop="" playsinline="" role="img" aria-label="Bernese Mountain Dog"></video>
+			</div>
+		</div>
+	</section>
+	<section class="slide" id="contact" data-ui-color="rgb(22, 203, 166)" data-ui-text-color="rgb(0,0,0)">
+		<div class="content-wrapper">
+			<div class="text-content">
+				<span class="category-label">Say Hello</span>
+				<h1 title="Give us a howl!" aria-label="Section Title: Contact Us">
+					Contact Us
+				</h1>
+				<h2 class="excerpt" title="We're all ears (floppy or pointy)" aria-label="Subtitle: We would love to hear from you">
+					We'd Love to Hear From You!
+				</h2>
+				<p>
+					Reach out to us about anything related to your pup! We're
+					here to help.
+				</p>
+				<div>
+					<div class="interactable magnetic-btn" tabindex="0" role="link" title="X marks the spot! Come sniff us out" aria-label="Our Location Address">
+						📍 123 Puppy Lane, Dogtown
+					</div>
+					<div class="interactable magnetic-btn" tabindex="0" role="link" title="Give us a ring on the dog-and-bone" aria-label="Our Phone Number">
+						📞 1-800-GUAU-WOO
+					</div>
+					<div class="interactable magnetic-btn" tabindex="0" role="link" title="Send a carrier pigeon... or just an email" aria-label="Our Email Address">
+						✉️ woof@guau.com
+					</div>
+				</div>
+				<button class="main-btn interactable magnetic-btn" onclick="
+						triggerConfetti();
+						document
+							.getElementById('intro')
+							.scrollIntoView({ behavior: 'smooth' });
+					" title="Let's play again! Back to top" aria-label="Return to top of page">
+					One More Lap! 🏁
+				</button>
+			</div>
+			<div class="image-content">
+				<video src="https://raw.githubusercontent.com/Julibe/Guau/master/public/video/dogs/akita.mp4" autoplay muted loop playsinline role="img" aria-label="An Akita guarding the contact info faithfully"></video>
+			</div>
+		</div>
+	</section>
+	<div id="modal-content-store" style="display: none">
+		<div id="content-quality-care">
+			<h2>Quality Care</h2>
+			<p>Safe and effective care for our planet and pups</p>
+		</div>
+		<div id="content-dogs-first">
+			<h2>Dogs First</h2>
+			<p>Recyclable packaging because we love their playground</p>
+		</div>
+		<div id="content-dog-food">
+			<h2>Dog Food</h2>
+			<p>
+				Yum! Nutritious and tasty options that will have your pups
+				wanting for more, no matter their breed or age!
+			</p>
+		</div>
+		<div id="content-grooming">
+			<h2>Grooming Products</h2>
+			<p>
+				Get ready for squeaky clean pups!<br />Our gentle shampoos,
+				conditioners, and grooming tools will turn bath time into a spa
+				day for our furry friends.
+			</p>
+		</div>
+		<div id="content-health-care">
+			<h2>Health Care</h2>
+			<p>
+				Keep those tails wagging with our range of supplements and
+				health products, ensuring our dogs stay happy and healthy!<br />Join
+				us in the adventure of dog ownership—because every pup deserves
+				the best!
+			</p>
+		</div>
+		<div id="content-intro">
+			<h2>The GUAU Experience</h2>
+			<p>
+				Step into a world where premium pet care meets immersive web
+				design. This project isn't just about dog food; it's about the
+				feeling of joy our four-legged friends bring us, translated into
+				pixels, motion, and interaction. Scroll, explore, and let the
+				tails wag!
+			</p>
+		</div>
+		<div id="content-theory">
+			<h2>Crafting Joyful Motion</h2>
+			<p>
+				This interactive experience leverages the power of
+				<strong>Moden Web</strong> to create
+				a seamless, fluid narrative.
+			</p>
+			<p></p> By utilizing scroll-snapping and
+			magnetic micro-interactions, we bridge the gap between user
+			intent and digital response. The result? A UI that feels as
+			playful and responsive as a border collie fetching a frisbee.
+			</p>
+		</div>
+		<div id="about-julibe">
+			<h2>Stay Connected</h2>
+			<p>
+				Find
+				<a href="https://julibe.com/" target="_blank">@Julibe</a> and
+				share the love for creative coding.
+			</p>
+			<p>
+				Always open to new ideas and collaborations. Let's create
+				something great together.
+			</p>
+			<p>
+				Copyright © 2026
+				<a href="https://julibe.com/" target="_blank">Julibe.com</a>.
+				All rights reserved.
+			</p>
+		</div>
+	</div>
+</main>

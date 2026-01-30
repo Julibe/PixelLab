@@ -1,0 +1,886 @@
+<link
+	href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800&display=swap"
+	rel="stylesheet" />
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+	rel="stylesheet" />
+
+<div
+	id="preloader"
+	role="status"
+	aria-label="The curtains are rising on your cinematic experience">
+	<div class="loader-content">
+		<div
+			class="loader-logo"
+			role="img"
+			aria-label="The Projector Light Ignites">
+			<i class="fas fa-play-circle"></i>
+		</div>
+		<h2
+			style="letter-spacing: 2px"
+			title="The Universe is expanding..."
+			aria-label="Movieverse: Where stories come alive">
+			MOVIEVERSE
+		</h2>
+		<div
+			class="loader-bar-container"
+			role="progressbar"
+			aria-valuemin="0"
+			aria-valuemax="100"
+			aria-label="Loading the blockbuster assets">
+			<div class="loader-bar"></div>
+		</div>
+	</div>
+</div>
+<div id="globalAmbient" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-outline" aria-hidden="true"></div>
+<button
+	id="scrollTopBtn"
+	onclick="scrollToTop()"
+	title="Ascend back to the summit of the show"
+	aria-label="Rocket back to the top of the page">
+	<i class="fas fa-arrow-up" aria-hidden="true"></i>
+</button>
+<aside class="sidebar" role="navigation" aria-label="Genre Command Center">
+	<div
+		class="sidebar-icon active"
+		data-tooltip="Home"
+		onclick="resetHome()"
+		role="button"
+		tabindex="0"
+		title="Return to the Epicenter"
+		aria-label="Warp back to the Home Dashboard">
+		<i class="fas fa-home"></i>
+	</div>
+	<div
+		class="sidebar-icon"
+		data-tooltip="Action"
+		onclick="loadGenre(28, 'ACTION HITS')"
+		role="button"
+		tabindex="0"
+		title="Unleash the Chaos: Explosions & Fights"
+		aria-label="Lock and load the Action Movies genre">
+		<i class="fas fa-fist-raised"></i>
+	</div>
+	<div
+		class="sidebar-icon"
+		data-tooltip="Comedy"
+		onclick="loadGenre(35, 'COMEDY SPECIALS')"
+		role="button"
+		tabindex="0"
+		title="Prepare for Hysteria: Comedy Gold"
+		aria-label="Cue the laughter with Comedy Movies">
+		<i class="fas fa-laugh-beam"></i>
+	</div>
+	<div
+		class="sidebar-icon"
+		data-tooltip="Horror"
+		onclick="loadGenre(27, 'HORROR NIGHT')"
+		role="button"
+		tabindex="0"
+		title="Survive the Darkness: Horror Night"
+		aria-label="Enter the nightmare with Horror Movies">
+		<i class="fas fa-ghost"></i>
+	</div>
+	<div
+		class="sidebar-icon"
+		data-tooltip="Sci-Fi"
+		onclick="loadGenre(878, 'SCI-FI WORLDS')"
+		role="button"
+		tabindex="0"
+		title="Beyond the Stars: Sci-Fi Worlds"
+		aria-label="Launch into the Science Fiction genre">
+		<i class="fas fa-rocket"></i>
+	</div>
+	<div
+		class="sidebar-icon"
+		data-tooltip="Drama"
+		onclick="loadGenre(18, 'DRAMATIC TALES')"
+		role="button"
+		tabindex="0"
+		title="Witness the Emotion: Heavy Drama"
+		aria-label="Experience the intensity of Drama Movies">
+		<i class="fas fa-theater-masks"></i>
+	</div>
+</aside>
+<nav id="navbar" role="navigation" aria-label="Main Navigation Deck">
+	<div
+		class="logo"
+		role="banner"
+		aria-label="Movieverse: The Ultimate Theater"
+		title="Step into the Movieverse">
+		<i class="fas fa-play-circle" aria-hidden="true"></i> MOVIEVERSE
+	</div>
+	<ul class="nav-menu" role="menubar">
+		<li role="none">
+			<a
+				role="menuitem"
+				onclick="scrollToSection('heroSection')"
+				title="Rewind to the Beginning"
+				aria-label="Jump to the Hero Home section"
+				>Home</a
+			>
+		</li>
+		<li role="none">
+			<a
+				role="menuitem"
+				onclick="scrollToSection('moviesSection')"
+				title="Explore the Blockbuster Gallery"
+				aria-label="Jump to the Movies catalog"
+				>Movies</a
+			>
+		</li>
+		<li role="none">
+			<a
+				role="menuitem"
+				onclick="scrollToSection('recentSection')"
+				title="Witness the Latest Premieres"
+				aria-label="Jump to Just Arrived section"
+				>Just Arrived</a
+			>
+		</li>
+		<li role="none">
+			<a
+				role="menuitem"
+				onclick="scrollToSection('tvSection')"
+				title="Binge the Ultimate Sagas"
+				aria-label="Jump to TV Shows section"
+				>TV Shows</a
+			>
+		</li>
+		<li role="none">
+			<a
+				role="menuitem"
+				onclick="scrollToSection('animeSection')"
+				title="Enter the World of Animation"
+				aria-label="Jump to Anime section"
+				>Anime</a
+			>
+		</li>
+	</ul>
+	<div class="user-actions">
+		<button
+			class="share-btn-nav"
+			onclick="shareTwitter()"
+			title="Broadcast this spectacle to the world!"
+			aria-label="Share this experience with your network on Twitter">
+			<i class="fa-brands fa-twitter" aria-hidden="true"></i> Share
+		</button>
+		<svg
+			class="search-icon"
+			xmlns="http://www.w3.org/2000/svg"
+			width="24"
+			height="24"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="white"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			role="img"
+			title="Hunt for your next obsession"
+			aria-label="Activate Search Protocol">
+			<circle cx="11" cy="11" r="8"></circle>
+			<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+		</svg>
+		<div
+			class="profile-pic"
+			role="img"
+			title="Access your Private Dressing Room"
+			aria-label="User Profile and Settings"></div>
+	</div>
+</nav>
+<div
+	class="toast-container"
+	id="toastContainer"
+	role="alert"
+	aria-live="assertive"></div>
+<header class="hero" id="heroSection" role="banner">
+	<div class="hero-bg" aria-hidden="true"></div>
+	<div class="hero-overlay" aria-hidden="true"></div>
+	<div class="hero-content">
+		<h1
+			class="typing-cursor"
+			style="font-size: 3rem; text-align: left"
+			title="The projector is warming up..."
+			aria-label="Sequence initiating: Loading Movies">
+			Loading Movies...
+		</h1>
+	</div>
+</header>
+<section
+	class="carousel-section"
+	id="moviesSection"
+	aria-labelledby="trendingTitle">
+	<div class="section-header">
+		<h2
+			class="section-title"
+			id="trendingTitle"
+			title="The world is watching these..."
+			aria-label="Witness the Top 10 Trending Movies">
+			TOP 10 TRENDING
+		</h2>
+	</div>
+	<div
+		class="carousel-wrapper"
+		role="region"
+		aria-label="Trending Blockbusters Reel">
+		<button
+			class="scroll-btn left"
+			onclick="scrollRow('moviesRow', 'left')"
+			title="Pan camera left"
+			aria-label="Reveal previous trending titles">
+			<i class="fas fa-chevron-left" aria-hidden="true"></i>
+		</button>
+		<div class="cards-container" id="moviesRow" role="list"></div>
+		<button
+			class="scroll-btn right"
+			onclick="scrollRow('moviesRow', 'right')"
+			title="Pan camera right"
+			aria-label="Reveal more trending titles">
+			<i class="fas fa-chevron-right" aria-hidden="true"></i>
+		</button>
+	</div>
+</section>
+<section
+	class="carousel-section"
+	id="recentSection"
+	aria-labelledby="recentTitle">
+	<div class="section-header">
+		<h2
+			class="section-title"
+			id="recentTitle"
+			title="Fresh from the editing room"
+			aria-label="Behold the Just Arrived Latest Movies">
+			JUST ARRIVED
+		</h2>
+	</div>
+	<div
+		class="carousel-wrapper"
+		role="region"
+		aria-label="Latest Arrivals Reel">
+		<button
+			class="scroll-btn left"
+			onclick="scrollRow('recentRow', 'left')"
+			title="Rewind the new releases"
+			aria-label="Scroll recent movies left">
+			<i class="fas fa-chevron-left" aria-hidden="true"></i>
+		</button>
+		<div class="cards-container" id="recentRow" role="list"></div>
+		<button
+			class="scroll-btn right"
+			onclick="scrollRow('recentRow', 'right')"
+			title="Fast forward to new discoveries"
+			aria-label="Scroll recent movies right">
+			<i class="fas fa-chevron-right" aria-hidden="true"></i>
+		</button>
+	</div>
+</section>
+<section
+	class="carousel-section"
+	id="unreleasedSection"
+	aria-labelledby="unreleasedTitle">
+	<div class="section-header">
+		<h2
+			class="section-title"
+			id="unreleasedTitle"
+			title="Glimpse into the future of cinema"
+			aria-label="Preview Upcoming Unreleased Movies">
+			UPCOMING MOVIES
+		</h2>
+	</div>
+	<div
+		class="carousel-wrapper"
+		role="region"
+		aria-label="Future Attractions Reel">
+		<button
+			class="scroll-btn left"
+			onclick="scrollRow('unreleasedRow', 'left')"
+			title="Look back at upcoming hypes"
+			aria-label="Scroll upcoming movies left">
+			<i class="fas fa-chevron-left" aria-hidden="true"></i>
+		</button>
+		<div class="cards-container" id="unreleasedRow" role="list"></div>
+		<button
+			class="scroll-btn right"
+			onclick="scrollRow('unreleasedRow', 'right')"
+			title="See what's coming soon"
+			aria-label="Scroll upcoming movies right">
+			<i class="fas fa-chevron-right" aria-hidden="true"></i>
+		</button>
+	</div>
+</section>
+<section
+	class="carousel-section"
+	id="nextWeekSection"
+	aria-labelledby="nextWeekTitle">
+	<div class="section-header">
+		<h2
+			class="section-title"
+			id="nextWeekTitle"
+			title="Prepare for the next wave"
+			aria-label="Countdown to Premieres Next Week">
+			PREMIERES NEXT WEEK
+		</h2>
+	</div>
+	<div
+		class="carousel-wrapper"
+		role="region"
+		aria-label="Next Week's Lineup Reel">
+		<button
+			class="scroll-btn left"
+			onclick="scrollRow('nextWeekRow', 'left')"
+			title="Review the coming week"
+			aria-label="Scroll next week premieres left">
+			<i class="fas fa-chevron-left" aria-hidden="true"></i>
+		</button>
+		<div class="cards-container" id="nextWeekRow" role="list"></div>
+		<button
+			class="scroll-btn right"
+			onclick="scrollRow('nextWeekRow', 'right')"
+			title="Scan next week's debuts"
+			aria-label="Scroll next week premieres right">
+			<i class="fas fa-chevron-right" aria-hidden="true"></i>
+		</button>
+	</div>
+</section>
+<section
+	class="carousel-section"
+	id="thisMonthSection"
+	aria-labelledby="thisMonthTitle">
+	<div class="section-header">
+		<h2
+			class="section-title"
+			id="thisMonthTitle"
+			title="The month's epic schedule"
+			aria-label="Browse Everything Coming This Month">
+			COMING THIS MONTH
+		</h2>
+	</div>
+	<div
+		class="carousel-wrapper"
+		role="region"
+		aria-label="Monthly Releases Reel">
+		<button
+			class="scroll-btn left"
+			onclick="scrollRow('thisMonthRow', 'left')"
+			title="Back to earlier in the month"
+			aria-label="Scroll this month releases left">
+			<i class="fas fa-chevron-left" aria-hidden="true"></i>
+		</button>
+		<div class="cards-container" id="thisMonthRow" role="list"></div>
+		<button
+			class="scroll-btn right"
+			onclick="scrollRow('thisMonthRow', 'right')"
+			title="Forward through the month"
+			aria-label="Scroll this month releases right">
+			<i class="fas fa-chevron-right" aria-hidden="true"></i>
+		</button>
+	</div>
+</section>
+<section class="carousel-section" id="tvSection" aria-labelledby="tvTitle">
+	<div class="section-header">
+		<h2
+			class="section-title"
+			id="tvTitle"
+			title="Serialized brilliance"
+			aria-label="Tune into Trending TV Shows">
+			TRENDING TV SHOWS
+		</h2>
+	</div>
+	<div class="carousel-wrapper" role="region" aria-label="TV Series Reel">
+		<button
+			class="scroll-btn left"
+			onclick="scrollRow('tvRow', 'left')"
+			title="Previous episodes"
+			aria-label="Scroll TV shows left">
+			<i class="fas fa-chevron-left" aria-hidden="true"></i>
+		</button>
+		<div class="cards-container" id="tvRow" role="list"></div>
+		<button
+			class="scroll-btn right"
+			onclick="scrollRow('tvRow', 'right')"
+			title="Next episodes"
+			aria-label="Scroll TV shows right">
+			<i class="fas fa-chevron-right" aria-hidden="true"></i>
+		</button>
+	</div>
+</section>
+<section
+	class="carousel-section"
+	id="animeSection"
+	aria-labelledby="animeTitle">
+	<div class="section-header">
+		<h2
+			class="section-title"
+			id="animeTitle"
+			title="Japanese Animation Phenomena"
+			aria-label="Explore Trending Anime">
+			TRENDING ANIME
+		</h2>
+	</div>
+	<div class="carousel-wrapper" role="region" aria-label="Anime Series Reel">
+		<button
+			class="scroll-btn left"
+			onclick="scrollRow('animeRow', 'left')"
+			title="Previous series"
+			aria-label="Scroll Anime left">
+			<i class="fas fa-chevron-left" aria-hidden="true"></i>
+		</button>
+		<div class="cards-container" id="animeRow" role="list"></div>
+		<button
+			class="scroll-btn right"
+			onclick="scrollRow('animeRow', 'right')"
+			title="Next series"
+			aria-label="Scroll Anime right">
+			<i class="fas fa-chevron-right" aria-hidden="true"></i>
+		</button>
+	</div>
+</section>
+<footer role="contentinfo">
+	<div class="footer-actions">
+		<button
+			onclick="openInfoModal('intro')"
+			title="Read the Opening Crawl"
+			aria-label="Uncover the Premise of Movieverse">
+			The Premise
+		</button>
+		<button
+			onclick="openInfoModal('theory')"
+			title="Analyze the blueprints"
+			aria-label="Declassify the Technical Script">
+			The Script
+		</button>
+		<button
+			onclick="openInfoModal('about')"
+			title="Meet the Mastermind"
+			aria-label="Go behind the scenes with The Director">
+			The Director
+		</button>
+		<button
+			onclick="openInfoModal('legal')"
+			title="Review the contract"
+			aria-label="Inspect the Legal Fine Print">
+			The Fine Print
+		</button>
+	</div>
+	<div id="socials">
+		<nav aria-label="Network Connections">
+			<ul>
+				<li>
+					<a
+						href="https://julibe.com/"
+						target="_blank"
+						class="nav-item"
+						title="Visit the Director's HQ"
+						aria-label="Explore Julibe's personal website">
+						<i class="fa-solid fa-globe" aria-hidden="true"></i>
+						<span>Web</span>
+					</a>
+				</li>
+				<li>
+					<a
+						href="https://julibe.com/github"
+						target="_blank"
+						class="nav-item"
+						title="Inspect the source code vault"
+						aria-label="Fork Julibe's projects on GitHub">
+						<i class="fa-brands fa-github" aria-hidden="true"></i>
+						<span>GitHub</span>
+					</a>
+				</li>
+				<li>
+					<a
+						href="https://julibe.com/whatsapp"
+						target="_blank"
+						class="nav-item"
+						title="Direct line to the Creator"
+						aria-label="Chat with Julibe on WhatsApp">
+						<i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+						<span>WhatsApp</span>
+					</a>
+				</li>
+				<li>
+					<a
+						href="https://julibe.com/twitter"
+						target="_blank"
+						class="nav-item"
+						title="Follow the live feed"
+						aria-label="Follow Julibe's updates on X (Twitter)">
+						<i class="fa-brands fa-twitter" aria-hidden="true"></i>
+						<span>X (Twitter)</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+	<div id="copyright">
+		Copyright &copy; 2026
+		<a
+			href="https://julibe.com/"
+			target="_blank"
+			title="Return to base"
+			aria-label="Visit Julibe.com"
+			>Julibe.com</a
+		>.
+	</div>
+</footer>
+<!-- Hidden Modals Content -->
+<div id="modal_content_store" aria-hidden="true">
+	<div id="content_intro" class="info-section">
+		<h1
+			title="The lights go down..."
+			aria-label="Prologue: Movieverse The Premiere">
+			Movieverse: The Premiere
+		</h1>
+		<p>
+			In a world where screens are just windows… Movieverse rises. Here,
+			the interface is no longer a boundary—it’s part of the spectacle.
+			Gone are the distractions, the pop-ups, the algorithmic noise. You
+			enter a theater of pure storytelling, where every frame, every
+			poster, every click, draws you deeper into the story.
+		</p>
+		<p>
+			Step into the gallery of cinema history. Feel the depth. Watch
+			motion dance across shadows. Each poster is a portal, every
+			transition a scene unfolding before your eyes. This is not browsing.
+			This is living the movie.
+		</p>
+		<p>
+			Dim the lights. Grab your popcorn. And let Movieverse transport you
+			beyond the screen.
+		</p>
+	</div>
+
+	<div id="content_theory" class="info-section">
+		<h2 title="Behind the Scenes" aria-label="Premiere Breakdown">
+			The Script (Behind the Scenes)
+		</h2>
+		<p>
+			Behind the magic lies a masterful engineering of code—where browsers
+			bend, and pixels perform. Movieverse is crafted with modern web
+			technologies, designed to push limits without the weight of bloated
+			frameworks.
+		</p>
+		<p>
+			<strong
+				title="Maximum Velocity Engine"
+				aria-label="Core Javascript Engine"
+				>The Core Engine:</strong
+			>
+			Vanilla JavaScript ES6+ drives the action, orchestrating state and
+			DOM with lightning-fast precision. No React. No Vue. Pure cinematic
+			speed.
+		</p>
+		<p>
+			<strong
+				title="Reality Distortion Field"
+				aria-label="CSS3 Visual Effects"
+				>Visual Effects (VFX):</strong
+			>
+			Watch as cards tilt, shift, and respond to your every move. CSS3
+			<code>perspective</code> and <code>rotate3d</code> transforms create
+			a tactile, almost living stage—a digital set that reacts like a true
+			scene partner.
+		</p>
+		<p>
+			<strong title="Live Satellite Feed" aria-label="TMDb Data Stream"
+				>Data Source:</strong
+			>
+			The latest metadata, high-res posters, and breathtaking backdrops
+			stream live from TMDb, transforming the platform into a living,
+			breathing theater of cinema.
+		</p>
+	</div>
+
+	<div id="content_about" class="info-section">
+		<h2 title="The Auteur" aria-label="Director and Cast Information">
+			Cast & Crew (The Director)
+		</h2>
+		<p>
+			Every frame, every effect, every line of code—directed by
+			<strong
+				><a
+					href="https://julibe.com/"
+					target="_blank"
+					title="Enter Julibe's Studio"
+					aria-label="Connect with Julibe"
+					>@Julibe</a
+				></strong
+			>, a visionary in the art of cinematic digital design. With an eye
+			for beauty and a mind for engineering, Julibe creates experiences
+			that are both awe-inspiring and lightning-fast.
+		</p>
+		<p>
+			Looking to co-produce a legendary digital journey? Or simply discuss
+			the poetry of film? The studio doors are open.
+		</p>
+		<p>
+			Copyright © 2026
+			<a
+				href="https://julibe.com/"
+				target="_blank"
+				title="Julibe.com Official Site"
+				aria-label="Visit Julibe.com"
+				>Julibe.com</a
+			>. All rights reserved.
+		</p>
+	</div>
+
+	<div id="content_legal" class="info-section">
+		<h2
+			title="The Fine Print"
+			aria-label="Legal Disclaimer, Roll the credits!">
+			The Fine Print (Disclaimer)
+		</h2>
+		<h3
+			title="Credits Sequence"
+			aria-label="Roll the credits of the Movieverse experience">
+			Roll the credits!
+		</h3>
+		<p>
+			<strong
+				title="Origin of Intelligence"
+				aria-label="Data Source Attribution"
+				>Data Source:</strong
+			>
+			Movieverse draws live data from TMDb, though this production is not
+			officially endorsed or certified by TMDb. Consider it our cinematic
+			research lab.
+		</p>
+		<p>
+			<strong
+				title="Intellectual Property"
+				aria-label="Copyright Ownership"
+				>Copyrights:</strong
+			>
+			All posters, metadata, and backdrop art remain the intellectual
+			property of their respective studios. Movieverse exists solely as a
+			showcase of frontend wizardry and creative storytelling.
+		</p>
+		<p>
+			<strong
+				title="Artistic Exhibition"
+				aria-label="Non-commercial Use Statement"
+				>Usage:</strong
+			>
+			No box office profits are claimed—this is a digital exhibition, a
+			celebration of design, code, and immersive experience.
+		</p>
+		<p>
+			<strong
+				title="Simulated Projection"
+				aria-label="Video Content Explanation"
+				>Video Content:</strong
+			>
+			All playback is simulated using the open-source "Big Buck Bunny" as
+			a placeholder, giving you a cinematic preview of our interface
+			without infringing copyright.
+		</p>
+	</div>
+</div>
+<div
+	class="modal-backdrop"
+	id="infoModal"
+	role="dialog"
+	aria-modal="true"
+	aria-labelledby="infoBody">
+	<div class="details-container info-content">
+		<div
+			class="close-btn"
+			onclick="closeInfoModal()"
+			role="button"
+			tabindex="0"
+			title="Cut scene and exit"
+			aria-label="Close the Information Modal">
+			<i class="fas fa-times" aria-hidden="true"></i>
+		</div>
+		<div id="infoBody"></div>
+	</div>
+</div>
+<div
+	class="modal-backdrop"
+	id="detailsModal"
+	role="dialog"
+	aria-modal="true"
+	aria-labelledby="detailTitle">
+	<div class="details-container">
+		<div
+			class="close-btn"
+			onclick="closeDetails()"
+			role="button"
+			tabindex="0"
+			title="Fade to black"
+			aria-label="Close Movie Details">
+			<i class="fas fa-times" aria-hidden="true"></i>
+		</div>
+		<div class="details-poster">
+			<img
+				id="detailImg"
+				src=""
+				alt="A high-definition movie poster teasing the plot" />
+		</div>
+		<div class="details-content">
+			<h2
+				id="detailTitle"
+				title="The Feature Presentation"
+				aria-label="Selected Movie Title">
+				Title
+			</h2>
+			<div class="meta-row">
+				<span
+					class="match-score"
+					id="detailRating"
+					title="Algorithm Compatibility"
+					aria-label="Match Score"
+					>98% Match</span
+				>
+				<span
+					id="detailYear"
+					title="Year of Origin"
+					aria-label="Release Year"
+					>2022</span
+				>
+				<span
+					class="quality-badge"
+					title="Crystal Clear Resolution"
+					aria-label="HD Quality Indicator"
+					>HD</span
+				>
+				<span
+					id="detailGenre"
+					title="Categorical DNA"
+					aria-label="Primary Genre"
+					>Action</span
+				>
+			</div>
+			<p
+				id="detailDesc"
+				title="The Plot Thickens..."
+				aria-label="Movie Synopsis">
+				Description text...
+			</p>
+			<div class="action-row">
+				<button
+					class="btn btn-primary"
+					id="detailPlayBtn"
+					title="Roll the footage!"
+					aria-label="Play the main trailer immediately">
+					<i class="fas fa-play" aria-hidden="true"></i> Play Trailer
+				</button>
+				<button
+					class="btn btn-secondary"
+					title="Save this gem for later"
+					aria-label="Add this title to your personal list">
+					<i class="fas fa-plus" aria-hidden="true"></i> My List
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div
+	class="modal-backdrop"
+	id="videoModal"
+	role="dialog"
+	aria-modal="true"
+	aria-labelledby="playerTitle">
+	<div class="player-theater">
+		<div class="screen-container" id="videoContainer">
+			<div class="theater-header">
+				<div
+					class="player-title"
+					id="playerTitle"
+					title="Live Broadcast"
+					aria-label="Now Playing Status">
+					NOW PLAYING
+				</div>
+				<button
+					class="close-player"
+					onclick="closePlayer()"
+					title="Exit the auditorium"
+					aria-label="Close the Video Player">
+					<i class="fas fa-times" aria-hidden="true"></i>
+				</button>
+			</div>
+			<div
+				class="center-play-btn"
+				id="centerPlayBtn"
+				role="button"
+				tabindex="0"
+				title="Action!"
+				aria-label="Resume the Movie">
+				<i class="fas fa-play" aria-hidden="true"></i>
+			</div>
+
+			<iframe
+				id="youtubeFrame"
+				class="youtube-frame"
+				frameborder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen
+				title="The Main Event"
+				aria-label="YouTube Video Content Player"></iframe>
+
+			<video
+				id="mainVideo"
+				playsinline
+				onclick="togglePlay()"
+				aria-label="Cinematic HTML5 Video Player"></video>
+
+			<div
+				class="video-controls"
+				id="videoControls"
+				role="toolbar"
+				aria-label="Projectionist Controls">
+				<div
+					class="progress-area"
+					onclick="seek(event)"
+					role="slider"
+					aria-valuemin="0"
+					aria-valuemax="100"
+					aria-label="Seek through the timeline"
+					tabindex="0">
+					<div class="progress-fill" id="progressBar"></div>
+				</div>
+				<div class="controls-row">
+					<div class="left-controls">
+						<button
+							onclick="togglePlay()"
+							title="Freeze / Action"
+							aria-label="Toggle Play and Pause">
+							<i
+								id="playIcon"
+								class="fas fa-play"
+								aria-hidden="true"></i>
+						</button>
+						<span
+							class="time-display"
+							id="timeDisplay"
+							aria-live="off"
+							aria-label="Time Elapsed and Duration"
+							>0:00 / 0:00</span
+						>
+					</div>
+					<div class="right-controls">
+						<button
+							onclick="toggleMute()"
+							title="Sound Check"
+							aria-label="Toggle Audio Mute">
+							<i
+								id="muteIcon"
+								class="fas fa-volume-up"
+								aria-hidden="true"></i>
+						</button>
+						<button
+							onclick="toggleFullscreen()"
+							title="Maximize the Immersion"
+							aria-label="Toggle Fullscreen Cinema Mode">
+							<i class="fas fa-expand" aria-hidden="true"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

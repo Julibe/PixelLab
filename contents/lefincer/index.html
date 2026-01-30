@@ -1,0 +1,214 @@
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+<div class="bg-elements" role="presentation">
+	<div id="bg-particles" aria-hidden="true"></div>
+	<div class="blob b1" aria-hidden="true"></div>
+	<div class="blob b2" aria-hidden="true"></div>
+	<div class="blob b3" aria-hidden="true"></div>
+	<div class="glow" aria-hidden="true"></div>
+</div>
+<header>
+	<div class="nav-inner">
+		<div class="logo" onclick="playConfetti()" role="button" tabindex="0" title="Return to the Lefincer home dashboard for a complete financial overview" aria-label="Lefincer Brand Home">
+			<div class="icon-box" aria-hidden="true"> <span class="material-symbols-rounded">trending_up</span> </div> Lefincer
+		</div>
+		<nav class="nav-links" aria-label="Main site navigation"> <a href="#features" title="Explore how our automated workflows can streamline your enterprise operations" aria-label="View platform capabilities">Features</a> <a href="#testimonials" title="Discover how global teams are successfully scaling with our capital infrastructure" aria-label="Read client success stories">Stories</a> <a href="#pricing" title="Find the right financial plan to power your company growth phases" aria-label="Check subscription plans">Pricing</a> <a href="#api" title="Review technical documentation to integrate our financial APP into your stack" aria-label="Access developer resources">API</a> </nav>
+		<div class="nav-actions"> <a href="#login" class="log-in" title="Enter your secure credentials to manage your corporate assets" aria-label="Sign in to your account">Log in</a> <button class="btn-book" onclick="playConfetti()" title="Request a private walkthrough of our financial intelligence tools" aria-label="Schedule a live product demonstration"> Book Demo </button> </div>
+	</div>
+</header>
+<main class="container">
+	<section class="hero" aria-labelledby="hero_title">
+		<div class="floating-badge" onclick="playConfetti()" role="status" title="Platform status: All systems operational for high-velocity scaling" aria-label="System deployment status"> <span class="material-symbols-rounded badge-icon" aria-hidden="true">rocket_launch</span> <span class="badge-text" id="hero_badge"></span> </div>
+		<h1 id="hero_title" class="text-gradient" title="The definitive operating system for managing complex financial workflows in modern teams" aria-label="Financial APPfor High-Growth Teams"> Financial APP for High-Growth Teams </h1>
+		<p> Automate finance ops, predict cash flow, and scale without limits. Used by startups processing $2.4B+ in annual revenue. </p>
+		<div class="hero-btns"> <button class="btn-primary" onclick="playConfetti()" title="Kickstart your journey with full access to our financial suite" aria-label="Begin your 14-day free trial now"> Start Free Trial </button> <button class="btn-ghost" onclick="playConfetti()" title="Watch how Lefincer transforms your treasury management in just two minutes" aria-label="Play the product overview video"> Watch Demo (2min) </button> </div>
+	</section>
+	<section class="marquee-container" aria-label="Enterprise partners and trusted brands">
+		<div class="animate-scroll" role="group" aria-label="Trusted enterprise partners and integrated platforms"> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/apple.svg" alt="Apple brand logo representing high-end technology integration" title="Experience seamless synchronization with Apple enterprise ecosystems" /> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/google.svg" alt="Google corporate logo representing data-driven intelligence" title="Connect your Google workspace for unified financial data processing" /> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/microsoft.svg" alt="Microsoft logo representing enterprise software reliability" title="Integrate Microsoft cloud solutions into your financial operations" /> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/amazon.svg" alt="Amazon logo representing global infrastructure and scaling" title="Power your global Amazon trade with our automated treasury tools" /> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/meta.svg" alt="Meta logo representing social connectivity and advertising data" title="Analyze your Meta marketing investments with high-fidelity insights" /> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/nvidia.svg" alt="Nvidia logo representing advanced computational power" title="Drive your financial forecasting with Nvidia-grade processing speed" /> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/tesla.svg" alt="Tesla logo representing engineering innovation and efficiency" title="Scale your engineering ventures with precision capital management" /> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/samsung.svg" alt="Samsung logo representing global hardware excellence" title="Monitor your assets across all Samsung devices with complete clarity" /> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/intel.svg" alt="Intel logo representing foundational computing hardware" title="Foundational intelligence built on Intel computational standards" /> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cisco.svg" alt="Cisco logo representing secure networking infrastructure" title="Secure your financial data transfers through Cisco-trusted networks" /> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/apple.svg" alt="Apple brand icon" title="A trusted partner in technical innovation" aria-hidden="true" /> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/google.svg" alt="Google brand icon" title="Solving complex problems through data and AI" aria-hidden="true" /> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/microsoft.svg" alt="Microsoft brand icon" title="Driving productivity via seamless software integration" aria-hidden="true" /> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/amazon.svg" alt="Amazon brand icon" title="Reliable infrastructure for modern trade" aria-hidden="true" /> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/meta.svg" alt="Meta brand icon" title="Leading the way in digital community building" aria-hidden="true" /> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/nvidia.svg" alt="Nvidia brand icon" title="Unlocking computational potential for high-growth teams" aria-hidden="true" /> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/tesla.svg" alt="Tesla brand icon" title="Transforming the future of global energy" aria-hidden="true" /> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/samsung.svg" alt="Samsung brand icon" title="Innovative technology at every digital touchpoint" aria-hidden="true" /> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/intel.svg" alt="Intel brand icon" title="Silicon excellence for mission-critical systems" aria-hidden="true" /> <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cisco.svg" alt="Cisco brand icon" title="Enterprise networking solutions for global scale" aria-hidden="true" /> </div>
+	</section>
+	<section class="stats-bar" aria-label="Key performance metrics">
+		<div class="stat-card" title="Total number of organizations currently using our financial operating system" aria-label="Active corporate clients">
+			<div class="val" id="count_users">0</div>
+			<div class="lbl">Active Businesses</div>
+		</div>
+		<div class="stat-card" title="Cumulative value of all financial transactions managed by our core" aria-label="Total transaction volume">
+			<div class="val" id="count_vol_str">0</div>
+			<div class="lbl">Processed</div>
+		</div>
+		<div class="stat-card" title="Percentage of users reporting high efficiency and reliability" aria-label="Customer satisfaction rating">
+			<div class="val" id="count_sat">0</div>
+			<div class="lbl">Satisfaction</div>
+		</div>
+		<div class="stat-card" title="Number of high-growth ventures accelerated through our tools" aria-label="Supported startups">
+			<div class="val" id="count_startup">0</div>
+			<div class="lbl">Startups</div>
+		</div>
+	</section>
+	<section class="dashboard-perspective" aria-label="Product interface showcase">
+		<div class="dashboard-ui glass-panel" id="ui_card" role="region" aria-label="Financial Dashboard Preview">
+			<div class="window-header">
+				<div class="dot close" title="Simulated close action" aria-label="Close window"></div>
+				<div class="dot min" title="Simulated minimize action" aria-label="Minimize window"></div>
+				<div class="dot max" title="Simulated maximize action" aria-label="Maximize window"></div>
+				<div class="title-bar"> demo.lefincer.app : Live Financial Intelligence </div>
+			</div>
+			<aside class="sidebar" aria-label="Dashboard navigation">
+				<div class="user-box" title="Detailed profile for the active company account" aria-label="Company account details">
+					<div class="avatar" role="img" aria-label="Organization profile image"></div>
+					<div class="info">
+						<div class="name">GrowthScale Inc.</div>
+						<div class="plan">Enterprise Tier</div>
+					</div>
+				</div>
+				<nav>
+					<ul class="db-nav" aria-label="Dashboard sections">
+						<li class="active" title="View your primary financial indicators and status" aria-label="Dashboard Overview active"> <span class="material-symbols-rounded" aria-hidden="true">dashboard</span> Overview </li>
+						<li title="Explore deep data visualizations and performance trends" aria-label="Open Analytics section"> <span class="material-symbols-rounded" aria-hidden="true">insights</span> Analytics </li>
+						<li title="Manage cash reserves and capital allocation" aria-label="Open Treasury management"> <span class="material-symbols-rounded" aria-hidden="true">paid</span> Treasury </li>
+						<li title="Configure team permissions and compliance rules" aria-label="Open Governance settings"> <span class="material-symbols-rounded" aria-hidden="true">group</span> Governance </li>
+					</ul>
+				</nav>
+				<div class="ai-box" role="status" aria-label="AI System Status">
+					<div class="ai-title"> <span class="material-symbols-rounded" style="color: var(--primary-light)" aria-hidden="true">smart_toy</span> APP Intelligence </div>
+					<p>Real-time reconciliation completed successfully.</p> <button onclick="playConfetti()" title="Review the latest automated reconciliation and security report" aria-label="Examine audit logs"> Review audit </button>
+				</div>
+			</aside>
+			<div class="main-content" aria-label="Real-time financial metrics">
+				<div class="mini-stats">
+					<div class="mini-card" title="Current available cash and liquid assets" aria-label="Total Liquidity">
+						<div class="label">Liquidity</div>
+						<div class="value">$2.48M</div>
+					</div>
+					<div class="mini-card" title="Average monthly capital expenditure" aria-label="Monthly Burn Rate">
+						<div class="label">Burn Rate</div>
+						<div class="value">$142.5K</div>
+					</div>
+					<div class="mini-card" title="Projected months of operation based on current liquidity" aria-label="Estimated Runway">
+						<div class="label">Runway</div>
+						<div class="value">18 Mo</div>
+					</div>
+				</div>
+				<div class="split-view">
+					<div class="chart-card" aria-label="Revenue Projection Chart">
+						<div class="header">
+							<div class="left">
+								<div class="rev-label">Projected Revenue</div>
+								<div class="rev-val" aria-live="polite"> $<span id="rev_counter">0</span>K <span class="rev-growth" title="Increase in revenue projection vs previous quarter" aria-label="Twenty four point five percent growth">24.5%</span> </div>
+							</div> <button class="btn-ghost" onclick="playConfetti()" style=" padding: 0.5rem 1rem; font-size: 0.7rem; border-radius: 10px; " title="Update revenue projections using AI predictive modeling" aria-label="Run revenue forecast"> Forecast </button>
+						</div>
+						<div class="chart-bars" id="bar_wrap" role="img" aria-label="Bar chart showing monthly revenue trends"></div>
+						<div class="chart-tabs" role="tablist" aria-label="Forecast timeframe"> <button class="active" role="tab" aria-selected="true" title="View projections for Q1 2026" aria-label="First quarter view"> Q1 2026 </button> <button role="tab" aria-selected="false" title="View projections for Q2 2026" aria-label="Second quarter view"> Q2 2026 </button> </div>
+					</div>
+					<div class="activity" aria-label="Latest transaction history">
+						<div class="title">Recent Flow</div>
+						<div class="feed" id="activity_feed" aria-live="polite"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section id="testimonials" class="testimonials-section" aria-labelledby="testimonial_title">
+		<div class="section-header">
+			<h2 id="testimonial_title" class="text-gradient" title="Real-world examples of how our platform empowers high-growth teams" aria-label="Success Stories from Global Visionaries"> Trusted by Visionary Teams </h2>
+			<p> Scaling high-growth companies with intelligent capital infrastructure. </p>
+		</div>
+		<div class="splide" id="testimonial_slider" role="region" aria-label="Client testimonials carousel">
+			<div class="splide__track">
+				<ul class="splide__list" id="testimonials_list"></ul>
+			</div>
+			<div class="splide__arrows"> <button class="splide__arrow splide__arrow--prev" title="See the previous customer story" aria-label="Previous testimonial"> <span class="material-symbols-rounded" aria-hidden="true">chevron_left</span> </button> <button class="splide__arrow splide__arrow--next" title="See the next customer story" aria-label="Next testimonial"> <span class="material-symbols-rounded" aria-hidden="true">chevron_right</span> </button> </div>
+		</div>
+	</section>
+	<section class="features" id="features" aria-labelledby="features_title">
+		<div class="section-header">
+			<h2 id="features_title" class="text-gradient" title="Advanced technical solutions designed for modern financial clarity" aria-label="Technical Infrastructure for Enterprise Scale"> Infrastructure for Scale </h2>
+			<p> Designed for teams that require precision and financial clarity. </p>
+		</div>
+		<div class="feature-grid">
+			<div class="f-card f-primary" role="article" aria-labelledby="feat_h3_1"> <span class="material-symbols-rounded f-icon" aria-hidden="true">auto_graph</span>
+				<h3 id="feat_h3_1">High-Fidelity Revenue</h3>
+				<p> Granular tracking across multi-channel payment flows with automated reconciliation. </p> <a href="#" class="f-link" onclick="playConfetti()" title="Initiate a detailed audit of your multi-channel revenue streams" aria-label="Explore revenue flow analysis">Analyze Flow <span class="material-symbols-rounded" aria-hidden="true">arrow_right_alt</span></a>
+			</div>
+			<div class="f-card f-emerald" role="article" aria-labelledby="feat_h3_2"> <span class="material-symbols-rounded f-icon" aria-hidden="true">bolt</span>
+				<h3 id="feat_h3_2">Dynamic Capital</h3>
+				<p> Instant treasury management and smart vendor payments with automated approvals. </p>
+				<div class="f-badge" title="Average reduction in operational friction for enterprise accounts" aria-label="Thirty five percent efficiency improvement"> Efficiency +35% </div>
+			</div>
+			<div class="f-card f-blue" role="article" aria-labelledby="feat_h3_3"> <span class="material-symbols-rounded f-icon" aria-hidden="true">insights</span>
+				<h3 id="feat_h3_3">Neural Forecasting</h3>
+				<p> Predictive modeling of cash runways based on seasonal burn and growth trends. </p>
+				<div class="f-badge" title="Standard confidence interval for our predictive AI models" aria-label="Ninety four percent forecast accuracy"> Accuracy 94% </div>
+			</div>
+		</div>
+		<div class="cta-banner" role="complementary" aria-labelledby="cta_title">
+			<h3 id="cta_title">Ready to modernize <br />your treasury?</h3>
+			<p> Join founders who saved an average of 40 hours per month on complex operations. </p>
+			<div class="cta-btns"> <button class="btn-white" onclick="playConfetti()" title="Open your free account and experience the platform immediately" aria-label="Sign up for a free trial"> Start Free Trial </button> <button class="btn-outline" onclick="playConfetti()" title="Book a custom walkthrough with one of our financial specialists" aria-label="Request a professional demo"> Schedule Demo </button> </div>
+		</div>
+	</section>
+</main>
+<footer>
+	<div class="container">
+		<div class="footer-grid">
+			<div class="brand-col">
+				<div class="logo-f" role="img" aria-label="Lefincer Brand Logo Footer">
+					<div class="icon-f" aria-hidden="true"> <span class="material-symbols-rounded">trending_up</span> </div> Lefincer
+				</div>
+				<p> The standard for financial operations in high-growth ecosystems. </p>
+			</div>
+			<div class="footer-col" role="navigation" aria-label="Footer Platform Links">
+				<h4>Platform</h4>
+				<ul>
+					<li> <a href="#" title="Discover how our AI intelligence transforms financial data" aria-label="Go to Intelligence module">Intelligence</a> </li>
+					<li> <a href="#" title="Manage liquidity and enterprise assets with precision" aria-label="Go to Treasury module">Treasury</a> </li>
+					<li> <a href="#" title="Review our industry-leading security and compliance measures" aria-label="Go to Security module">Security</a> </li>
+				</ul>
+			</div>
+			<div class="footer-col" role="navigation" aria-label="Footer Resource Links">
+				<h4>Knowledge</h4>
+				<ul>
+					<li> <a href="#" title="Access technical manuals and implementation guides" aria-label="Go to Documentation">Documentation</a> </li>
+					<li> <a href="#" title="Read curated articles on optimizing financial operations" aria-label="Go to Guides">Guides</a> </li>
+					<li> <a href="#" title="Explore real-world implementation stories from our clients" aria-label="Go to Case Studies">Case Studies</a> </li>
+				</ul>
+			</div>
+			<div class="footer-col" role="navigation" aria-label="Footer Corporate Links">
+				<h4>Company</h4>
+				<ul>
+					<li> <a href="#" title="Join our growing team of engineers and designers" aria-label="Go to Careers">Careers</a> </li>
+					<li> <a href="#" title="Connect with our global network of innovators and partners" aria-label="Go to Network">Network</a> </li>
+					<li> <a href="#" title="Read about how we protect your organizational data" aria-label="Go to Privacy Policy">Privacy</a> </li>
+				</ul>
+			</div>
+		</div>
+		<div class="bottom-actions">
+			<div class="nav-row" role="group" aria-label="Project Meta Information"> <button onclick="openModal('intro')" title="Read the project overview and executive summary" aria-label="Open Abstract info"> Abstract </button> <button onclick="openModal('theory')" title="Understand the mathematical theory behind capital velocity" aria-label="Open Capital Theory info"> Capital Theory </button> <button onclick="openModal('about')" title="Learn more about the designer and developer behind this project" aria-label="Open Architect info"> Architect </button> </div> <button class="share-btn" onclick="shareTwitter()" title="Help us spread the word about our financial APP on social media" aria-label="Share this project on X"> Spread the Intelligence <i class="fa-solid fa-share-nodes ml-2" aria-hidden="true"></i> </button>
+			<div class="social-pills" role="navigation" aria-label="Social and Contact links for Julibe"> <a href="https://julibe.com/" target="_blank" class="pill" title="Take a moment to explore the creative world of Julibe and see more digital masterpieces" aria-label="Don't forget to visit the Portfolio of Julibe"><i class="fa-solid fa-globe" aria-hidden="true"></i> <span>Portfolio</span></a> <a href="https://julibe.com/github" target="_blank" class="pill" title="Check out the latest open-source experiments and code contributions from Julibe" aria-label="Take a look at the GitHub of Julibe"><i class="fa-brands fa-github" aria-hidden="true"></i> <span>GitHub</span></a> <a href="https://julibe.com/twitter" target="_blank" class="pill" title="Join the conversation and stay updated with the latest design thoughts from Julibe on X" aria-label="Don't forget to follow Julibe on Twitter"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i> <span>Twitter (X)</span></a> <a href="https://julibe.com/instagram" target="_blank" class="pill" title="Get a behind-the-scenes look at the design process and daily inspiration of Julibe" aria-label="Don't forget to follow Julibe on Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i> <span>Instagram</span></a> <a href="mailto:mail@julibe.com" class="pill" title="Hey have some questions? Just contact Julibe through this email and let's talk about your next project!" aria-label="Send an email to Julibe"><i class="fa-solid fa-envelope" aria-hidden="true"></i> <span>Email</span></a> </div>
+			<div class="copyright"> &copy; 2026 <a href="https://julibe.com/" target="_blank" title="Visit the official digital home of Julibe" aria-label="Link to Julibe.com">Julibe.com</a>. <p class="disclaimer"> Conceptual Architecture Demo. Not a live service. </p>
+			</div>
+		</div>
+	</div>
+</footer>
+<div id="project_modal" class="modal" onclick="closeModal()" role="dialog" aria-modal="true" aria-labelledby="modal_body">
+	<div class="modal-content" onclick="event.stopPropagation()"> <span class="material-symbols-rounded close" onclick="closeModal()" role="button" tabindex="0" title="Close the current information window" aria-label="Close modal">close</span>
+		<div id="modal_body" aria-live="polite"></div> <button class="modal-btn" onclick="closeModal()" title="Close this information panel and return to the page" aria-label="Confirm and close"> Confirm </button>
+	</div>
+</div> <template id="tpl-intro">
+	<h2 title="A high-level overview of our platform goals" aria-label="Executive Summary Section"> Executive Summary </h2>
+	<p> Lefincer represents a paradigm shift in startup liquidity management. By consolidating fragmented capital flows into a high-fidelity operational core, we empower founders to navigate growth with absolute technical certainty. </p>
+</template> <template id="tpl-theory">
+	<h2 title="The scientific foundation of our financial algorithms" aria-label="Capital Velocity Theory Section"> Capital Velocity </h2>
+	<p> Our architecture focuses on the intersection of capital velocity and regulatory auditing. Neural-assisted forecasting identifies cash gaps 180 days in advance, allowing for strategic pivot maneuvers before liquidity constraints arise. </p>
+</template> <template id="tpl-about">
+	<h2 title="The creative vision behind this fintech interface" aria-label="Architectural Vision Section"> Architectural Vision </h2>
+	<p> Crafted by Julibe. This interface explores the boundaries of fintech aesthetics and utility. Designed for high-performance teams operating at the edge of innovation. </p>
+</template>

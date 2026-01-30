@@ -1,0 +1,136 @@
+<header id="top-header">
+  <a href="#" onclick="window.goHome()" class="header-logo" title="Return to the Astral Homepage" aria-label="Navigate back to the main Astrelle cosmic interface">
+    <span class="logo-star" aria-hidden="true">☆</span> ASTRELLE
+  </a>
+  <nav class="header-nav" role="navigation" aria-label="Main Celestial Navigation">
+    <button class="header-btn" onclick="openModal('intro')" title="Curious about your path? View the Celestial Map" aria-label="Open the modal to view your personal celestial map details">Celestial Map</button>
+    <button class="header-btn" onclick="openModal('theory')" title="Want to understand the magic? Decode Star Codes" aria-label="Open the modal to explain the astrology theory behind Astrelle">Star Codes</button>
+    <button class="header-btn" onclick="openModal('about')" title="Who created this? Meet the Cosmic Weaver" aria-label="Open the modal to read about Julibe, the creator of Astrelle">Cosmic Weaver</button>
+  </nav>
+  <div class="social-nav">
+    <nav role="navigation" aria-label="Social Connections to Julibe">
+      <ul>
+        <li>
+          <a href="https://julibe.com/" target="_blank" class="nav-item" title="Want to explore more? Visit Julibe's Universe" aria-label="Navigate to Julibe's personal portfolio website">
+            <i class="fa-solid fa-globe" aria-hidden="true"></i> <span>Web</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://julibe.com/github" target="_blank" class="nav-item" title="Interested in the code? Follow Julibe on GitHub" aria-label="View Julibe's development repositories on GitHub">
+            <i class="fa-brands fa-github" aria-hidden="true"></i> <span>GitHub</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://julibe.com/whatsapp" target="_blank" class="nav-item" title="Have a question? Chat with Julibe on WhatsApp" aria-label="Open a direct WhatsApp chat with Julibe">
+            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> <span>WhatsApp</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://julibe.com/twitter" target="_blank" class="nav-item" title="Stay updated! Follow Julibe on X" aria-label="Follow Julibe's latest updates and thoughts on X (formerly Twitter)">
+            <i class="fa-brands fa-twitter" aria-hidden="true"></i> <span>X (Twitter)</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://julibe.com/instagram" target="_blank" class="nav-item" title="Love visuals? Follow Julibe on Instagram" aria-label="See Julibe's creative photos and stories on Instagram">
+            <i class="fa-brands fa-instagram" aria-hidden="true"></i> <span>Instagram</span>
+          </a>
+        </li>
+        <li>
+          <a href="mailto:mail@julibe.com" class="nav-item" title="Need to reach out? Email Julibe directly" aria-label="Compose an email to Julibe's official address">
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i> <span>Email</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <button id="mobile-menu-toggle" onclick="toggleMobileMenu()" title="Open the Star Menu" aria-label="Toggle the visibility of the mobile navigation menu" aria-expanded="false">
+    ★
+  </button>
+</header>
+
+<div id="mobile-menu" aria-hidden="true">
+  <nav class="header-nav" role="navigation" aria-label="Mobile Celestial Navigation">
+    <button class="header-btn" onclick="openModal('intro'); toggleMobileMenu()" title="Curious about your path? View the Celestial Map" aria-label="View your personal celestial map details">Celestial Map</button>
+    <button class="header-btn" onclick="openModal('theory'); toggleMobileMenu()" title="Want to understand the magic? Decode Star Codes" aria-label="Read the astrology theory behind Astrelle">Star Codes</button>
+    <button class="header-btn" onclick="openModal('about'); toggleMobileMenu()" title="Who created this? Meet the Cosmic Weaver" aria-label="Read about Julibe, the creator of Astrelle">Cosmic Weaver</button>
+  </nav>
+  <div class="social-nav">
+    <nav role="navigation" aria-label="Mobile Social Connections to Julibe">
+      <ul>
+        <li> <a href="https://julibe.com/" target="_blank" class="nav-item" title="Want to explore more? Visit Julibe's Universe" aria-label="Visit Julibe's portfolio"> <i class="fa-solid fa-globe" aria-hidden="true"></i> </a> </li>
+        <li> <a href="https://julibe.com/github" target="_blank" class="nav-item" title="Interested in the code? Follow Julibe on GitHub" aria-label="View Julibe's code on GitHub"> <i class="fa-brands fa-github" aria-hidden="true"></i> </a> </li>
+        <li> <a href="https://julibe.com/whatsapp" target="_blank" class="nav-item" title="Have a question? Chat with Julibe on WhatsApp" aria-label="Chat with Julibe on WhatsApp"> <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> </a> </li>
+        <li> <a href="https://julibe.com/twitter" target="_blank" class="nav-item" title="Stay updated! Follow Julibe on X" aria-label="Follow Julibe on X"> <i class="fa-brands fa-twitter" aria-hidden="true"></i> </a> </li>
+        <li> <a href="https://julibe.com/instagram" target="_blank" class="nav-item" title="Love visuals? Follow Julibe on Instagram" aria-label="Follow Julibe on Instagram"> <i class="fa-brands fa-instagram" aria-hidden="true"></i> </a> </li>
+        <li> <a href="mailto:mail@julibe.com" class="nav-item" title="Need to reach out? Email Julibe directly" aria-label="Email Julibe"> <i class="fa-solid fa-envelope" aria-hidden="true"></i> </a> </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<div id="main-container">
+  <div id="sidebar">
+    <div id="menu-list">
+      <!-- Sidebar menu items could go here -->
+    </div>
+  </div>
+  <div id="content-panel">
+    <div id="setup-view">
+      <div style="text-align:center; margin-bottom: 2rem;">
+        <h2 style="font-family:'Cinzel'; color:var(--gold); font-size:1.5rem;" title="Begin your journey here" aria-label="Configuration section: Align Your Fate">Align Your Fate</h2>
+      </div>
+      <p class="setup-intro">
+        "The stars impel, they do not compel." <br>
+        Select your birth origin to attune your cosmic reading.
+      </p>
+      <form class="input-group" aria-labelledby="date-label">
+        <label id="date-label" for="dob-input" title="When did your journey begin?">Date of Origin</label>
+        <input type="date" id="dob-input" title="Select your birth date" aria-label="Input your date of birth to calculate planetary positions" required>
+      </form>
+      <div class="input-group" role="group" aria-labelledby="focus-label">
+        <label id="focus-label" title="What energy do you seek?">Focus Alignments</label>
+        <div class="checkbox-group" id="checkbox-container">
+          <label data-color="#d50000" title="Focus on matters of the heart"><input type="checkbox" value="love" checked aria-label="Toggle Love and Heart focus"> Love & Heart</label>
+          <label data-color="#ffab00" title="Focus on financial abundance"><input type="checkbox" value="money" checked aria-label="Toggle Wealth and Flow focus"> Wealth & Flow</label>
+          <label data-color="#00c853" title="Focus on physical well-being"><input type="checkbox" value="health" aria-label="Toggle Health and Vitality focus"> Health & Vitality</label>
+          <label data-color="#2962ff" title="Focus on new horizons"><input type="checkbox" value="travel" aria-label="Toggle Travel and Horizons focus"> Travel & Horizons</label>
+          <label data-color="#aa00ff" title="Focus on inner growth"><input type="checkbox" value="growth" aria-label="Toggle Emotion and Spirit focus"> Emotion & Spirit</label>
+          <label data-color="#37474f" title="Focus on life decisions"><input type="checkbox" value="timing" aria-label="Toggle Timing and Choices focus"> Timing & Choices</label>
+          <label data-color="#e91e63" title="Focus on relationships"><input type="checkbox" value="compatibility" aria-label="Toggle Soul Connections focus"> Soul Connections</label>
+        </div>
+      </div>
+      <button class="btn-enter" id="start-btn" title="Ready to see the stars? Click here!" aria-label="Submit your details to reveal your personalized cosmic destiny">REVEAL MY DESTINY!</button>
+    </div>
+    <div id="reading-view" aria-live="polite">
+      <div id="sign-details" role="region" aria-label="Zodiac Sign Description"></div>
+      <div class="nav-actions">
+        <button class="nav-btn" onclick="prevSign()" title="Go back to the previous sign" aria-label="Navigate to the previous celestial sign information">⬅ Previous</button>
+        <button class="nav-btn" onclick="nextSign()" title="Discover the next sign" aria-label="Navigate to the next celestial sign information">Next ➜</button>
+      </div>
+      <div id="copyright" style="text-align:center; margin-top:15px; font-size:0.6rem; color:#444;" title="Legal and Credit Information" aria-label="Copyright and developer credit information">
+        Copyright &copy; 2026 <a href="https://julibe.com/" target="_blank" style="color:#666; text-decoration:none;" title="Don't forget to visit Julibe's main site!" aria-label="Link to Julibe's homepage">Julibe.com</a>.
+      </div>
+    </div>
+  </div>
+  <div id="canvas-container" role="img" aria-label="Interactive particle animation representing your zodiac constellation"></div>
+</div>
+
+<div id="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeModal()" title="Done reading? Close this window" aria-label="Close the information modal">&times;</button>
+    <div id="modal-body" class="modal-body">
+      <div id="modal-intro" class="modal-section" tabindex="-1">
+        <h1 title="Welcome to your portal" aria-label="Heading: Gaze Upon Your Celestial Map">Gaze Upon Your Celestial Map</h1>
+        <p>Your soul is a luminous frequency, and the stars are your mirrors. Through Astrelle, ancient zodiac wisdom and the dance of particles reveal the energy that flows uniquely through you. Select your date of origin and align your focus; the universe will illuminate your path in real time. This is not just a reading—it is a reflection of your cosmic essence.</p>
+      </div>
+      <div id="modal-theory" class="modal-section" tabindex="-1">
+        <h2 title="The science of the stars" aria-label="Heading: Decode the Star Codes">Decode the Star Codes</h2>
+        <p>The heavens speak in patterns, and astrology is their oldest algorithm. Astrelle transforms these celestial scripts into radiant particle constellations. Each zodiac archetype is a cloud of luminous points, vibrating with the energy of planets and elements. Your reading harmonizes with Love, Wealth, Health, and Spirit—revealing the cosmic influences that guide your journey.</p>
+      </div>
+      <div id="modal-about" class="modal-section" tabindex="-1">
+        <h2 title="The mind behind the magic" aria-label="Heading: Meet the Cosmic Weaver">Meet the Cosmic Weaver</h2>
+        <p>This astral tapestry was brought to life by <a href="https://julibe.com/" target="_blank" title="Check out Julibe's portfolio!" aria-label="Visit Julibe's website to see more projects">@Julibe</a>, a weaver of starlight and code. Here, technology channels the subtle whispers of the universe, giving form to the unseen currents of your destiny. Step lightly, open your heart, and let the stars guide you. Connection is instant, and your cosmic story is waiting to be unveiled.</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -88,6 +88,13 @@
 		?>
 		<!doctype html>
 		<html lang="<?php echo $lang ?>" dir="ltr">
+			<!--
+				★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+				★						Made with ❤ by @Julibe					★
+				★		https://julibe.com/ ★ Crafting Digital Experiences		★
+				★						UI/UX, VR, AR and more!					★
+				★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+			-->
 			<?php
 				if (empty($head_config)) {
 

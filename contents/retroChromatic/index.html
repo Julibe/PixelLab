@@ -1,0 +1,62 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<div class="layout-grid">
+	<aside class="intro-col">
+		<span class="badge">Visual Experiment</span>
+		<h1>Chromatic Aberration Effect<br>(FAKE)</h1>
+		<p class="desc">Hello there! This is a simulated demonstration showcasing a Chromatic Aberration Effect, achieved through the manipulation of the blue and red color channels via SVG and applied using a simple CSS class.</p>
+		<div class="alert-box">Just a heads-up: This effect isn't genuine Chromatic Aberration; it's totally fake, I designed it solely for aesthetic purposes.</div>
+
+		<div class="links-section">
+			<h3>Support & Connect</h3>
+			<p>If you like this, please share or follow me <a href="https://x.com/Julibe">@Julibe</a>.</p>
+			<br>
+			<p>💼 Open to new projects</p>
+
+			<ul class="link-list">
+				<li><a href="https://julibe.com/">Web</a></li>
+				<li><a href="https://julibe.com/whatsapp">WhatsApp</a></li>
+				<li><a href="https://julibe.com/twitter">Twitter</a></li>
+				<li><a href="https://julibe.com/instagram">Instagram</a></li>
+				<li><a href="mailto:mail@julibe.com">Email</a></li>
+			</ul>
+
+	</aside>
+
+	<main class="examples-col">
+		<article class="tech-card">
+			<div class="card-header"><span>Mode: Permanent</span><span>// 01</span></div>
+			<div class="media-wrapper">
+				<img src="https://picsum.photos/1000/562" class="aberration" alt="Normal Image" />
+			</div>
+		</article>
+
+		<article class="tech-card aberration-hv">
+			<div class="card-header"><span>Mode: Hover Interaction</span><span>// 02</span></div>
+			<div class="media-wrapper">
+				<img src="https://picsum.photos/1000/560" alt="Hover Image" />
+			</div>
+		</article>
+
+		<article class="tech-card">
+			<div class="card-header"><span>Mode: Video Output</span><span>// 03</span></div>
+			<div class="media-wrapper">
+				<video autoplay muted controls loop playsinline class="aberration" aria-label="Chromatic Aberration Video">
+					<source src="https://d2ezlykacdqcnj.cloudfront.net/puppy-in-grass-2/puppy-in-grass-2.mp4" type="video/mp4">
+				</video>
+			</div>
+		</article>
+	</main>
+</div>
+
+<svg class="svg-def">
+	<filter id="aberration">
+		<feColorMatrix type="matrix" in="SourceGraphic" result="red_" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" />
+		<feOffset in="red_" dx="4" dy="0" result="red" />
+		<feColorMatrix type="matrix" in="SourceGraphic" result="blue_" values="0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0" />
+		<feOffset in="blue_" dx="-4" dy="0" result="blue" />
+		<feBlend mode="screen" in="red" in2="blue" />
+	</filter>
+</svg>

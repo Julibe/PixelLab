@@ -115,11 +115,11 @@
 
 		// Head Configuration Defaults
 		$project_title = $project_data['title'] ?? $project_slug;
+		$project_slogan = $project_data['slogan'] ?? '';
 		$head_config = [
-			'title'       => $project_title  ??  $default_app_name,
+			'title'       => (!empty($project_slogan) ? $project_title . ' | ' . $project_slogan : $project_title) ?? $default_app_name,
 			'name'        => $project_title,
-			'description' => $project_data['description'] ?? $default_description,
-			'extract'     => ($project_data['extract'] ?? $default_description) . ' Click around and explore.',
+			'description'     => ($project_data['extract'] ?? $project_data['description'] ?? $default_description),
 			'keywords'    => $project_keywords,
 			'lang'        => $lang,
 			'color' => !empty($project_data['colors']) && is_array($project_data['colors'])
@@ -153,10 +153,12 @@
 
 			'image' => $base_url. (
 				$images['cover']
+				?? $images['thumb']
 				?? $images['poster']
 				?? $images['image']
 				?? $images['screenshot_000']
 				?? $images['icon']
+				?? $images['favicon']
 				?? null
 			),
 
@@ -169,6 +171,7 @@
 	}
 
 	// Asset Inclusion Logic
+
 
 	// Load CSS inline block
 	if (is_file($css_file)) {
