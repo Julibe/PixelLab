@@ -1,0 +1,113 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
+
+<div class="bg_animation">
+	<div class="bg_circle" style="width: 400px; height: 400px; top: -10%; left: -5%;"></div>
+	<div class="bg_circle" style="width: 300px; height: 300px; top: 50%; right: -5%;"></div>
+	<div class="bg_circle" style="width: 200px; height: 200px; bottom: 10%; left: 20%;"></div>
+</div>
+
+<div id="loading_overlay">
+	<div class="loader">
+		<div class="loader_ring"></div>
+	</div>
+	<p>Cargando perfil...</p>
+</div>
+
+<div class="toast_container" id="toast_container"></div>
+
+<section id="login_view" class="view_container active">
+	<div class="login_container">
+		<div class="login_brand">
+			<img src="https://res.cloudinary.com/dwrzfx0qg/image/upload/v1769220791/Logo.png" alt="OLS">
+		</div>
+		<div class="header_content">
+			<h1>Evaluación de Sostenibilidad</h1>
+			<p class="subtitle">Accede a tu perfil corporativo</p>
+		</div>
+		<div class="input_wrapper">
+			<span class="material-icons-round icon">person</span>
+			<input type="email" id="login_email" placeholder="tu@empresa.com">
+		</div>
+		<div class="input_wrapper">
+			<span class="material-icons-round icon">lock</span>
+			<input type="password" id="login_pass" placeholder="••••••••">
+		</div>
+		<button class="btn_login" id="login_btn">Acceder al Portal</button>
+	</div>
+</section>
+
+<section id="app_shell_view" class="view_container">
+	<aside class="sidebar">
+		<div class="nav_brand">
+			<img src="https://res.cloudinary.com/dwrzfx0qg/image/upload/v1769220791/Logo.png" alt="OLS" onerror="this.src='https://via.placeholder.com/120x50?text=OLS'">
+		</div>
+		<div class="progress_widget">
+			<div class="chart_container">
+				<svg class="progress_ring" viewBox="0 0 160 160">
+					<defs>
+						<linearGradient id="gradient_sidebar" x1="0%" y1="0%" x2="100%" y2="100%">
+							<stop offset="0%" stop-color="var(--green_accent)" />
+							<stop offset="100%" stop-color="var(--green_light)" />
+						</linearGradient>
+					</defs>
+					<circle class="progress_ring_bg" cx="80" cy="80" r="64" fill="none"></circle>
+					<circle class="progress_ring_fill" cx="80" cy="80" r="64" fill="none" id="sb_circle"></circle>
+				</svg>
+				<div class="progress_value" id="sb_pct_label">0%</div>
+			</div>
+			<div class="progress_label" id="sb_type_label">Progreso General</div>
+		</div>
+		<ul class="nav_menu">
+			<li id="m_dash" class="nav_item active" onclick="gotoDashboard()"><span class="material-icons-round">dashboard</span> Dashboard</li>
+			<li id="m_quiz" class="nav_item" onclick="resumeQuiz()"><span class="material-icons-round">quiz</span> Cuestionario</li>
+		</ul>
+		<div class="user_card">
+			<div class="user_avatar" id="u_photo">U</div>
+			<div class="user_info">
+				<p id="u_name_label">---</p>
+				<span id="u_id_label">ID: ---</span>
+			</div>
+			<button onclick="userLogout()"><span class="material-icons-round">logout</span></button>
+		</div>
+	</aside>
+	<main class="workspace" id="ws_content"></main>
+</section>
+
+<section id="questionnaire_view" class="view_container">
+	<aside class="quiz_sidebar" id="quiz_sidebar_el">
+		<button class="back_nav_btn" onclick="gotoDashboard()" style="width: fit-content; margin-bottom: 2rem;">
+			<span class="material-icons-round">arrow_back</span> Dashboard
+		</button>
+		<div class="step_info">
+			<div id="q_icon_container" style="margin-bottom: 2rem;">
+				<span class="material-icons-round" id="q_icon" style="font-size: 72px; background: rgba(255,255,255,0.2); padding: 15px; border-radius: 20px;"></span>
+			</div>
+			<span class="cat_label" id="q_category_label">Categoría</span>
+			<h1 id="q_main_label">Pregunta</h1>
+			<p id="q_description_label">Descripción</p>
+		</div>
+	</aside>
+	<main class="quiz_main">
+		<div class="quiz_progress">
+			<div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; color: var(--text_muted);">
+				<span id="q_step_label">Pregunta 1 de 10</span>
+				<span id="q_pct_label">0%</span>
+			</div>
+			<div class="progress_bar">
+				<div class="progress_fill" id="quiz_progress_fill" style="width: 0%"></div>
+			</div>
+		</div>
+		<div id="q_step_container">
+			<h2 style="font-family: 'Montserrat'; font-size: 1.8rem; margin-bottom: 2rem; color: var(--text_dark);">Selecciona tu respuesta:</h2>
+			<div class="options_grid" id="q_options_box"></div>
+		</div>
+		<div class="quiz_controls">
+			<button class="btn_secondary" id="quiz_back_btn"><span class="material-icons-round">arrow_back</span> Anterior</button>
+			<button class="btn_primary" id="quiz_next_btn">Siguiente <span class="material-icons-round">arrow_forward</span></button>
+		</div>
+	</main>
+</section>

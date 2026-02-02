@@ -1,0 +1,122 @@
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+    }
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+<div id="loader" class="loader_overlay">
+	<div class="spinner"></div>
+	<p style="font-weight: 600; color: var(--text_dark);">Cargando Datos...</p>
+</div>
+
+<section id="login_view" class="view_container active">
+	<div class="login_card">
+		<img src="https://res.cloudinary.com/dwrzfx0qg/image/upload/v1769220791/Logo.png" alt="OLS Logo">
+		<h1>Portal de Reportes</h1>
+		<p>Ingresa tus credenciales para visualizar el estado de sostenibilidad.</p>
+		<div class="input_group">
+			<span class="material-icons-round icon">email</span>
+			<input type="email" id="email_in" placeholder="correo@empresa.com">
+		</div>
+		<div class="input_group">
+			<span class="material-icons-round icon">lock</span>
+			<input type="password" id="pass_in" placeholder="••••••••">
+		</div>
+		<button class="btn_primary" onclick="attemptLogin()">Acceder al Reporte</button>
+	</div>
+</section>
+
+<section id="app_shell" class="view_container">
+	<aside class="sidebar">
+		<div class="brand">
+			<img src="https://res.cloudinary.com/dwrzfx0qg/image/upload/v1769220791/Logo.png" alt="OLS Logo">
+		</div>
+		<div class="nav_header">
+			<button id="btn_back" class="btn_back hidden" onclick="showCategories()">
+				<span class="material-icons-round">arrow_back</span>
+			</button>
+			<h3 id="sidebar_title">CATEGORÍAS</h3>
+		</div>
+		<div class="nav_list" id="sidebar_content"></div>
+		<div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border_color);">
+			<button id="btn_download" class="btn_primary" onclick="exportPDF()" style="display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 0.9rem;">
+				<span class="material-icons-round" style="font-size: 18px;">picture_as_pdf</span> Descargar PDF
+			</button>
+		</div>
+		<div class="user_mini">
+			<div class="avatar" id="u_av">U</div>
+			<div class="info">
+				<h4 id="u_name">Usuario</h4>
+				<span class="material-icons-round" onclick="logout()" style="cursor: pointer; color: var(--text_muted); font-size: 1.2rem; float: right;">logout</span>
+				<span style="font-size: 0.75rem; color: var(--text_muted); display: block;" id="u_role">ID: ---</span>
+			</div>
+		</div>
+	</aside>
+
+	<main class="main_area" id="main_area">
+		<div class="top_toolbar">
+			<button class="pill_btn active" id="btn_view_3d" onclick="toggleView('3d')">3D</button>
+			<button class="pill_btn" id="btn_view_detail" onclick="toggleView('detail')">Análisis</button>
+		</div>
+
+		<div class="sub_toolbar" id="sub_toolbar">
+			<button class="pill_sm active" onclick="setChartType('radar', this)">Radar</button>
+			<button class="pill_sm" onclick="setChartType('bar', this)">Barras</button>
+			<button class="pill_sm" onclick="setChartType('line', this)">Línea</button>
+			<button class="pill_sm" onclick="setChartType('polar', this)">Polar</button>
+		</div>
+
+		<div class="layer_3d" id="layer_3d">
+			<div id="canvas-container"></div>
+			<div class="viz_title_float">
+				<h2 id="viz_title">General</h2>
+			</div>
+		</div>
+
+		<div class="layer_charts hidden_layer" id="layer_charts">
+			<div class="chart_container_single">
+				<h4 id="chart_title">Mapa de Competencias</h4>
+				<div class="canvas_wrap">
+					<canvas id="main_chart"></canvas>
+				</div>
+			</div>
+		</div>
+	</main>
+</section>
+
+<div id="pdf_stage">
+	<div class="pdf_header">
+		<img src="https://res.cloudinary.com/dwrzfx0qg/image/upload/v1769220791/Logo.png" style="height:40px;">
+		<div style="text-align:right;">
+			<h1 style="margin:0; font-size:24px;">Reporte de Sostenibilidad</h1>
+			<p style="margin:0; font-weight: bold; color: var(--dynamic-theme_normal); font-size: 16px;" id="pdf_client">Cliente: ---</p>
+			<p style="margin:0; color:#666;" id="pdf_date">Fecha: ---</p>
+		</div>
+	</div>
+	<div style="background:#f8f9fa; padding:20px; border-radius:10px; margin-bottom:30px; text-align:center;">
+		<h2 style="margin:0; color:var(--dynamic-theme_normal); font-size:48px;" id="pdf_total">0</h2>
+		<p style="margin:0;">Puntaje Global</p>
+	</div>
+	<h3>Resumen de Datos</h3>
+	<div id="pdf_body"></div>
+	<h3 style="margin-top: 30px;">Análisis Gráfico</h3>
+	<div id="pdf_charts_container"></div>
+	<div style="margin-top:50px; text-align:center; color:#999; font-size:12px; border-top:1px solid #eee; padding-top:20px;">
+		Generado por OLS Platform. Documento Confidencial.
+	</div>
+</div>
+
+<div id="toast_container"></div>

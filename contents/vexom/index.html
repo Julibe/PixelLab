@@ -1,0 +1,358 @@
+
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css">
+<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Two+Tone" rel="stylesheet">
+
+<script src="https://unpkg.com/stackedit-js@1.0.7/docs/lib/stackedit.min.js"></script><div id="loader" role="status" aria-label="System loading, please wait...">
+	<div class="spinner" role="img" aria-label="Loading animation indicator"></div>
+	<h3 class="loader-text" title="We are preparing your command center">Loading...</h3>
+</div>
+<div id="toast-container" role="alert" aria-live="assertive"></div>
+<div class="fab-add" onclick="openModal()" role="button" tabindex="0" aria-label="Add a new application shortcut" title="Ready to expand? Click to add a new app here">
+	<i class="fas fa-plus" aria-hidden="true"></i>
+</div>
+<div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+	<div class="modal" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+		<i class="fas fa-times close-modal" onclick="closeModal()" role="button" tabindex="0" aria-label="Close the add app modal" title="Changed your mind? Close this window"></i>
+		<h2 id="modalTitle" title="Configure your new dashboard shortcut">Add New App</h2>
+		<form id="addForm">
+			<div class="form-group">
+				<label for="inpUrl">URL</label>
+				<input type="url" name="url" id="inpUrl" class="form-control" placeholder="https://example.com" required aria-required="true" title="Paste the full web address here" />
+			</div>
+			<div class="form-group">
+				<label for="inpName">Name</label>
+				<input type="text" name="name" id="inpName" class="form-control" placeholder="e.g. My Workspace" required aria-required="true" title="Give this shortcut a recognizable name" />
+			</div>
+			<div class="form-row">
+				<div class="form-group">
+					<label for="inpType">Type</label>
+					<select name="type" id="inpType" class="form-control" title="Select the visual style for the icon" aria-label="Icon Type Selection">
+						<option value="Font Awesome">Font Awesome</option>
+						<option value="Image">Image</option>
+						<option value="Google Material">Google Material</option>
+						<option value="Flat Icon">Flat Icon</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="inpColor">Color</label>
+					<input type="text" name="color" id="inpColor" class="form-control input-color-lg" value="#57a0ee" title="Pick a background color for the icon tile" aria-label="Icon Background Color Hex Code" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inpIcon">Icon Value</label>
+				<input type="text" name="icon" id="inpIcon" class="form-control" placeholder="e.g. fa-rocket" required aria-required="true" title="Enter the class name or URL for the icon" />
+			</div>
+			<div class="form-group">
+				<label for="catSelect">Category</label>
+				<select id="catSelect" name="category" class="form-control" title="Organize this app into a folder" aria-label="Select Category Folder"></select>
+			</div>
+			<div class="form-group checkbox-group">
+				<input type="checkbox" name="fav" id="favCheck" title="Toggle to add to favorites list" />
+				<label for="favCheck" class="label-inline" title="Mark this app as a priority">Favorites</label>
+			</div>
+			<button type="submit" class="btn-submit" id="submitBtn" title="Confirm and save your new shortcut">
+				Save
+			</button>
+		</form>
+	</div>
+</div>
+<div class="modal-overlay" id="infoModalOverlay" aria-hidden="true">
+	<div class="modal info-modal-content" role="dialog" aria-labelledby="infoTitle" aria-modal="true">
+		<i class="fas fa-times close-modal" onclick="closeInfoModal()" role="button" tabindex="0" aria-label="Close information modal" title="Done reading? Close this window"></i>
+		<div id="modalBody" class="typography-body">
+			<div id="info-intro" class="info-block hidden">
+				<h1 id="infoTitle" title="Welcome to your new digital environment">Vexon: Digital Command Center</h1>
+				<p>
+					Stop drowning in open tabs and scattered bookmarks.
+					<strong title="The name of your new productivity system">Vexon</strong> transforms your new tab page into a
+					stunning, glass-morphic productivity hub. With customizable
+					shortcuts, real-time widgets, and a sleek, distraction-free
+					design, it’s not just a start page—it’s the upgrade your
+					browsing experience deserves. Reclaim your focus and
+					organize your digital life with style.
+				</p>
+			</div>
+			<div id="info-theory" class="info-block hidden">
+				<h2 title="Understanding the design philosophy">The Art of Cognitive Minimalism</h2>
+				<p>
+					In the age of information overload, digital clutter is the
+					enemy of efficiency. <strong title="Focus-driven design">Vexon</strong> is built on the
+					principle of <em>cognitive minimalism</em>—reducing visual
+					friction to help you focus on what matters. By centralizing
+					essential tools like currency converters, weather updates,
+					and quick notes into a unified, spatial interface, we reduce
+					the "context switching" that drains your mental energy. It
+					connects the functional utility of a traditional OS
+					dashboard with the fluidity of the modern web, giving you a
+					sanctuary of clarity in a chaotic digital world.
+				</p>
+			</div>
+			<div id="info-about" class="info-block hidden">
+				<h2 title="Connect with the creator">Stay Connected</h2>
+				<p>
+					Find
+					<a href="https://julibe.com/" target="_blank" title="Visit Julibe's personal website" aria-label="Julibe's Portfolio">@Julibe</a>
+					and share your favorite dashboard setups.
+				</p>
+				<p>
+					Always open to new ideas and collaborations. Let's create
+					something great together.
+				</p>
+				<p>
+					Copyright © 2025
+					<a href="https://julibe.com/" target="_blank" title="Check out more projects by Julibe" aria-label="Julibe.com Homepage">Julibe.com</a>. All rights reserved.
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<nav class="sidebar" role="navigation" aria-label="Main Navigation">
+	<div class="profile">
+		<div class="profile-icon" role="img" aria-label="User Avatar"><i class="fas fa-user-astronaut"></i></div>
+		<div>
+			<h1 title="Vexon Dashboard System">Vexon</h1>
+			<b title="Current Version">v 0.17.0</b>
+		</div>
+	</div>
+	<ul class="nav-menu" id="folderList" role="menu"></ul>
+</nav>
+<div class="main-content">
+	<div class="top-bar">
+		<label for="appFilter" class="search-container" title="Type here to find your apps instantly">
+			<i class="fas fa-search search-icon" aria-hidden="true"></i>
+			<input type="text" id="appFilter" class="app-filter" placeholder="Search apps..." aria-label="Search through your installed applications" />
+		</label>
+	</div>
+	<div class="content-scroll">
+		<div id="home-view" class="hidden">
+			<div class="home-layout">
+				<!-- LEFT COLUMN: Apps -->
+				<div class="home-main">
+					<div id="recent-section" class="hidden">
+						<h3 class="section-header" title="Apps you have opened recently">
+							<span class="material-icons" aria-hidden="true">history</span> Recently
+							Used
+						</h3>
+						<div class="app-grid" id="recentGrid" role="list" aria-label="Recently used applications"></div>
+					</div>
+					<div id="favorites-section" class="hidden">
+						<h3 class="section-header" title="Your pinned top applications">
+							<span class="material-icons text-gold" aria-hidden="true">star</span>
+							Favorites
+						</h3>
+						<div class="app-grid" id="favoritesGrid" role="list" aria-label="Favorite applications"></div>
+					</div>
+				</div>
+				<!-- RIGHT COLUMN: Widgets -->
+				<div class="home-sidebar" role="complementary" aria-label="Dashboard Widgets">
+					<!-- Search Widget -->
+					<div class="widget">
+						<div class="widget-header" onclick="toggleWidget(this)" role="button" tabindex="0" aria-expanded="true" title="Click to collapse the Google Search widget">
+							<h3><i class="fab fa-google" aria-hidden="true"></i> Search</h3>
+							<i class="fas fa-chevron-down toggle-icon" aria-hidden="true"></i>
+						</div>
+						<div class="widget-body">
+							<form action="https://www.google.com/search" method="GET" class="widget-search-form" role="search">
+								<label for="q" class="sr-only">Search Query</label>
+								<input type="text" name="q" id="q" class="widget-search-input" placeholder="Search the web..." aria-label="Enter your search query" />
+								<button type="submit" name="btnI" value="1" class="widget-search-btn" title="I'm Feeling Lucky" aria-label="Search on Google">
+									Go
+								</button>
+							</form>
+						</div>
+					</div>
+					<div class="widget">
+						<div class="widget-header" onclick="toggleWidget(this)" role="button" tabindex="0" aria-expanded="true" title="Click to toggle the Clock display">
+							<h3><i class="far fa-clock" aria-hidden="true"></i> Time</h3>
+							<i class="fas fa-chevron-down toggle-icon" aria-hidden="true"></i>
+						</div>
+						<div class="widget-body text-center">
+							<div class="time-display" id="clockTime" role="timer" aria-label="Current Time">00:00</div>
+							<div class="date-display" id="clockDate" aria-label="Current Date">...</div>
+						</div>
+					</div>
+					<div class="widget">
+						<div class="widget-header" onclick="toggleWidget(this)" role="button" tabindex="0" aria-expanded="true" title="Click to toggle Weather information">
+							<h3><i class="fas fa-cloud-sun" aria-hidden="true"></i> Weather</h3>
+							<i class="fas fa-chevron-down toggle-icon" aria-hidden="true"></i>
+						</div>
+						<div class="widget-body weather-container" id="weatherContent" aria-live="polite">
+							<div class="weather-placeholder">Syncing...</div>
+						</div>
+					</div>
+					<div class="widget collapsed">
+						<div class="widget-header" onclick="toggleWidget(this)" role="button" tabindex="0" aria-expanded="false" title="Click to expand the Calculator">
+							<h3>
+								<i class="fas fa-calculator" aria-hidden="true"></i> Calculator
+							</h3>
+							<i class="fas fa-chevron-down toggle-icon" aria-hidden="true"></i>
+						</div>
+						<div class="widget-body">
+							<input type="text" class="calc-display" id="calcDisplay" readonly aria-label="Calculator Display" />
+							<div class="calc-keys">
+								<button class="calc-btn" onclick="calcAppend('7')" aria-label="Number 7">
+									7
+								</button>
+								<button class="calc-btn" onclick="calcAppend('8')" aria-label="Number 8">
+									8
+								</button>
+								<button class="calc-btn" onclick="calcAppend('9')" aria-label="Number 9">
+									9
+								</button>
+								<button class="calc-btn op" onclick="calcAppend('/')" aria-label="Divide">
+									/
+								</button>
+								<button class="calc-btn" onclick="calcAppend('4')" aria-label="Number 4">
+									4
+								</button>
+								<button class="calc-btn" onclick="calcAppend('5')" aria-label="Number 5">
+									5
+								</button>
+								<button class="calc-btn" onclick="calcAppend('6')" aria-label="Number 6">
+									6
+								</button>
+								<button class="calc-btn op" onclick="calcAppend('*')" aria-label="Multiply">
+									*
+								</button>
+								<button class="calc-btn" onclick="calcAppend('1')" aria-label="Number 1">
+									1
+								</button>
+								<button class="calc-btn" onclick="calcAppend('2')" aria-label="Number 2">
+									2
+								</button>
+								<button class="calc-btn" onclick="calcAppend('3')" aria-label="Number 3">
+									3
+								</button>
+								<button class="calc-btn op" onclick="calcAppend('-')" aria-label="Subtract">
+									-
+								</button>
+								<button class="calc-btn" onclick="calcClear()" aria-label="Clear Calculator">
+									C
+								</button>
+								<button class="calc-btn" onclick="calcAppend('0')" aria-label="Number 0">
+									0
+								</button>
+								<button class="calc-btn eq" onclick="calcSolve()" aria-label="Calculate Result">
+									=
+								</button>
+								<button class="calc-btn op" onclick="calcAppend('+')" aria-label="Add">
+									+
+								</button>
+							</div>
+						</div>
+					</div>
+					<!-- Currency Widget -->
+					<div class="widget collapsed">
+						<div class="widget-header" onclick="toggleWidget(this)" role="button" tabindex="0" aria-expanded="false" title="Click to expand Currency Converter">
+							<h3><i class="fas fa-coins" aria-hidden="true"></i> Converter</h3>
+							<i class="fas fa-chevron-down toggle-icon" aria-hidden="true"></i>
+						</div>
+						<div class="widget-body">
+							<div class="converter-wrap">
+								<div class="conv-group">
+									<label for="currFrom" class="sr-only">Convert From</label>
+									<select id="currFrom" class="conv-select" onchange="updateRates()" aria-label="Select source currency">
+										<option value="USD" selected>
+											USD
+										</option>
+										<option value="COP">COP</option>
+										<option value="EUR">EUR</option>
+										<option value="JPY">JPY</option>
+										<option value="GBP">GBP</option>
+										<option value="AUD">AUD</option>
+									</select>
+									<label for="convAmount" class="sr-only">Amount</label>
+									<input type="number" id="convAmount" value="1" oninput="convertCurrency()" aria-label="Amount to convert" />
+								</div>
+								<div class="conv-group">
+									<label for="currTo" class="sr-only">Convert To</label>
+									<select id="currTo" class="conv-select" onchange="updateRates()" aria-label="Select target currency">
+										<option value="COP" selected>
+											COP
+										</option>
+										<option value="USD">USD</option>
+										<option value="EUR">EUR</option>
+										<option value="JPY">JPY</option>
+										<option value="GBP">GBP</option>
+										<option value="AUD">AUD</option>
+									</select>
+									<label for="convResult" class="sr-only">Result</label>
+									<input type="text" id="convResult" readonly aria-label="Converted result" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="widget collapsed">
+						<div class="widget-header" onclick="toggleWidget(this)" role="button" tabindex="0" aria-expanded="false" title="Click to expand Quick Notes">
+							<h3><i class="fas fa-sticky-note" aria-hidden="true"></i> Notes</h3>
+							<i class="fas fa-chevron-down toggle-icon" aria-hidden="true"></i>
+						</div>
+						<div class="widget-body">
+							<label for="quickNotes" class="sr-only">Your Notes</label>
+							<textarea class="notes-area" id="quickNotes" placeholder="Type your ideas here..." oninput="saveNotes()" aria-label="Quick notes text area"></textarea>
+							<button class="stackedit-btn" onclick="window.open('https://stackedit.io/app', '_blank')" title="Need more power? Open the full editor" aria-label="Open StackEdit Full Editor">
+								<i class="fas fa-pen" aria-hidden="true"></i> Full Editor
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="dynamic-view" class="hidden">
+			<div class="section-header" id="gridTitle" role="heading" aria-level="2"></div>
+			<div class="app-grid" id="appGrid" role="list"></div>
+		</div>
+	</div>
+</div>
+<footer class="bottom-bar" role="contentinfo">
+	<div class="bar-left">
+		<button class="bar-btn" onclick="openInfo('intro')" aria-label="Read Vexon Introduction" title="Curious? Read the introduction to Vexon">
+			<i class="fas fa-info-circle" aria-hidden="true"></i> <span>Intro</span>
+		</button>
+		<button class="bar-btn" onclick="openInfo('theory')" aria-label="Read Design Theory" title="Discover the cognitive minimalism behind this design">
+			<i class="fas fa-book" aria-hidden="true"></i> <span>Theory</span>
+		</button>
+		<button class="bar-btn" onclick="openInfo('about')" aria-label="About the Creator" title="Learn more about the creator, Julibe">
+			<i class="fas fa-user-astronaut" aria-hidden="true"></i> <span>About</span>
+		</button>
+	</div>
+	<div class="bar-center">
+		<nav class="social-mini-nav" aria-label="Julibe's Social Media Links">
+			<a href="https://julibe.com/" target="_blank" class="bar-link" title="Visit Julibe's digital HQ" aria-label="Julibe's Portfolio Website">
+				<i class="fa-solid fa-globe" aria-hidden="true"></i> <span>Web</span>
+			</a>
+			<a href="https://julibe.com/github" target="_blank" class="bar-link" title="Explore Julibe's open source contributions" aria-label="Julibe's GitHub Profile">
+				<i class="fa-brands fa-github" aria-hidden="true"></i> <span>GitHub</span>
+			</a>
+			<a href="https://julibe.com/whatsapp" target="_blank" class="bar-link" title="Start a direct chat with Julibe" aria-label="Contact Julibe on WhatsApp">
+				<i class="fa-brands fa-whatsapp" aria-hidden="true"></i> <span>WhatsApp</span>
+			</a>
+			<a href="https://julibe.com/twitter" target="_blank" class="bar-link" title="Keep up with Julibe's latest thoughts" aria-label="Julibe's X (Twitter) Feed">
+				<i class="fa-brands fa-twitter" aria-hidden="true"></i> <span>Twitter</span>
+			</a>
+			<a href="https://julibe.com/instagram" target="_blank" class="bar-link" title="See the world through Julibe's lens" aria-label="Julibe's Instagram Gallery">
+				<i class="fa-brands fa-instagram" aria-hidden="true"></i> <span>Instagram</span>
+			</a>
+			<a href="mailto:mail@julibe.com" class="bar-link" title="Drop a line to Julibe's inbox" aria-label="Send an email to Julibe">
+				<i class="fa-solid fa-envelope" aria-hidden="true"></i> <span>Email</span>
+			</a>
+		</nav>
+	</div>
+	<div class="bar-right">
+		<button class="bar-btn share-btn" onclick="shareTwitter()" aria-label="Share Vexon on Twitter" title="Love Vexon? Spread the word on Twitter!">
+			<i class="fab fa-twitter" aria-hidden="true"></i> <span>Share</span>
+		</button>
+		<span class="bar-copyright" title="All Rights Reserved by Julibe 2025">
+			© 2025 <a href="https://julibe.com/" target="_blank" aria-label="Visit Julibe.com">Julibe</a>
+		</span>
+	</div>
+</footer>
