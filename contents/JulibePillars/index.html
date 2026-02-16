@@ -1,0 +1,824 @@
+<link
+	href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+	rel="stylesheet" />
+<link
+	href="https://omnex.julibe.com/Assets/Julibe/Logo/Font/Humane.css"
+	rel="stylesheet" />
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<div id="loading-overlay">
+	<div class="loading-content">
+		<img
+			src="https://omnex.julibe.com/Assets/Julibe/Logo/PNG/Logo-Horizontal-3D.png"
+			alt="Julibe's horizontal 3D logo | Crafting Digital Experiences"
+			class="loading-logo" />
+		<div class="lang-selector">
+			<button
+				class="lang-option"
+				onclick="startWithLang('en')"
+				title="Choose English to explore my design pillars"
+				aria-label="Enter my digital experience in English">
+				English
+			</button>
+			<button
+				class="lang-option"
+				onclick="startWithLang('es')"
+				title="Selecciona Español para explorar mis pilares de diseño"
+				aria-label="Entrar a mi experiencia digital en Español">
+				Español
+			</button>
+		</div>
+	</div>
+</div>
+
+<canvas
+	id="three-canvas"
+	role="img"
+	aria-label="An interactive 3D background that responds to your presence, built to showcase my design logic"></canvas>
+<div class="bg-grid" aria-hidden="true"></div>
+
+<nav class="top-nav" aria-label="Primary navigation for my design pillars">
+	<div class="nav-links">
+		<div
+			class="nav-item active"
+			onclick="navigateTo('section-0')"
+			data-i18n="menu_intro"
+			role="button"
+			tabindex="0"
+			aria-label="Return to the beginning of my story"
+			title="Return to the introduction"
+			data-i18n-aria="menu_intro">
+			Intro <i class="fas fa-home"></i>
+		</div>
+		<div
+			class="nav-item"
+			onclick="navigateTo('section-1')"
+			data-i18n="menu_ux"
+			role="button"
+			tabindex="0"
+			aria-label="Discover how I design for humans"
+			title="Explore my UX Design pillar"
+			data-i18n-aria="menu_ux">
+			UX Design <i class="fas fa-paint-brush"></i>
+		</div>
+		<div
+			class="nav-item"
+			onclick="navigateTo('section-2')"
+			data-i18n="menu_ai"
+			role="button"
+			tabindex="0"
+			aria-label="Learn about my approach to AI technology"
+			title="View my Responsible AI strategies"
+			data-i18n-aria="menu_ai">
+			Responsible AI <i class="fas fa-robot"></i>
+		</div>
+		<div
+			class="nav-item"
+			onclick="navigateTo('section-3')"
+			data-i18n="menu_game"
+			role="button"
+			tabindex="0"
+			aria-label="See how I make interactions engaging"
+			title="Discover my Gamification techniques"
+			data-i18n-aria="menu_game">
+			Gamification <i class="fas fa-gamepad"></i>
+		</div>
+		<div
+			class="nav-item"
+			onclick="navigateTo('section-4')"
+			data-i18n="menu_contact"
+			role="button"
+			tabindex="0"
+			aria-label="Find out how to work with me"
+			title="Jump to the contact section"
+			data-i18n-aria="menu_contact">
+			Contact <i class="fas fa-globe"></i>
+		</div>
+	</div>
+	<div class="lang-switcher">
+		<button
+			class="lang-btn active"
+			id="btn-en"
+			onclick="setLang('en')"
+			aria-label="Switch all content to English"
+			title="Set language to English"
+			data-i18n-aria="lang_en"
+			data-i18n-title="lang_en">
+			English
+		</button>
+		<button
+			class="lang-btn"
+			id="btn-es"
+			onclick="setLang('es')"
+			aria-label="Cambiar todo el contenido a Español"
+			title="Configurar idioma a Español"
+			data-i18n-aria="lang_es"
+			data-i18n-title="lang_es">
+			Español
+		</button>
+	</div>
+</nav>
+
+<nav class="side-dots" id="nav-dots" aria-label="Quick jump between my pillars">
+	<div
+		class="dot active"
+		onclick="navigateTo('section-0')"
+		role="button"
+		tabindex="0"
+		aria-label="Navigate to my introduction"
+		title="Jump to Start"
+		data-i18n-aria="goto_intro"></div>
+	<div
+		class="dot"
+		onclick="navigateTo('section-1')"
+		role="button"
+		tabindex="0"
+		aria-label="Navigate to my UX Design pillar"
+		title="Jump to UX"
+		data-i18n-aria="goto_ux"></div>
+	<div
+		class="dot"
+		onclick="navigateTo('section-2')"
+		role="button"
+		tabindex="0"
+		aria-label="Navigate to my Responsible AI pillar"
+		title="Jump to AI"
+		data-i18n-aria="goto_ai"></div>
+	<div
+		class="dot"
+		onclick="navigateTo('section-3')"
+		role="button"
+		tabindex="0"
+		aria-label="Navigate to my Gamification pillar"
+		title="Jump to Gamification"
+		data-i18n-aria="goto_game"></div>
+	<div
+		class="dot"
+		onclick="navigateTo('section-4')"
+		role="button"
+		tabindex="0"
+		aria-label="Navigate to my contact links"
+		title="Jump to Contact"
+		data-i18n-aria="goto_contact"></div>
+</nav>
+
+<div
+	class="modal-overlay"
+	id="modal"
+	role="dialog"
+	aria-modal="true"
+	aria-labelledby="modal-box">
+	<div class="modal-box" id="modal-box"></div>
+</div>
+<audio
+	id="audio-player"
+	aria-label="Audio player for immersive narration and site-wide context"></audio>
+
+<section class="section" id="section-0" aria-labelledby="hero-main-title">
+	<div class="gradient-orb orb-1" aria-hidden="true"></div>
+	<div class="gradient-orb orb-2" aria-hidden="true"></div>
+	<div
+		class="section-number font-display"
+		title="This is the entrance to my core design pillars"
+		aria-label="Section zero: Introduction">
+		<i class="fas fa-home"></i> 00
+	</div>
+	<div class="container text-center">
+		<h1
+			class="font-display reveal stagger-1 hero-title"
+			id="hero-main-title"
+			title="Welcome! I design the vision; we build the impact"
+			aria-label="Main heading: Hi! I'm Julibe">
+			<span data-i18n="hero_title">Hi! I'm</span>
+			<img
+				src="https://omnex.julibe.com/Assets/Julibe/Logo/PNG/Logo-Vertical-3D.png"
+				alt="Julibe's vertical 3D logo | Crafting Digital Experiences" />
+			<span class="hidden">Julibe</span>
+		</h1>
+		<p class="reveal stagger-2 hero-subtitle" data-i18n="hero_subtitle">
+			A supercool
+			<span
+				class="highlight"
+				title="I have spent nearly two decades perfecting the art of design"
+				aria-label="Highly experienced designer"
+				>Designer</span
+			>
+			with 18+ years crafting
+			<span
+				class="highlight"
+				title="I design connections that we build together"
+				aria-label="Expert in digital experiences"
+				>digital experiences ❤️</span
+			>.
+		</p>
+		<p class="reveal stagger-3 hero-tagline" data-i18n="hero_tagline">
+			<em
+				title="My personal spark comes from these classic geek culture staples"
+				aria-label="My interests: sci-fi, TV, anime, and gaming"
+				>Lover of sci‑fi, TV, anime, and a pro at game overs since the
+				'90s! 🕹️</em
+			>
+		</p>
+
+		<div
+			class="reveal stagger-5 audio-player-intro"
+			onclick="toggleIntroAudio()"
+			role="button"
+			tabindex="0"
+			aria-label="Click to hear the pillars of Julibe work"
+			title="Play or pause the pillars of Julibe work"
+			data-i18n-aria="play_intro">
+			<div class="play-btn-intro" id="intro-play-btn">
+				<i class="fas fa-play"></i>
+			</div>
+			<div class="waveform" id="waveform" aria-hidden="true"></div>
+			<span class="audio-time-display" id="intro-time-display"
+				>0:00 / 0:25</span
+			>
+		</div>
+
+		<div class="reveal stagger-4" style="margin-top: 4rem">
+			<h3
+				class="font-display hero-question"
+				data-i18n="hero_question"
+				title="Diving into the specifics of my work"
+				aria-label="Section subheading: So, what's my job about?">
+				So, what's my job about?
+			</h3>
+			<p class="hero-answer" data-i18n="hero_answer">
+				I build
+				<span
+					class="highlight"
+					title="I design interactions that we build to feel natural and meaningful"
+					aria-label="Focusing on the human journey"
+					>digital experiences</span
+				>
+				by using three simple pillars:
+			</p>
+		</div>
+
+		<div class="preview-grid reveal stagger-5">
+			<div
+				class="pillar-card"
+				onclick="navigateTo('section-1')"
+				role="button"
+				tabindex="0"
+				aria-label="Learn about my UX design philosophy"
+				title="Discover Pillar One: UX Design"
+				data-i18n-aria="goto_ux">
+				<div class="pillar-icon ux">
+					<i class="fas fa-paint-brush"></i>
+				</div>
+				<h3
+					class="font-display pillar-title"
+					data-i18n="card_ux_title"
+					title="I design with the user's mind and heart at the center"
+					aria-label="First Pillar: UX Design">
+					UX Design
+				</h3>
+				<p class="pillar-sub" data-i18n="card_ux">
+					Cognitive Clarity, Emotional Resonance
+				</p>
+			</div>
+			<div
+				class="pillar-card"
+				onclick="navigateTo('section-2')"
+				role="button"
+				tabindex="0"
+				aria-label="See how I integrate AI into your work"
+				title="Discover Pillar Two: AI Strategy"
+				data-i18n-aria="goto_ai">
+				<div class="pillar-icon ai">
+					<i class="fas fa-robot"></i>
+				</div>
+				<h3
+					class="font-display pillar-title"
+					data-i18n="card_ai_title"
+					title="I guide smart technology with human ethics"
+					aria-label="Second Pillar: AI Strategy">
+					AI Strategy
+				</h3>
+				<p class="pillar-sub" data-i18n="card_ai">
+					Augmented Intelligence, Not Replacement
+				</p>
+			</div>
+			<div
+				class="pillar-card"
+				onclick="navigateTo('section-3')"
+				role="button"
+				tabindex="0"
+				aria-label="Find out how I apply game theory to your projects"
+				title="Discover Pillar Three: Gamification"
+				data-i18n-aria="goto_game">
+				<div class="pillar-icon game">
+					<i class="fas fa-gamepad"></i>
+				</div>
+				<h3
+					class="font-display pillar-title"
+					data-i18n="card_game_title"
+					title="I use play to create memorable digital interactions"
+					aria-label="Third Pillar: Gamification">
+					Gamification
+				</h3>
+				<p class="pillar-sub" data-i18n="card_game">
+					Cognitive Real Estate, Organic Data
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section" id="section-1" aria-labelledby="ux-section-title">
+	<div class="gradient-orb orb-1" aria-hidden="true"></div>
+	<div class="gradient-orb orb-2" aria-hidden="true"></div>
+	<div
+		class="section-number font-display"
+		title="The core of my user interaction"
+		aria-label="Section one: UX Design Pillar">
+		<i class="fas fa-paint-brush"></i> 01
+	</div>
+	<div class="container grid-2">
+		<div>
+			<h2
+				class="font-display reveal section-title"
+				id="ux-section-title"
+				title="How I help brands find their voice"
+				aria-label="Main heading for my UX Design pillar">
+				<i class="fas fa-paint-brush"></i>
+				<span data-i18n="ux_title">UX Design</span>
+			</h2>
+			<button
+				class="section-play-btn reveal stagger-1"
+				onclick="playSectionAudio(getAudioUrl('intro'), 30, 60, this)"
+				aria-label="Play a narration on my UX Design pillar"
+				title="Click to hear Julibe explain the design logic"
+				data-i18n-aria="play_ux_audio">
+				<i class="fas fa-play"></i
+				><span class="audio-time-display">0:00 / 0:30</span>
+			</button>
+			<p class="reveal stagger-2 section-intro" data-i18n="ux_intro">
+				Let’s face it, the web is a chaotic storm.<br />
+				<span
+					class="highlight"
+					title="I design for clarity, and we work together to cut through the noise"
+					aria-label="Helping brands stand out"
+					>Let’s make your brand cut through that noise.</span
+				>
+			</p>
+			<div class="card-stack">
+				<div class="pillar-card reveal stagger-3">
+					<h3
+						class="clickable-title"
+						onclick="openModal('cognitive-clarity')"
+						data-i18n="ux_p1_title"
+						role="button"
+						tabindex="0"
+						aria-label="Learn how I design to reduce mental effort"
+						title="Click for details on Cognitive Clarity"
+						data-i18n-aria="open_cognitive">
+						Cognitive Clarity
+					</h3>
+				</div>
+				<div class="pillar-card reveal stagger-4">
+					<h3
+						class="clickable-title"
+						onclick="openModal('emotional-resonance')"
+						data-i18n="ux_p2_title"
+						role="button"
+						tabindex="0"
+						aria-label="Discover how I design products people love"
+						title="Click for details on Emotional Resonance"
+						data-i18n-aria="open_emotional">
+						Emotional Resonance
+					</h3>
+				</div>
+				<div class="pillar-card reveal stagger-5">
+					<h3
+						class="clickable-title"
+						onclick="openModal('organic-growth')"
+						data-i18n="ux_p3_title"
+						role="button"
+						tabindex="0"
+						aria-label="See my approach to natural business evolution"
+						title="Click for details on Organic Growth"
+						data-i18n-aria="open_organic">
+						Organic Growth
+					</h3>
+				</div>
+			</div>
+		</div>
+		<div class="reveal stagger-3">
+			<div class="visual">
+				<img
+					src="https://omnex.julibe.com/Assets/Julibe/Phanto/lost-in-the-jungle/square.jpg"
+					alt="A whimsical illustration of Phanto lost and confused." />
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section" id="section-2" aria-labelledby="ai-section-title">
+	<div class="gradient-orb orb-1" aria-hidden="true"></div>
+	<div class="gradient-orb orb-2" aria-hidden="true"></div>
+	<div
+		class="section-number font-display"
+		title="The intersection of my design logic and technology"
+		aria-label="Section two: Responsible AI Pillar">
+		<i class="fas fa-robot"></i> 02
+	</div>
+	<div class="container grid-2">
+		<div style="order: 1">
+			<h2
+				class="font-display reveal section-title"
+				id="ai-section-title"
+				title="My vision for an ethical, smart future"
+				aria-label="Main heading for Responsible AI pillar">
+				<i class="fas fa-robot"></i>
+				<span data-i18n="ai_title">Responsible AI</span>
+			</h2>
+			<button
+				class="section-play-btn reveal stagger-1"
+				onclick="playSectionAudio(getAudioUrl('intro'), 60, 90, this)"
+				aria-label="Listen to my perspective on ethical AI"
+				title="Play or pause my perspective AI ethics"
+				data-i18n-aria="play_ai_audio">
+				<i class="fas fa-play"></i
+				><span class="audio-time-display">0:00 / 0:30</span>
+			</button>
+			<p class="reveal stagger-2 section-intro" data-i18n="ai_intro">
+				The web is flooding with "AI slop". We don't use AI to replace
+				the human touch; We use it to give it
+				<span
+					class="highlight"
+					title="I leverage AI to unlock new horizons that we build together"
+					aria-label="Empowering humans through technology"
+					>superpowers</span
+				>.
+			</p>
+			<div class="card-stack">
+				<div class="pillar-card reveal stagger-3">
+					<h3
+						class="clickable-title"
+						onclick="openModal('high-velocity')"
+						data-i18n="ai_p1_title"
+						role="button"
+						tabindex="0"
+						aria-label="Learn about my rapid development cycle"
+						title="Click for details on High-Velocity Workflow"
+						data-i18n-aria="open_high">
+						High‑Velocity Workflow
+					</h3>
+				</div>
+				<div class="pillar-card reveal stagger-4">
+					<h3
+						class="clickable-title"
+						onclick="openModal('creative-acceleration')"
+						data-i18n="ai_p2_title"
+						role="button"
+						tabindex="0"
+						aria-label="Discover how I use AI to boost imagination"
+						title="Click for details on Creative Acceleration"
+						data-i18n-aria="open_creative">
+						Creative Acceleration
+					</h3>
+				</div>
+				<div class="pillar-card reveal stagger-5">
+					<h3
+						class="clickable-title"
+						onclick="openModal('augmented-intelligence')"
+						data-i18n="ai_p3_title"
+						role="button"
+						tabindex="0"
+						aria-label="See how I enhance capability"
+						title="Click for details on Augmented Intelligence"
+						data-i18n-aria="open_augmented">
+						Augmented Intelligence
+					</h3>
+				</div>
+				<div class="pillar-card reveal stagger-5">
+					<h3
+						class="clickable-title"
+						onclick="openModal('adaptive-ecosystems')"
+						data-i18n="ai_p4_title"
+						role="button"
+						tabindex="0"
+						aria-label="Explore my self-evolving digital environments"
+						title="Click for details on Adaptive Ecosystems"
+						data-i18n-aria="open_adaptive">
+						Adaptive Ecosystems
+					</h3>
+				</div>
+			</div>
+		</div>
+		<div class="reveal stagger-3" style="order: 0">
+			<div class="visual">
+				<img
+					src="https://omnex.julibe.com/Assets/Julibe/Phanto/no-404-will-ghost-me/animated.webp"
+					alt="Phanto fighting the AI slop, finding his creative process." />
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section" id="section-3" aria-labelledby="game-section-title">
+	<div class="gradient-orb orb-1" aria-hidden="true"></div>
+	<div class="gradient-orb orb-2" aria-hidden="true"></div>
+	<div
+		class="section-number font-display"
+		title="Where my strategy meets engagement"
+		aria-label="Section three: Gamification Pillar">
+		<i class="fas fa-gamepad"></i> 03
+	</div>
+	<div class="container grid-2">
+		<div>
+			<h2
+				class="font-display reveal section-title"
+				id="game-section-title"
+				title="I use psychology to make interactions irresistible"
+				aria-label="Main heading for my Gamification pillar">
+				<i class="fas fa-gamepad"></i>
+				<span data-i18n="game_title">Gamification</span>
+			</h2>
+			<button
+				class="section-play-btn reveal stagger-1"
+				onclick="playSectionAudio(getAudioUrl('intro'), 90, 99, this)"
+				aria-label="Listen to my explanation of engagement"
+				title="Hear Julibe discuss Gamification"
+				data-i18n-aria="play_game_audio">
+				<i class="fas fa-play"></i
+				><span class="audio-time-display">0:00 / 0:09</span>
+			</button>
+			<p class="reveal stagger-2 section-intro" data-i18n="game_intro">
+				Most brands are fighting just to get a 3-second glance. Let’s
+				help your brand win that attention and
+				<span
+					class="highlight"
+					title="I focus on maximizing user attention so we can multiply the impact"
+					aria-label="Deeply engaging experiences"
+					>multiply it by 10</span
+				>.
+			</p>
+			<div class="card-stack">
+				<div class="pillar-card reveal stagger-3">
+					<h3
+						class="clickable-title"
+						onclick="openModal('cognitive-real-estate')"
+						data-i18n="game_p1_title"
+						role="button"
+						tabindex="0"
+						aria-label="Find out how I capture user mindshare"
+						title="Click for details on Cognitive Real Estate"
+						data-i18n-aria="open_cognitive_estate">
+						Cognitive Real Estate
+					</h3>
+				</div>
+				<div class="pillar-card reveal stagger-4">
+					<h3
+						class="clickable-title"
+						onclick="openModal('brand-recognition')"
+						data-i18n="game_p2_title"
+						role="button"
+						tabindex="0"
+						aria-label="Learn how I make brands unforgettable"
+						title="Click for details on Brand Recognition"
+						data-i18n-aria="open_brand">
+						Brand Recognition
+					</h3>
+				</div>
+				<div class="pillar-card reveal stagger-5">
+					<h3
+						class="clickable-title"
+						onclick="openModal('organic-data')"
+						data-i18n="game_p3_title"
+						role="button"
+						tabindex="0"
+						aria-label="See how I gather insights through interaction"
+						title="Click for details on Organic Data"
+						data-i18n-aria="open_organic_data">
+						Organic Data
+					</h3>
+				</div>
+			</div>
+		</div>
+		<div class="reveal stagger-3">
+			<div class="visual">
+				<img
+					src="https://omnex.julibe.com/Assets/Julibe/Phanto/watching-his-favorite-movie/animated.webp"
+					alt="Phanto immersed in the experience, watching his favorite movie for the first time." />
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section" id="section-4" aria-labelledby="cta-main-title">
+	<div
+		class="section-number font-display"
+		title="The final chapter and your gateway to our collaboration"
+		aria-label="Section four: Contact and Conclusion">
+		<i class="fas fa-globe"></i> 04
+	</div>
+	<div class="container text-center">
+		<p class="reveal stagger-2 cta-subtitle" data-i18n="cta_subtitle">
+			By combining these core pillars, We can give your brand the
+			important stuff back<br /><b
+				title="I design the vision while we work together to balance technology and heart"
+				aria-label="The synthesis of my design and our shared strength"
+				>The Human Experience, The Smart Experience.</b
+			>
+		</p>
+		<h2
+			class="font-display reveal cta-title"
+			id="cta-main-title"
+			title="Ready to start something amazing with me?"
+			aria-label="Final heading: Connect with me">
+			<span data-i18n="cta_title">I'm</span>
+			<img
+				src="https://omnex.julibe.com/Assets/Julibe/Logo/PNG/Logo-Horizontal.png"
+				alt="Julibe's official horizontal logo | Crafting Digital Experiences" /><span
+				class="hidden"
+				>Julibe</span
+			>
+		</h2>
+		<button
+			class="section-play-btn reveal stagger-1"
+			onclick="playSectionAudio(getAudioUrl('intro'), 99, 119, this)"
+			aria-label="Listen to my closing invitation for collaboration"
+			title="Click to hear a final word from Julibe"
+			data-i18n-aria="play_outro_audio">
+			<i class="fas fa-play"></i
+			><span class="audio-time-display">0:00 / 0:20</span>
+		</button>
+		<h3
+			class="font-display reveal cta-line"
+			data-i18n="cta_line"
+			title="My design mission goes beyond code">
+			I don't just build websites;
+			<span
+				class="accent-text"
+				title="I design the strategy, and we build the impact together"
+				aria-label="Specializing in premium digital craft"
+				>I craft digital experiences!</span
+			>
+		</h3>
+		<a
+			href="https://julibe.com"
+			class="cta-button"
+			aria-label="Work with me on these pillars today"
+			title="Hey, ready to work with Julibe? Click to visit the contact page!"
+			data-i18n-aria="collaborate_link"
+			><i class="fa-solid fa-globe"></i
+			><span data-i18n="cta_btn">Let’s collaborate! </span></a
+		>
+		<p>
+			<em
+				class="reveal stagger-3 cta-footnote"
+				data-i18n="choice_footnote"
+				title="I am ready when you are"
+				aria-label="Closing note: The choice is yours">
+				The choice really...
+				<strong
+					title="Take the leap into a new digital reality with us"
+					aria-label="Your choice matters"
+					>it's yours!</strong
+				>
+			</em>
+		</p>
+
+		<nav
+			class="social-nav reveal stagger-4"
+			aria-label="My social and contact links"
+			data-i18n-aria="social_nav">
+			<ul class="socials">
+				<li>
+					<a
+						href="http://julibe.com/"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="button social-button"
+						style="
+							--c: #7139d2ff;
+							--c-text: #ffffff;
+							--c-high: #ee355e;
+						"
+						data-i18n-title="social_portfolio_title"
+						data-i18n-aria="social_portfolio_aria"
+						title="Explore my core design pillars 👻"
+						aria-label="Visit my Portfolio overview">
+						<span class="icon fa fa-solid fa-globe"></span>
+						<span class="title" data-i18n="social_portfolio_text"
+							>Portfolio</span
+						>
+					</a>
+				</li>
+				<li>
+					<a
+						href="http://julibe.com/github"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="button social-button"
+						style="
+							--c: #625b68ff;
+							--c-text: #ffffff;
+							--c-high: #6b1ed0ff;
+						"
+						data-i18n-title="social_github_title"
+						data-i18n-aria="social_github_aria"
+						title="“Copy… Argh! 🏴&zwj;☠️” Explore my code repository"
+						aria-label="My GitHub">
+						<span class="icon fa-brands fa-github"></span>
+						<span class="title" data-i18n="social_github_text"
+							>GitHub</span
+						>
+					</a>
+				</li>
+				<li>
+					<a
+						href="http://julibe.com/whatsapp"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="button social-button"
+						style="
+							--c: #25d366;
+							--c-text: #ffffff;
+							--c-high: #30676a;
+						"
+						data-i18n-title="social_whatsapp_title"
+						data-i18n-aria="social_whatsapp_aria"
+						title="💬 Message me and say hi or just Boo!"
+						aria-label="Contact me via WhatsApp">
+						<span class="icon fa-brands fa-whatsapp"></span>
+						<span class="title" data-i18n="social_whatsapp_text"
+							>WhatsApp</span
+						>
+					</a>
+				</li>
+				<li>
+					<a
+						href="http://julibe.com/twitter"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="button social-button"
+						style="
+							--c: #1da1f2;
+							--c-text: #ffffff;
+							--c-high: #1da1f2;
+						"
+						data-i18n-title="social_twitter_title"
+						data-i18n-aria="social_twitter_aria"
+						title="Get some of my thoughts, pixels, and the occasional rant 🐦"
+						aria-label="Follow me on Twitter">
+						<span class="icon fa-brands fa-twitter"></span>
+						<span class="title" data-i18n="social_twitter_text"
+							>X (Twitter)</span
+						>
+					</a>
+				</li>
+				<li>
+					<a
+						href="http://julibe.com/instagram"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="button social-button"
+						style="
+							--c: #e1306c;
+							--c-text: #ffffff;
+							--c-high: #e1306c;
+						"
+						data-i18n-title="social_instagram_title"
+						data-i18n-aria="social_instagram_aria"
+						title="Peek behind the scenes of my creative stuff 📸"
+						aria-label="Follow me on Instagram">
+						<span class="icon fa-brands fa-instagram"></span>
+						<span class="title" data-i18n="social_instagram_text"
+							>Instagram</span
+						>
+					</a>
+				</li>
+				<li>
+					<a
+						href="mailto:mail@julibe.com"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="button social-button"
+						style="
+							--c: #de4138;
+							--c-text: #ffffff;
+							--c-high: #edba1c;
+						"
+						data-i18n-title="social_email_title"
+						data-i18n-aria="social_email_aria"
+						title="Send a good old digital email to me 📧"
+						aria-label="Send Email to Julibe">
+						<span class="icon fa fa-solid fa-envelope"></span>
+						<span class="title" data-i18n="social_email_text"
+							>Email</span
+						>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</section>
